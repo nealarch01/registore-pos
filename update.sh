@@ -1,3 +1,3 @@
 #!/bin/bash
-cd node_modules/registore-business-logic/ && git pull origin module-experimental;
+cd node_modules/registore-business-logic/ && git pull origin main;
 cd ../../;
