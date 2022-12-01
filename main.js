@@ -51,7 +51,8 @@ const menu = [
         submenu: [
             {
                 label:'About',
-                click: createAboutWindow
+                click: // TODO createAboutWindow
+                () => {}
             }
         ],
     }] : []),
@@ -63,7 +64,7 @@ const menu = [
         submenu: [
             {
                 label:'View Item',
-                click: createItemInfo
+                click: createItemInfo  
             }
         ],
     }] : []),
