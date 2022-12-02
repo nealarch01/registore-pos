@@ -4,14 +4,22 @@ function displayTable(timelength) {
     //load transactions from dates going back timelength
     var rows = " <caption>Data from last " + timelength + " days</caption>";
     addColumnHeaders(myList);
+
+
+    //will need to fix for loop to adhere to # of days requested
     for (var i = 0; i < myList.length; i++) {
         rows += "<tr>";
 
 
         //UPDATE THIS WHEN WE KNOW FINAL KEYS VVVVVV
-        rows += "<td>" + myList[i].id + "</td>" + "<td>" + myList[i].date + "</td>" + "<td>" + myList[i].salesperson_id + "</td>"
-        + "<td>" + myList[i].total + "</td>" + "<td>" + myList[i].discount + "</td>" + "<td>" + myList[i].final_total + "</td>" + "<td>" + myList[i].payment_type + "</td>";
+        //rows += "<td>" + myList[i].id + "</td>" + "<td>" + myList[i].date + "</td>" + "<td>" + myList[i].salesperson_id + "</td>"
+        //+ "<td>" + myList[i].total + "</td>" + "<td>" + myList[i].discount + "</td>" + "<td>" + myList[i].final_total + "</td>" + "<td>" + myList[i].payment_type + "</td>";
         
+
+        //this should be better, wont need updating if data keys change
+        for (var key in myList[i]){
+            rows += "<td>" + myList[i][key] + "</td>";
+        }
 
 
         rows += "</tr>";
