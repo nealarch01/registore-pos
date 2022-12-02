@@ -13,13 +13,71 @@
         </menu> <script src="./js/updatedAccounting.js"></script>
         <main>
             <!-- put your code here -->  
+            
+
+
+
 
             <!--OLD BUTTONS WILL UPDATE-->
             <div>
-            <button type="button" onclick="displayTable(1)">Load Past Day</button>
-            <button type="button" onclick="displayTable(7)">Load Past Week</button>
-            <button type="button" onclick="displayTable(30)">Load Past Month</button>
-            <button type="button" onclick="displayTable(365)">Load Past Year</button>
+            <button type="button" onclick="displayTable(1)">Today's Transactions</button>
+            <button type="button" onclick="displayTable(7)">Past Week's Transactions</button>
+            <button type="button" onclick="displayTable(30)">Past Month's Transactions</button>
+            <button type="button" onclick="displayTable(365)">Past Year's Transactions</button>
+            <button type="button" onclick="YTDTable()">YTD transactions</button>
+            <button type="button" onclick="displayCustomDate()">Custom</button>
+
+            <div id="customDate" class = "custom-dates">
+                <div class="dropdown">
+                <button onclick="showYear1()" class="dropbtn">Year</button>
+                <div id="yearOne" class="dropdown-content">
+
+                </div>
+                </div>
+                <div class="dropdown">
+                <button onclick="showMonth1()" class="dropbtn">Month</button>
+                <div id="monthOne" class="dropdown-content">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                </div>
+                <div class="dropdown">
+                <button onclick="showDay1()" class="dropbtn">Day</button>
+                <div id="dayOne" class="dropdown-content">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                </div>
+
+
+                <div class="dropdown">
+                <button onclick="showYear2()" class="dropbtn">Year</button>
+                <div id="yearTwo" class="dropdown-content">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                </div>
+                <div class="dropdown">
+                <button onclick="showMonth2()" class="dropbtn">Month</button>
+                <div id="monthTwo" class="dropdown-content">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                </div>
+                <div class="dropdown">
+                <button onclick="showDay2()" class="dropbtn">Day</button>
+                <div id="dayTwo" class="dropdown-content">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                </div>
+            </div>  
+            
             </div>
             <div class="table"><table id = "datatable"> </table> </div>
         </main>
