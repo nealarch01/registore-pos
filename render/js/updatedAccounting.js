@@ -1,4 +1,11 @@
 includeHTML();
+//TEST DATA 
+var myList = [
+    { "id": "1", "date": "11/28/2022", "salesperson_id": 5, "total": "50.55", "discount": "", "final_total": "50.55", "payment_type": "cash"},
+    { "id": "2", "date": "11/28/2022", "salesperson_id": 4, "total": "40.22", "discount": "", "final_total": "40.22", "payment_type": "cash"},
+    { "id": "3", "date": "11/28/2022", "salesperson_id": 7, "total": "35.99", "discount": "", "final_total": "35.99", "payment_type": "cash"}
+  ];
+//END TEST DATA 
 
 function displayTable(timelength) {
     //load transactions from dates going back timelength
