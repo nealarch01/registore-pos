@@ -1,0 +1,275 @@
+/*******************************************/
+/***************** IMPORTS *****************/
+/*******************************************/
+
+/*********************************************/
+/***************** VARIABLES *****************/
+/*********************************************/
+:root {
+  --color_fg: #ffffff;
+  --color-bg: #002837;
+  --color-highlight: #00b9ff;
+  --color-primary: #0085b7;
+  --color-secondary: #005170;
+  --color-accent1: #ff0000;
+  --color-accent2: #0cc224;
+  --menu-width: 300px;
+  --_spacing: 1rem;
+}
+
+/*********************************************/
+/***************** HTML TAGS *****************/
+/*********************************************/
+
+/*******************************************/
+/***************** GALLERY *****************/
+/*******************************************/
+
+#gallery {
+  width: 85%;
+  margin: 30px;
+  background: var(--color-bg);
+  border: 2px solid red;
+  flex-grow: 1;
+}
+
+/************************************************/
+/***************** MENU OPTIONS *****************/
+/************************************************/
+
+.horizontal-scroller {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 19%;
+  gap: var(--_spacing, 1rem);
+  overflow-x: auto;
+  overflow: hidden;
+  overscroll-behavior-inline: contain;
+  padding: var(--_spacing, 1rem) 0;
+}
+
+.horizontal-element {
+  padding: var(--_spacing, 1rem);
+  background: var(--color-secondary);
+  border-radius: var(--radius-2);
+  text-align: center;
+  gap: var(--_spacing, 1rem);
+  display: grid;
+  grid-template-rows: min-content;
+  align-content: center;
+  box-shadow: var(--shadow-2);
+}
+
+.snaps-inline {
+  scroll-snap-type: inline mandatory;
+  scroll-padding-inline: var(--_spacing, 1rem);
+}
+
+.snaps-inline > * {
+  scroll-snap-align: start;
+}
+
+.horizontal-scroller--with-groups {
+  grid-auto-columns: 100%;
+}
+
+.horizontal-group {
+  display: grid;
+  gap: var(--_spacing, 1rem);
+  grid-auto-flow: column;
+}
+
+#menuOptions {
+  width: 90%;
+  margin: 10px;
+}
+
+#menuOptions button {
+  margin: var(--_spacing, 1rem);
+  height: 10rem;
+  width: 5rem;
+  font-size: 25pt;
+  font-weight: 800;
+  border: none;
+  background: none;
+  color: var(--color-secondary);
+}
+
+.currentCategory {
+  background: var(--color-primary);
+}
+
+/****************************************/
+/***************** CART *****************/
+/****************************************/
+
+aside {
+  position: absolute;
+  background: var(--color-primary);
+  min-width: var(--menu-width);
+  width: 30%;
+  height: 100vh;
+}
+
+#cart.showCart {
+  right: 0;
+}
+
+#cart {
+  position: fixed;
+  right: calc(-1.17 * var(--menu-width));
+  width: 350px;
+  transition: 0.5s;
+}
+
+#cartCountBadge {
+  top: 0px;
+  left: -25px;
+  background: red;
+  width: min-content;
+  height: min-content;
+  padding: 1px 5px;
+  text-align: center;
+  font-size: 18pt;
+}
+
+#cartFlag {
+  width: calc(53px * 2);
+  height: calc(53px * 2);
+  position: relative;
+  left: calc(-1.65 * 53px);
+}
+#cartPost {
+  background: var(--color-accent2);
+  height: 100%;
+  width: 10px;
+}
+
+#cartBtn {
+  width: 53px;
+  height: 53px;
+  background: var(--color-accent2);
+  cursor: pointer;
+}
+
+#cartContents {
+  position: relative;
+  top: calc(53px * -2);
+  left: 0;
+  height: 100%;
+}
+
+#cartContents #userInfo {
+  flex-grow: 0;
+  height: 53px;
+  padding: 5px 20px;
+}
+#cartContents #userInfo > img {
+  width: 53px;
+  height: 53px;
+}
+#cartContents #cartItemList {
+  border: 2px solid red;
+  flex-grow: 1;
+  margin: 50px 10px 10px 10px;
+}
+
+#cartContents #cartCheckout {
+  flex-grow: 0;
+  margin: 10px 20px;
+}
+
+.checkoutData {
+  width: 100%;
+  margin: 5px;
+}
+
+/*
+.galleryMenuOptions {
+  width: calc();
+}
+
+
+#mainView {
+  background: var(--color-bg);
+  width: 80%;
+  flex-grow: 1;
+}
+
+#categories {
+  width: 80%;
+  height: 15%;
+  margin: auto;
+  margin-top: 30px;
+}
+
+#categories > h2 {
+  margin: auto;
+  background: blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100px;
+  width: 150px;
+  height: 125px;
+  border-radius: 20px;
+  overflow-wrap: break-word;
+  padding: 15px;
+}
+
+#categories .menuSpacer {
+  width: 15px;
+}
+*/
+
+/*
+
+
+
+.horizontal-element > img {
+  inline-size: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+
+/* general styling */ /*
+
+.container {
+  inline-size: min(100% - 4rem, 70rem);
+  margin-inline: auto;
+}
+
+.flow {
+  display: grid;
+  gap: var(--_spacing, 1rem);
+}
+
+.page-header {
+  padding-block: var(--size-9);
+  margin-block-end: var(--size-9);
+  background: var(--gradient-16);
+  color: var(--gray-0);
+  box-shadow: var(--shadow-2);
+}
+
+.page-title {
+  font-size: var(--font-size-fluid-3);
+}
+
+.page-subtitle {
+  font-size: var(--font-size-fluid-1);
+}
+
+.section-title {
+  padding-inline-start: var(--size-6);
+  margin-block: var(--size-9) var(--_spacing, 1rem);
+}
+
+.horizontal-element > h1 {
+    display:block;
+    width:150px;
+    word-wrap:break-word;
+    font-size: 10pt;
+}
+*/
