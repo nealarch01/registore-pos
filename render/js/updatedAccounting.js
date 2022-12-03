@@ -65,7 +65,6 @@ function customDateTable(date1, date2){
   return;}
   var rows = " <caption>Data from " + date1 + " through " + date2 + ".</caption>";
   //WORK IN PROGRESS CODE GOES BELOW HERE
-  
 
   //1.pull data from backend with dates
 
@@ -75,13 +74,10 @@ function customDateTable(date1, date2){
   //3.build data rows
   //can probably use displayTable()
 
-
-
-
-
   var table = document.getElementById("datatable");
   table.innerHTML += rows;
 }
+
 
 //displays options for user to input a custom date range.
 function displayCustomDate(){
@@ -97,10 +93,9 @@ function showYear2(){document.getElementById("yearTwo").classList.toggle("show")
 function showMonth2(){document.getElementById("monthTwo").classList.toggle("show");}
 function showDay2(){document.getElementById("dayTwo").classList.toggle("show");}
 
-//fills years into custom date dropdown
+
 function insertYears(oneOrTwo){
   var yearList = "";
-
   //Change to update to current year
   for (var i = 22; i > 0; i--){
     if(i>9){
