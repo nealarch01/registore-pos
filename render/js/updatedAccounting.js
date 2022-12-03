@@ -48,7 +48,7 @@ function addColumnHeaders(myList){
 //generates a table containing all transactions from first of year until today.
 function YTDTable(){
   var today = new Date(); //= get todays date
-  var firstDayOfYear = Date(today.getFullYear, 1, 1, 0, 0, 0);//= get first day of today's year
+  var firstDayOfYear = new Date(today.getFullYear, 1, 1, 0, 0, 0);//= get first day of today's year
   customDateTable(today, firstDayOfYear);
 }
 
@@ -62,8 +62,15 @@ function customDateTable(date1, date2){
   return;}
   var rows = " <caption>Data from " + date1 + " through " + date2 + ".</caption>";
   //WORK IN PROGRESS CODE GOES BELOW HERE
+  
 
+  //1.pull data from backend with dates
 
+  //2.build header row
+  //can probably use addColumnHeaders()
+
+  //3.build data rows
+  //can probably use displayTable()
 
 
 
