@@ -1,4 +1,6 @@
-includeHTML();//this was here when i got here, dont know what it does -Jesse
+
+
+
 //TEST DATA 
 var myList = [
     { "id": "1", "date": "11/28/2022", "salesperson_id": 5, "total": "50.55", "discount": "", "final_total": "50.55", "payment_type": "cash"},
@@ -6,6 +8,7 @@ var myList = [
     { "id": "3", "date": "11/28/2022", "salesperson_id": 7, "total": "35.99", "discount": "", "final_total": "35.99", "payment_type": "cash"}
   ];
 //END TEST DATA 
+
 
 
 //Old display function. timelength unused, just generates rows for all objects in myList
@@ -240,4 +243,5 @@ function executeCustomDates(){
   console.log(secondDate)
 
   customDateTable(firstDate, secondDate);
+
 }
