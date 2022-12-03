@@ -51,7 +51,7 @@ function addColumnHeaders(myList){
 //generates a table containing all transactions from first of year until today.
 function YTDTable(){
   var today = new Date(); //= get todays date
-  var firstDayOfYear = Date(today.getFullYear, 1, 1, 0, 0, 0);//= get first day of today's year
+  var firstDayOfYear = new Date(today.getFullYear, 1, 1, 0, 0, 0);//= get first day of today's year
   customDateTable(today, firstDayOfYear);
 }
 
@@ -66,15 +66,18 @@ function customDateTable(date1, date2){
   var rows = " <caption>Data from " + date1 + " through " + date2 + ".</caption>";
   //WORK IN PROGRESS CODE GOES BELOW HERE
 
+  //1.pull data from backend with dates
 
+  //2.build header row
+  //can probably use addColumnHeaders()
 
-
-
-
+  //3.build data rows
+  //can probably use displayTable()
 
   var table = document.getElementById("datatable");
   table.innerHTML += rows;
 }
+
 
 //displays options for user to input a custom date range.
 function displayCustomDate(){
@@ -90,10 +93,9 @@ function showYear2(){document.getElementById("yearTwo").classList.toggle("show")
 function showMonth2(){document.getElementById("monthTwo").classList.toggle("show");}
 function showDay2(){document.getElementById("dayTwo").classList.toggle("show");}
 
-//fills years into custom date dropdown
+
 function insertYears(oneOrTwo){
   var yearList = "";
-
   //Change to update to current year
   for (var i = 22; i > 0; i--){
     if(i>9){
