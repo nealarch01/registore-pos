@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+            http-equiv="Content-Security-Policy"
+            content="default-src 'self'; script-src 'self'"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Inventory</title>
     </head>
     <body>
-        <script src="./js/menu.js"></script>  
+        <script src="./js/menu.js"></script>
         <menu id="mainMenu">
             <h1>Inventory</h1>
             <a href="./register.html">Register</a>
@@ -19,7 +22,14 @@
             <a href="./login.html">Login</a>
         </menu>
         <main>
-            <!-- put your code here -->    
-        </main>    
+            <!-- put your code here -->
+            <div id="inventory-div">
+                <h1 id="my-item">poop</h1>
+            </div>
+            <form id="search-form">
+                <button type="submit" id="my-button">button</button>
+            </form>
+        </main>
+        <script src="../render/js/inventory.js"></script>
     </body>
 </html>
