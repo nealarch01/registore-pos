@@ -1,35 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta
-            http-equiv="Content-Security-Policy"
-            content="default-src 'self'; script-src 'self'"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Inventory</title>
-    </head>
-    <body>
-        <script src="./js/menu.js"></script>
-        <menu id="mainMenu">
-            <h1>Inventory</h1>
-            <a href="./register.html">Register</a>
-            <a href="./inventory.html">Inventory</a>
-            <a href="./accounting.html">Accounting</a>
-            <a href="./options.html">Options</a>
-            <a href="./help.html">Help</a>
-            <a href="./login.html">Login</a>
-        </menu>
-        <main>
-            <!-- put your code here -->
-            <div id="inventory-div">
-                <h1 id="my-item">poop</h1>
-            </div>
-            <form id="search-form">
-                <button type="submit" id="my-button">button</button>
-            </form>
-        </main>
-        <script src="../render/js/inventory.js"></script>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy: default-src 'self';script-src 'self' example.com;object-src 'none';upgrade-insecure-requests"
+    />
+    <title>Inventory</title>
+    <link rel="stylesheet" href="./css/main.css" type="text/css" />
+    <link rel="stylesheet" href="./css/inventory.css" type="text/css" />
+  </head>
+  <body class="flex column">
+    <!-- Menu -->
+    <input type="checkbox" id="active" class="hide" />
+    <menu class="">
+      <label for="active" id="menuIcon" class="flex column center">
+        <div id="menuIconBar1" class="menuBar"></div>
+        <div id="menuIconBar2" class="menuBar"></div>
+        <div id="menuIconBar3" class="menuBar"></div>
+      </label>
+      <h2 id="menuTitle" class="hide">Register</h2>
+      <nav class="">
+        <ul id="menuItemList">
+          <li><a href="./register.html">Register</a></li>
+          <li><a href="./inventory.html">Inventory</a></li>
+          <li><a href="./accounting.html">Accounting</a></li>
+          <li><a href="./options.html">Options</a></li>
+          <li><a href="./help.html">Help</a></li>
+          <li><a href="./login.html">Log Out</a></li>
+        </ul>
+      </nav>
+      <div><!-- for spacing --></div>
+    </menu>
+
+    <main>
+      <!-- put your code here -->
+      <div id="inventory-div">
+        <h1 id="my-item">poop</h1>
+      </div>
+      <form id="search-form">
+        <button type="submit" id="my-button">button</button>
+      </form>
+    </main>
+    <script src="../render/js/inventory.js"></script>
+  </body>
 </html>
