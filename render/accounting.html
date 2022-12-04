@@ -3,10 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       http-equiv="Content-Security-Policy: default-src 'self';script-src 'self' example.com;object-src 'none';upgrade-insecure-requests"
@@ -44,20 +41,20 @@
 
       <!--OLD BUTTONS WILL UPDATE-->
       <div>
-        <button type="button" onclick="displayTable(1)">
+        <button type="button" onclick="displayTable(1)" class="dropbtn">
           Today's Transactions
         </button>
-        <button type="button" onclick="displayTable(7)">
+        <button type="button" onclick="displayTable(7)" class="dropbtn">
           Past Week's Transactions
         </button>
-        <button type="button" onclick="displayTable(30)">
+        <button type="button" onclick="displayTable(30)" class="dropbtn">
           Past Month's Transactions
         </button>
-        <button type="button" onclick="displayTable(365)">
+        <button type="button" onclick="displayTable(365)" class="dropbtn">
           Past Year's Transactions
         </button>
-        <button type="button" onclick="YTDTable()">YTD transactions</button>
-        <button type="button" onclick="displayCustomDate()">Custom</button>
+        <button type="button" onclick="YTDTable()" class="dropbtn">YTD transactions</button>
+        <button type="button" onclick="displayCustomDate()" class="dropbtn">Custom</button>
 
         <div id="customDate" class="custom-dates">
           <div class="dropdown">
@@ -204,7 +201,7 @@
               <div onclick="changeResultDay(31, 2)">31</div>
             </div>
           </div>
-          <button type="button" onclick="executeCustomDates()">
+          <button type="button" onclick="executeCustomDates()" class="dropbtn">
             Generate Report
           </button>
         </div>

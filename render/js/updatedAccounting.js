@@ -63,6 +63,11 @@ function customDateTable(date1, date2){
     var table = document.getElementById("datatable");
     table.innerHTML = inCorrectDate;
   return;}
+
+  var d1 = date1.getFullYear() +"-"+ ('0'+(date1.getMonth()+1)).slice(-2)+"-"+('0'+date1.getDate()).slice(-2);
+  console.log(d1);
+  var d2 = date2.getFullYear() +"-"+ ('0'+(date2.getMonth()+1)).slice(-2)+"-"+('0'+date2.getDate()).slice(-2);
+  console.log(d2);
   var rows = " <caption>Data from " + date1 + " through " + date2 + ".</caption>";
   //WORK IN PROGRESS CODE GOES BELOW HERE
 
@@ -233,13 +238,13 @@ function changeResultDay(day, oneOrTwo) {
 
 //Executes the custom report once the date fields have been filled
 function executeCustomDates(){
-  var monthNumberOne = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ].indexOf(document.getElementById("monthOneButtonText").innerHTML) + 1;
+  var monthNumberOne = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ].indexOf(document.getElementById("monthOneButtonText").innerHTML);
 
   var firstDate = new Date(document.getElementById("yearOneButtonText").innerHTML, monthNumberOne, document.getElementById("dayOneButtonText").innerHTML, 0, 0, 0);
   console.log(firstDate)
 
 
-  var monthNumberTwo = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ].indexOf(document.getElementById("monthTwoButtonText").innerHTML) + 1;
+  var monthNumberTwo = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ].indexOf(document.getElementById("monthTwoButtonText").innerHTML);
 
   var secondDate = new Date(document.getElementById("yearTwoButtonText").innerHTML, monthNumberTwo, document.getElementById("dayTwoButtonText").innerHTML, 0, 0, 0);
   console.log(secondDate)
