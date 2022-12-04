@@ -1,8 +1,65 @@
-const dataContainerRef = document.getElementById('inventory-div'); // A reference to the div with id "data-container"
-const myForm = document.getElementById('search-form');
-const myButton = document.getElementById('my-button');
+var inventoryTable = document.getElementById('inventory-list');
+var products = null;
+let search = document.getElementById('search');
 
-myForm.addEventListener('submit', async (event) => {
+search.addEventListener('keydown', (e) => {
+    console.log(search.value);
+    let mySearch = search.value;
+    if (e.key == 'Enter' && mySearch != '') {
+        searchProduct(mySearch);
+    } else if (e.key == 'Enter' && mySearch == '') {
+        getAllProductsHTML();
+    }
+});
+document.addEventListener('DOMContentLoaded', getAllProductsHTML);
+
+function resetTable() {
+    inventoryTable.innerHTML = `<tr>
+    <th>SKU</th>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Summary</th>
+  </tr>`;
+}
+
+function addProduct() {}
+function removeProduct() {}
+function searchProduct(name) {
+    if (products == null) {
+        return;
+    } else {
+        resetTable();
+        //Now that we have the defaults set, we can display the results
+        products.forEach((product) => {
+            if (product.title.startsWith(name))
+                inventoryTable.innerHTML += `<tr id="${product.sku}"><td>${product.sku}</td><td>${product.title}</td><td>${product.price}</td><td>${product.quantity}</td><td>${product.summary}</td></tr>`;
+        });
+    }
+}
+async function getAllProductsHTML() {
+    const response = await Backend.getAllProducts();
+    if (response.error !== null) {
+        /*TODO: update error messages*/
+
+        return;
+    }
+    if (response.data === null) {
+        /*TODO: update error messages*/
+
+        return;
+    }
+    products = response.data;
+    resetTable();
+    products.forEach((product) => {
+        inventoryTable.innerHTML += `<tr id="${product.sku}"><td>${product.sku}</td><td>${product.title}</td><td>${product.price}</td><td>${product.quantity}</td><td>${product.summary}</td></tr>`;
+    });
+}
+function sortProducts() {}
+function addProductHTML() {}
+function removeProductHTML() {}
+
+/*myForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const response = await Backend.getAllProducts();
@@ -30,4 +87,4 @@ myForm.addEventListener('submit', async (event) => {
     // for (const [key, value] of Object.entries(response.data)) {
     // dataContainerRef.innerHTML += `<p>${JSON.stringify(response)}</p>`;
     // }
-});
+});*/
