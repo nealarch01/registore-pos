@@ -7,13 +7,56 @@
 /*********************************************/
 
 :root {
-  --color_fg: #ffffff;
-  --color-bg: #002837;
-  --color-highlight: #00b9ff;
-  --color-primary: #0085b7;
-  --color-secondary: #005170;
-  --color-accent1: #ff0000;
-  --color-accent2: #0cc224;
-  --menu-width: 300px;
-  --_spacing: 1rem;
+    --color_fg: #ffffff;
+    --color-bg: #002837;
+    --color-highlight: #00b9ff;
+    --color-primary: #0085b7;
+    --color-secondary: #005170;
+    --color-accent1: #ff0000;
+    --color-accent2: #0cc224;
+    --menu-width: 300px;
+    --_spacing: 1rem;
+}
+.invBtns {
+    background-color: white;
+    color: black;
+    width: 30%;
+    border: 2px solid var(--color-secondary);
+}
+
+.invBtns:hover {
+    background-color: var(--color-secondary);
+    color: white;
+}
+.inventory-center {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: var(--color-primary);
+    padding: 10px;
+    gap: 10px;
+}
+#inventory-list {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#inventory-list td,
+#inventory-list th {
+    padding: 12px 15px;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 16px;
+}
+#inventory-list th {
+    background-color: var(--color-bg);
+    color: white;
+}
+
+#inventory-list tr:hover {
+    background-color: var(--color-secondary);
+}
+
+#action-bar {
+    padding-top: 100px;
 }
