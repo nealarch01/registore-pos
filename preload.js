@@ -45,5 +45,8 @@ contextBridge.exposeInMainWorld('Backend', {
     getTransactionsBySalesperson: async (salesPersonId) => ipcRenderer.invoke('getTransactionsBySalesperson', salesPersonId),
     getTransactionsByTotal: async () => ipcRenderer.invoke('getTransactionByTotal'),
     updateTransactionSalesperson: async (transactionId, salesPersonId) => ipcRenderer.invoke('updateTransactionSalesperson', transactionId, salesPersonId),
-    deleteTransaction: async (transactionId) => ipcRenderer.invoke('deleteTransaction', transactionId)
+    deleteTransaction: async (transactionId) => ipcRenderer.invoke('deleteTransaction', transactionId),
+    getCookie: async () => ipcRenderer.invoke('getCookie'),
+    setCookie: async (employeeId) => ipcRenderer.invoke('setCookie', employeeId),
+    clearCookie: async () => ipcRenderer.invoke('clearCookie')
 });
