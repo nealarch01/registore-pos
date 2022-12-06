@@ -206,6 +206,11 @@ ipcMain.handle('getTransactionsByTotal', async (event) => {
     const response = await RegistoreBackend.TransactionController.getTransactionsByTotal();
     return response;
 });
+ipcMain.handle("getTransactionsBetweenDates", async (event, args) => {
+	const { startDate, endDate } = args;
+	const response = await RegistoreBackend.TransactionController.getTransactionsBetweenDates(startDate, endDate);
+	return response;
+});
 ipcMain.handle('updateTransactionSalesperson', async (event, args) => {
     console.log(args);
     const { transactionId, salesPersonId } = args; // Desctructure the args object
