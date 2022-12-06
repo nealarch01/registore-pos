@@ -12,8 +12,15 @@ var myList = [
 
 
 //Old display function. timelength unused, just generates rows for all objects in myList
-function displayTable(timelength) {
+async function displayTable(timelength) {
+  // Timelength in days 
+  let startDate = new Date();
+  startDate.setDate(startDate.getDate() - timelength);
+  console.log(startDate);
   //load transactions from dates going back timelength
+  let currentDate = new Date();
+  var transactions = await Backend.getTransactionsBetweenDates(startDate, currentDate);
+  console.log(transactions);
   var rows = " <caption>Data from last " + timelength + " days</caption>";
   addColumnHeaders(myList);
   for (var i = 0; i < myList.length; i++) {
@@ -49,9 +56,11 @@ function addColumnHeaders(myList){
 
 
 //generates a table containing all transactions from first of year until today.
-function YTDTable(){
+async function YTDTable(){
   var today = new Date(); //= get todays date
   var firstDayOfYear = new Date(today.getFullYear, 1, 1, 0, 0, 0);//= get first day of today's year
+  let allTransactions = await Backend.getAllTransactions();
+  console.log(allTransactions);
   customDateTable(today, firstDayOfYear);
 }
 
