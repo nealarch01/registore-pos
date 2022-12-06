@@ -50,29 +50,13 @@
                 <h3 style=" text-align:center" >  LOGIN INTO REGISTORE</h3> <br>-->
            
                 <!--keys for login page-->
-                <script src="./js/login.js"></script> 
-             <div class="container">
-                    <div  class="output">
-                        <div style="height:20px" class="login_display"></div> <!--display the number on the screen-->
-                 <div class="keys">
-                     <input type="button" onclick="display(event)" value="7"> 
-                     <input type="button" onclick="display(event)" value="8">
-                     <input type="button" onclick="display(event)" value="9"> <br>
-                     <input type="button" onclick="display(event)" value="4">
-                     <input type="button" onclick="display(event)" value="5">
-                     <input type="button" onclick="display(event)" value="6"> <br>
-                     <input type="button" onclick="display(event)" value="3">
-                     <input type="button" onclick="display(event)" value="2">
-                     <input type="button" onclick="display(event)" value="1"> <br>
-                     <input type="button" onclick="delete_value()" value="X">
-                     <input type="button" onclick="display(event)" value="0">
-                     <input type="button" onclick="check_id()"    value="ENTER">
-                </div> <!--end of class key-->
-                <button onclick="clearCookie()">clear cookie</button>
-                </div> <!--end of class login -->
-            </div><!--end of class container-->
-        </div> <!--end of class showcase-->
+                 <div class = "container" id ="loginSystem">
+                    EmployeeID: <input type = "text" id ="employeeid"></input><br>
+                    Password: <input type = "text" id ="password"> </input><br>
+                     <button onclick="login()">login</button><br> 
+                 </div>
 
         </main>
+        <script src="./js/login.js"></script> 
     </body>  
 </html>

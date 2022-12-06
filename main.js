@@ -6,32 +6,20 @@ const isDev = process.env.NODE_ENV !== 'production';
 
 const { ipcMain } = require('electron');
 const RegistoreBackend = require('./node_modules/registore-business-logic/dist/index');
-let currentSession= null; 
+var currentLogin = null; 
 
-ipcMain.handle('getCookie', async (event, args) => {
-    let currentSession= session.defaultSession.cookies.get({ url: 'http://www.github.com' })
-    .then((cookies) => {
-      console.log(cookies)
-      return cookies; 
-    }).catch((error) => {
-      console.log(error)
-      return null;
-    })
+ipcMain.handle('getSavedLogin', async (event, args) => {
+    console.log(currentLogin);
+    return String(currentLogin);
 });
-ipcMain.handle('setCookie', async (event, args) => {
-    const { employeeId } = args; // Desctructure the args object
-    const cookie = { url: 'http://www.github.com', name: 'dummy_name', value: employeeId }
-session.defaultSession.cookies.set(cookie)
-  .then(() => {
-    // success
-  }, (error) => {
-    console.error(error)
-  })
-
+ipcMain.handle('setSavedLogin', async (event, args) => {
+    const login  = args; 
+    currentLogin = String(login);
+    console.log('login set to '+ String(currentLogin));
+    return;
 });
-ipcMain.handle('clearCookie', async (event, args) => {
-    session.defaultSession.clearStorageData([], (data) => {});
-
+ipcMain.handle('logout', async (event, args) => {
+    currentLogin = null;
 });
 
 // Because we are returning values, we need to use ipcMain.handle, do not use ipcMain.on
