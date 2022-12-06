@@ -1,38 +1,30 @@
-var user_input= ""; 
-document.addEventListener('DOMContentLoaded', readCookie);
-let currentSession= null; 
-
-async function readCookie(){
-  const response = await Backend.getCookie();
-    if (response === null) {
-        /*TODO: update error messages*/
+document.addEventListener('DOMContentLoaded', getSavedLogin);
+let loginSystem = document.getElementById("loginSystem");
+async function getSavedLogin(){
+  const login = String(await Backend.getSavedLogin());
+    if (login == null || login=="null") {
+        console.log('there is no saved login');
         return;
     }
     else{
-    console.log("BLABLABALB");
-    console.log(response);
+      //Let's verify login
+      console.log('there is a saved login' + String(login));
+      let myUser = String(login).split(" ");
+      loginSystem.innerHTML = `<h3>Welcome back Employee ${myUser[0]} </h3><br>` +
+                              `<button onclick="logout()">logout</button>`;
+      return;
     }
   
 }
 
-async function setCookie(employeeId){
-  const response = await Backend.setCookie(employeeId);
-    if (response.error !== null) {
-        /*TODO: update error messages*/
-        console.log(response.error);
-        return;
-    }
-    if (response.data === null) {
-        /*TODO: update error messages*/
-
-        return;
-    }
-    
+async function setLogin(login){
+  await Backend.setSavedLogin(login);   
 }
 
-async function clearCookie(){
-  await Backend.clearCookie();
-    
+async function logout(){
+  await Backend.logout();
+  // Refresh page upon logout
+  window.location.assign("./login.html");
 }
 
 async function display(event){
@@ -47,7 +39,7 @@ async function delete_value(){
 
 }
 
-async function check_id(){
+async function login(){
     /*fs.readFile('./text.txt', 'utf8', (err, data) => {
         if (err) {
           console.error(err);
@@ -57,7 +49,7 @@ async function check_id(){
       });
     console.log(window.api.fs)
     window.location.assign("./inventory.html")*/
-    console.log(user_input);
+    
     const response = await Backend.getAllEmployees();
     if (response.error !== null) {
         /*TODO: update error messages*/
@@ -72,19 +64,23 @@ async function check_id(){
     }
     let employees = response.data;
     let match = false; 
+    let username = document.getElementById("employeeid").value;
+    let password = document.getElementById("password").value;
     employees.forEach((employee) => {
-      if(employee.id== user_input){
+      console.log("Current DB: "+employee.id + " "+ employee.password);
+      if(employee.id== username && employee.password == password){
         console.log("match");
         window.location.assign("./inventory.html"); 
         match=true; 
-        setCookie(employee.id); 
+        setLogin(String(employee.id + " " + employee.password)); 
+        console.log("Login Valid");
         return;
       }
       
     });
     if(!match){
     console.log("not match");
-    alert("ID IS INCORRECT");
+    alert("USER CREDENTIALS INVALID. ");
     }
   
 }
