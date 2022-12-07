@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+       <meta http-equiv="Content-Security-Policy: default-src 'self';script-src 'self' example.com;object-src 'none';upgrade-insecure-requests">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--style sheet import-->
+        <link rel="stylesheet" href="./css/login.css">
+
+        <title >Login</title>
+        <link rel="stylesheet" href="./css/main.css" type="text/css" />
+        <style>
+            #addEmployee {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+                margin: auto;
+            }
+        </style>
+    </head>
+    <body class="flex column">
+        <script src="./js/menu.js"></script>  
+            <!-- Menu -->
+            <input type="checkbox" id="active" class="hide" />
+            <menu class="">
+                <label for="active" id="menuIcon" class="flex column center">
+                    <div id="menuIconBar1" class="menuBar"></div>
+                    <div id="menuIconBar2" class="menuBar"></div>
+                    <div id="menuIconBar3" class="menuBar"></div>
+                </label>
+                <h2 id="menuTitle" class="hide">Register</h2>
+                <nav class="">
+                    <ul id="menuItemList">
+                        <li><a href="./register.html">Register</a></li>
+                        <li><a href="./inventory.html">Inventory</a></li>
+                        <li><a href="./accounting.html">Accounting</a></li>
+                        <li><a href="./options.html">Options</a></li>
+                        <li><a href="./help.html">Help</a></li>
+                        <li><a href="./login.html">Log Out</a></li>
+                    </ul>
+                </nav>
+                <div>
+                    <!-- for spacing -->
+                </div>
+            </menu>
+
+        <main>
+            <!-- put your code here
+            <script src="./js/login.js"></script> 
+       
+            <h1 style="color:blue; text-align: center " > REGISTORE</h1>
+            <div class="showcase">
+             
+                keys for login page
+                <h3 style=" text-align:center" >  LOGIN INTO REGISTORE</h3> <br>-->
+                <div id = "addEmployee">
+                    <form id="form"> 
+                        <label for="fname">First name:</label><br>
+                        <input type="text" id="fname" name="fname" ><br>
+                        <label for="lname">Last name:</label><br>
+                        <input type="text" id="lname" name="lname" ><br><br>
+                        <label for="phone">Phone Number:</label><br>
+                        <input type="phone" id="phone_number" name="phone_number"> <br> 
+                        <label for="email">Email:</label><br>
+                        <input type="email" id="email" name="email" ><br>
+                        <label for="password">Password:</label><br>
+                        <input type="password" id="password" name="password" ><br>
+                        <label for="address">Address:</label><br>
+                        <input type="text" id="address"> <br>
+                        <label for="city">City:</label><br>
+                        <input type="text" id="city" name="city" ><br><br>
+                        <label for="state">State:</label><br>
+                        <input type="text" id="state" name="state"> <br> 
+                        <label for="zip">Zipcode:</label><br>
+                        <input type="number" id="zipcode" name="zipcode"> <br> 
+                        <label for="hire_date">Hire Date:</label><br>
+                        <input type="date" id="date" name="date" ><br><br>
+                        <label for="starting_amount">Starting Amount:</label><br>
+                        <input type="number" id="starting_amount" name="starting_amount"> <br> 
+                    </form>
+                    <button id="submit" onclick="readForm()">Submit</button>
+                </div>
+
+        </main>
+        <script src="./js/addEmployee.js"></script> 
+        <script type="text/javascript" charset="utf-8">
+            document.getElementsByTagName('input')[0].focus()
+          </script>
+    </body>  
+</html>

@@ -1,3 +1,5 @@
+
+
 /*******************************************/
 /***************** IMPORTS *****************/
 /*******************************************/
@@ -7,13 +9,73 @@
 /*********************************************/
 
 :root {
-  --color_fg: #ffffff;
-  --color-bg: #002837;
-  --color-highlight: #00b9ff;
-  --color-primary: #0085b7;
-  --color-secondary: #005170;
-  --color-accent1: #ff0000;
-  --color-accent2: #0cc224;
-  --menu-width: 300px;
-  --_spacing: 1rem;
+    --color_fg: #ffffff;
+    --color-bg: #002837;
+    --color-highlight: #00b9ff;
+    --color-primary: #0085b7;
+    --color-secondary: #005170;
+    --color-accent1: #ff0000;
+    --color-accent2: #0cc224;
+    --menu-width: 300px;
+    --_spacing: 1rem;
 }
+body{
+    margin: 0; 
+    }
+    
+    button{
+        border:0.1; 
+        text-align: left; 
+    }
+
+    .showcase{
+        border-style: solid;
+        border-color: black;
+        height: 25rem;
+        width: 25rem;
+        margin-left: auto; 
+        margin-right: auto; 
+        
+    }
+
+
+    .login_display{
+        background-color: lightgray;
+        font-size: 1.5em; 
+        padding: 0.45em 0.45em;
+        text-align: center; 
+        width: 10em;
+        height: 20px; 
+    }
+
+    .keys{
+        display: grid;
+        grid-gap: 1px;
+        grid-template-columns: repeat(4,1fr); 
+    }
+    .keys > *{
+        padding: 0.5em 0.5em;
+        position: relative; 
+        text-align: center; 
+    }
+    .keys > *:active::before, 
+    .keys > .is-depressed::before{
+        bottom:0; 
+        box-shadow: 0 0 5px 0 inset; 
+        content: ""; 
+        left: 0; 
+        opacity: 0.3;
+        position: absolute; 
+        right: 0; 
+        right: 0; 
+        top: 0; 
+        z-index:1; 
+    }
+
+    .container{
+        width: 22em;
+        height: 22em;
+        margin-left: auto; 
+        margin-right: auto; 
+    }
+    
