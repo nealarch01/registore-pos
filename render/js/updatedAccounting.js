@@ -1,34 +1,13 @@
 
 
-/*
-//TEST DATA 
-var myList = [
-    { "id": "1", "date": "11/28/2022", "salesperson_id": 5, "total": "50.55", "discount": "", "final_total": "50.55", "payment_type": "cash"},
-    { "id": "2", "date": "11/28/2022", "salesperson_id": 4, "total": "40.22", "discount": "", "final_total": "40.22", "payment_type": "cash"},
-    { "id": "3", "date": "11/28/2022", "salesperson_id": 7, "total": "35.99", "discount": "", "final_total": "35.99", "payment_type": "cash"}
-  ];
-//END TEST DATA 
-*/
-
-
-//Old display function. timelength unused, just generates rows for all objects in myList
-async function displayTable(myList) {
-  // Timelength in days 
-  let startDate = new Date();
-  startDate.setDate(startDate.getDate() - timelength);
-  console.log(startDate);
-  //load transactions from dates going back timelength
-  let currentDate = new Date();
-  var transactions = await Backend.getTransactionsBetweenDates(startDate, currentDate);
-  console.log(transactions);
+//updated displaytable function, just pass JSON returned from backend
+function displayTable(myList) {
+  //console.log(myList);
+  var rows = "";
   addColumnHeaders(myList);
   for (var i = 0; i < myList.data.length; i++) {
     rows += "<tr>";
-     //{ "id": "1", "date": "11/28/2022", "salesperson_id": 5, "total": "50.55", "discount": "", "final_total": "50.55", "payment_type": "cash"},
-      
-    //rows += "<td>" + myList[i].id + "</td>" + "<td>" + myList[i].date + "</td>" + "<td>" + myList[i].salesperson_id + "</td>"
-    //  + "<td>" + myList[i].total + "</td>" + "<td>" + myList[i].discount + "</td>" + "<td>" + myList[i].final_total + "</td>" + "<td>" + myList[i].payment_type + "</td>";
-      
+
     for (var key in myList.data[i]){
         rows += "<td>" + myList.data[i][key] + "</td>";
     }
@@ -48,18 +27,16 @@ function addColumnHeaders(myList){
           rows +=  "<th>" + key + "</th>";
       }
   rows += "</tr>";
-
+  console.log(rows);
   var table = document.getElementById("datatable");
-  table.innerHTML = rows;
+  table.innerHTML += rows;
 }
 
 
 //generates a table containing all transactions from first of year until today.
 async function YTDTable(){
   var today = new Date(); //= get todays date
-  var firstDayOfYear = new Date(today.getFullYear, 1, 1, 0, 0, 0);//= get first day of today's year
-  let allTransactions = await Backend.getAllTransactions();
-  console.log(allTransactions);
+  var firstDayOfYear = new Date(today.getFullYear(), 1, 1, 0, 0, 0);//= get first day of today's year
   customDateTable(today, firstDayOfYear);
 }
 
@@ -72,17 +49,14 @@ async function customDateTable(date1, date2){
     table.innerHTML = inCorrectDate;
   return;}
 
-  var d1 = date1.getFullYear() +"-"+ ('0'+(date1.getMonth()+1)).slice(-2)+"-"+('0'+date1.getDate()).slice(-2);
-  console.log(d1);
-  var d2 = date2.getFullYear() +"-"+ ('0'+(date2.getMonth()+1)).slice(-2)+"-"+('0'+date2.getDate()).slice(-2);
-  console.log(d2);
   var rows = " <caption>Data from " + date1 + " through " + date2 + ".</caption>";
   var table = document.getElementById("datatable");
   table.innerHTML += rows;
   //WORK IN PROGRESS CODE GOES BELOW HERE
 
   //1.pull data from backend with dates
-  let transactionData = await TransactionController.getTransactionsBetweenDates(date2, date1)
+  let transactionData = await Backend.getTransactionsBetweenDates(date2, date1);
+
   //2.build table
   displayTable(transactionData);
 
