@@ -49,5 +49,7 @@ contextBridge.exposeInMainWorld('Backend', {
     deleteTransaction: async (transactionId) => ipcRenderer.invoke('deleteTransaction', transactionId),
     getSavedLogin: async () => ipcRenderer.invoke('getSavedLogin'),
     setSavedLogin: async (login) => ipcRenderer.invoke('setSavedLogin', login),
-    logout: async () => ipcRenderer.invoke('logout')
+    logout: async () => ipcRenderer.invoke('logout'),
+    EmployeeBuilder: async (first_name, last_name, phone_number, email, password,address, city, state, zipcode, hire_date, starting_amount) => ipcRenderer.invoke('EmployeeBuilder', first_name, last_name, phone_number, email, password,address, city, state, zipcode, hire_date, starting_amount)
+    
 });

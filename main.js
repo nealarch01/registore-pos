@@ -8,9 +8,17 @@ const { ipcMain } = require('electron');
 const RegistoreBackend = require('./node_modules/registore-business-logic/dist/index');
 var currentLogin = null; 
 
+ipcMain.handle('EmployeeBuilder', async (event, args) => {
+    const {first_name, last_name, phone_number, email, password,address, city, state, zipcode, hire_date, starting_amount } = args; // Desctructure the args object
+    const response = await RegistoreBackend.EmployeeBuilder.setFirstName(first_name).setLastName(last_name).setCity(city).setPhoneNumber(phone_number).setEmail(email).setPassword(password).setState(state).setZipcode(zipcode).setAddress(address).setHireDate(hire_date).setStartingAmount(starting_amount).build();
+    const response2 = await RegistoreBackend.EmployeeController.createNewEmployee(response);
+    return response2;
+});
+
 ipcMain.handle('getSavedLogin', async (event, args) => {
     console.log(currentLogin);
     return String(currentLogin);
+    
 });
 ipcMain.handle('setSavedLogin', async (event, args) => {
     const login  = args; 
