@@ -8,9 +8,23 @@ const { ipcMain } = require('electron');
 const RegistoreBackend = require('./node_modules/registore-business-logic/dist/index');
 var currentLogin = null; 
 
+//Used to add new employees to our employee database
+ipcMain.handle('EmployeeBuilder', async (event, first_name, last_name, phone_number, email, password,address, city, state, zipcode, hire_date, starting_amount) => {
+    const newEmployee = new RegistoreBackend.EmployeeBuilder().setFirstName(first_name).setLastName(last_name).setCity(city).setPhoneNumber(phone_number).setEmail(email).setPassword(password).setState(state).setZipcode(zipcode).setAddress(address).setHireDate(hire_date).setStartingAmount(starting_amount).build();
+    const response = await RegistoreBackend.EmployeeController.createNewEmployee(newEmployee);
+    return response;
+});
+//Used to add new products to our inventory system
+ipcMain.handle('ProductBuilder', async (event,sku,title,brand,summary,price,quantity,category,creator,supplier) => {
+    const newProduct = new RegistoreBackend.ProductBuilder().setSKU(sku).setTitle(title).setBrand(brand).setSummary(summary).setPrice(price).setQuantity(quantity).setCategory(category).setCreator(creator).setSupplier(supplier).build();
+    const response = await RegistoreBackend.ProductController.createNewProduct(newProduct);
+    return response;
+});
+
 ipcMain.handle('getSavedLogin', async (event, args) => {
     console.log(currentLogin);
     return String(currentLogin);
+    
 });
 ipcMain.handle('setSavedLogin', async (event, args) => {
     const login  = args; 
