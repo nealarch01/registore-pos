@@ -1,6 +1,6 @@
 
 
-
+/*
 //TEST DATA 
 var myList = [
     { "id": "1", "date": "11/28/2022", "salesperson_id": 5, "total": "50.55", "discount": "", "final_total": "50.55", "payment_type": "cash"},
@@ -8,23 +8,22 @@ var myList = [
     { "id": "3", "date": "11/28/2022", "salesperson_id": 7, "total": "35.99", "discount": "", "final_total": "35.99", "payment_type": "cash"}
   ];
 //END TEST DATA 
-
+*/
 
 
 //Old display function. timelength unused, just generates rows for all objects in myList
-function displayTable(timelength) {
+function displayTable(myList) {
   //load transactions from dates going back timelength
-  var rows = " <caption>Data from last " + timelength + " days</caption>";
   addColumnHeaders(myList);
-  for (var i = 0; i < myList.length; i++) {
+  for (var i = 0; i < myList.data.length; i++) {
     rows += "<tr>";
      //{ "id": "1", "date": "11/28/2022", "salesperson_id": 5, "total": "50.55", "discount": "", "final_total": "50.55", "payment_type": "cash"},
       
     //rows += "<td>" + myList[i].id + "</td>" + "<td>" + myList[i].date + "</td>" + "<td>" + myList[i].salesperson_id + "</td>"
     //  + "<td>" + myList[i].total + "</td>" + "<td>" + myList[i].discount + "</td>" + "<td>" + myList[i].final_total + "</td>" + "<td>" + myList[i].payment_type + "</td>";
       
-    for (var key in myList[i]){
-        rows += "<td>" + myList[i][key] + "</td>";
+    for (var key in myList.data[i]){
+        rows += "<td>" + myList.data[i][key] + "</td>";
     }
 
       rows += "</tr>";
@@ -37,7 +36,7 @@ function displayTable(timelength) {
 //generates column headers based off the keys from the first object in the list
 function addColumnHeaders(myList){
   var rows = "<tr>";
-      var rowHash = myList[0];
+      var rowHash = myList.data[0];
       for (var key in rowHash){
           rows +=  "<th>" + key + "</th>";
       }
@@ -56,7 +55,7 @@ function YTDTable(){
 }
 
 //generates table of all transactions within two given dates
-function customDateTable(date1, date2){
+async function customDateTable(date1, date2){
   //CHECK IF VALID DATE RANGE
   if(date1 <= date2){
     var inCorrectDate = " <caption>Please input correct date range</caption>";
@@ -69,18 +68,16 @@ function customDateTable(date1, date2){
   var d2 = date2.getFullYear() +"-"+ ('0'+(date2.getMonth()+1)).slice(-2)+"-"+('0'+date2.getDate()).slice(-2);
   console.log(d2);
   var rows = " <caption>Data from " + date1 + " through " + date2 + ".</caption>";
+  var table = document.getElementById("datatable");
+  table.innerHTML += rows;
   //WORK IN PROGRESS CODE GOES BELOW HERE
 
   //1.pull data from backend with dates
+  let transactionData = await TransactionController.getTransactionsBetweenDates(date2, date1)
+  //2.build table
+  displayTable(transactionData);
 
-  //2.build header row
-  //can probably use addColumnHeaders()
-
-  //3.build data rows
-  //can probably use displayTable()
-
-  var table = document.getElementById("datatable");
-  table.innerHTML += rows;
+  
 }
 
 
