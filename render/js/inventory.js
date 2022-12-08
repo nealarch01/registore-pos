@@ -71,32 +71,23 @@ function highlightRow() {}
 
 async function addProduct(event) {
     event.preventDefault();
-    productName.focus();
     // When you call this it will add it to the DB for you.
     if (isEmpty(productSku.value)) {
-        alert('Please enter a product sku!');
-        productSku.focus();
+        await Backend.showDialog('Please enter a product sku!');
     } else if (isEmpty(productName.value)) {
-        alert('Please enter a product title!');
-        productName.focus();
+        await Backend.showDialog('Please enter a product title!');
     } else if (isEmpty(productBrand.value)) {
-        alert('Please enter a product brand!');
-        productBrand.focus();
+        await Backend.showDialog('Please enter a product brand!');
     } else if (isEmpty(productSummary.value)) {
-        alert('Please enter a product summary!');
-        productSummary.focus();
+        await Backend.showDialog('Please enter a product summary!');
     } else if (isEmpty(productPrice.value)) {
-        alert('Please enter a product price!');
-        productPrice.focus();
+        await Backend.showDialog('Please enter a product price!');
     } else if (isEmpty(productQuantity.value)) {
-        alert('Please enter a product quantity!');
-        productQuantity.focus();
+        await Backend.showDialog('Please enter a product quantity!');
     } else if (isEmpty(productCategory.value)) {
-        alert('Please enter a product category!');
-        productCategory.focus();
+        await Backend.showDialog('Please enter a product category!');
     } else if (isEmpty(productSupplier.value)) {
-        alert('Please enter a product supplier!');
-        productSupplier.focus();
+        await Backend.showDialog('Please enter a product supplier!');
     }
     const newProduct = await Backend.ProductBuilder(
         productSku.value,
@@ -111,14 +102,12 @@ async function addProduct(event) {
     );
     if (newProduct == null) {
         console.log('ERROR cannot contact Product Builder');
-        productSummary.focus();
         return;
     } else {
         // If the product is made successfully, update the database
         const result = await Backend.createNewProduct(newProduct);
         if (result.error != null) {
             console.log('ERROR '+result.error);
-            productSummary.focus();
             return;
         }
         else

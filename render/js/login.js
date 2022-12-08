@@ -69,7 +69,8 @@ async function login(){
     });
     if(!match){
     console.log("not match");
-    alert("USER CREDENTIALS INVALID. ");
+    await Backend.showDialog("USER CREDENTIALS INVALID. ");
+    document.getElementById("employeeid").focus;
     }
   
 }

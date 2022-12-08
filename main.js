@@ -6,6 +6,7 @@ const isDev = process.env.NODE_ENV !== 'production';
 
 const { ipcMain } = require('electron');
 const RegistoreBackend = require('./node_modules/registore-business-logic/dist/index');
+const { dialog } = require('electron');
 var currentLogin = null; 
 
 //Used to add new employees to our employee database
@@ -13,6 +14,15 @@ ipcMain.handle('EmployeeBuilder', async (event, first_name, last_name, phone_num
     const newEmployee = new RegistoreBackend.EmployeeBuilder().setFirstName(first_name).setLastName(last_name).setCity(city).setPhoneNumber(phone_number).setEmail(email).setPassword(password).setState(state).setZipcode(zipcode).setAddress(address).setHireDate(hire_date).setStartingAmount(starting_amount).build();
     const response = await RegistoreBackend.EmployeeController.createNewEmployee(newEmployee);
     return response;
+});
+// We use 'showDialog' instead of alert(). This is because alert breaks HTML input focuses.
+ipcMain.handle('showDialog', async (event, message) => {
+    dialog.showMessageBox({
+        type: 'info',
+        title: 'Alert',
+        message: String(message)
+      });
+      return;
 });
 //Used to add new products to our inventory system
 ipcMain.handle('ProductBuilder', async (event,sku,title,brand,summary,price,quantity,category,creator,supplier) => {
