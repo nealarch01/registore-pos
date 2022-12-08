@@ -3,17 +3,12 @@
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta
-            http-equiv="Content-Security-Policy"
-            content="default-src 'self'; script-src 'self'"
-        />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
-            http-equiv="Content-Security-Policy: default-src 'self';script-src 'self' example.com;object-src 'none';upgrade-insecure-requests"
-        />
+        <meta http-equiv="Content-Security-Policy: default-src 'self';script-src 'self' example.com;object-src 'none';upgrade-insecure-requests">
         <title>Inventory</title>
         <link rel="stylesheet" href="./css/main.css" type="text/css" />
         <link rel="stylesheet" href="./css/inventory.css" type="text/css" />
+        
     </head>
 
     <body class="flex column">
@@ -44,12 +39,36 @@
         <main>
             <div id="action-bar" class="inventory-center">
                 <!-- Here is where the add and remove buttons will be  -->
-                <button type="submit" class="invBtns" id="addInventory">
+                <button class="invBtns" id="addInventory">
                     Add
                 </button>
-                <button type="submit" class="invBtns" id="removeInventory">
+                <button class="invBtns" id="removeInventory">
                     Remove
                 </button>
+
+                      <!--MODAL-->
+
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h1>Enter Product to add:</h1>
+          <form id="modal-body">
+            <input type="text" id="product-name" placeholder="Product Name"></input>
+            <input type="text" id="product-sku" placeholder="Product SKU"></input>
+            <input type="text" id="product-brand" placeholder="Product Brand"></input>
+            <input type="text" id="product-category" placeholder="Product Category"></input>
+            <input type="text" id="product-supplier" placeholder="Product Supplier"></input>
+            <input type="text" id="product-price" placeholder="Product Price"></input>
+            <input type="text" id="product-quantity"  placeholder="Product Quantity"></input>
+            <input type="text" id="product-summary"  placeholder="Product Summary"></input>
+            <button id="modal-submit" onclick="addProduct()"></button>
+          </form>
+        </div>
+
+      </div>
 
                 <!--Search and Sort-->
                 <select name="sort" id="sort">
@@ -68,6 +87,7 @@
 
             <table id="inventory-list">
                 <tr>
+                    <th></th>
                     <th>SKU</th>
                     <th>Name</th>
                     <th>Price</th>
