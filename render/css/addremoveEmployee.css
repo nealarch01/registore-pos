@@ -1,0 +1,81 @@
+
+
+#form {
+    margin-bottom: 10px;
+}
+
+#form label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #0085b7;
+}
+
+#form input {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #005170;
+    margin-bottom: 10px;
+}
+
+#submit {
+    background-color: #0085b7;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+}
+#loginSystem {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  #loginSystem label {
+    font-size: 1.2rem;
+    color: #ffffff;
+  }
+  
+  #loginSystem input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #0085b7;
+    background-color: #ffffff;
+  }
+  
+  #loginSystem button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #0085b7;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border: none;
+  }
+  
+  .employeeNavButtons {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .employeeNavButtons button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #0085b7;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border: none;
+  }
