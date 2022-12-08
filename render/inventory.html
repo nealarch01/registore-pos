@@ -64,7 +64,7 @@
             <input type="text" id="product-price" placeholder="Product Price"></input>
             <input type="text" id="product-quantity"  placeholder="Product Quantity"></input>
             <input type="text" id="product-summary"  placeholder="Product Summary"></input>
-            <button id="modal-submit" onclick="addProduct()"></button>
+            <button id="modal-submit" onclick="addProduct(event)"></button>
           </form>
         </div>
 
@@ -95,9 +95,6 @@
                     <th>Summary</th>
                 </tr>
             </table>
-            <form id="search-form">
-                <!--<button type="submit" id="my-button">button</button>-->
-            </form>
         </main>
         <script src="../render/js/inventory.js"></script>
     </body>
