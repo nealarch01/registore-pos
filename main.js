@@ -17,8 +17,7 @@ ipcMain.handle('EmployeeBuilder', async (event, first_name, last_name, phone_num
 //Used to add new products to our inventory system
 ipcMain.handle('ProductBuilder', async (event,sku,title,brand,summary,price,quantity,category,creator,supplier) => {
     const newProduct = new RegistoreBackend.ProductBuilder().setSKU(sku).setTitle(title).setBrand(brand).setSummary(summary).setPrice(price).setQuantity(quantity).setCategory(category).setCreator(creator).setSupplier(supplier).build();
-    const response = await RegistoreBackend.ProductController.createNewProduct(newProduct);
-    return response;
+    return newProduct;
 });
 
 ipcMain.handle('getSavedLogin', async (event, args) => {
@@ -48,63 +47,54 @@ ipcMain.handle('getTransaction', async (event, args) => {
 });
 
 ipcMain.handle('getAllProducts', async (event, args) => {
-    console.log(args);
+    console.log("getting All Products");
     const response = await RegistoreBackend.ProductController.getAllProducts();
     return response;
 });
 
-ipcMain.handle('getProduct', async (event, args) => {
-    console.log(args);
-    const { sku } = args; // Desctructure the args object
+ipcMain.handle('getProduct', async (event, sku) => {
+    console.log('getting product '+ sku);
     const response = await RegistoreBackend.ProductController.getProduct(sku);
     return response;
 });
-ipcMain.handle('createNewProduct', async (event, args) => {
-    console.log(args);
-    const { product } = args; // Desctructure the args object
+ipcMain.handle('createNewProduct', async (event, product) => {
+    console.log("Creating new product : "+JSON.stringify(product));
     const response = await RegistoreBackend.ProductController.createNewProduct(product);
     return response;
 });
 
-ipcMain.handle('updatePrice', async (event, args) => {
-    console.log(args);
-    const { sku, newPrice } = args; // Desctructure the args object
+ipcMain.handle('updatePrice', async (event, sku, newPrice) => {
+    console.log("Update Price  "+ sku + " " + newPrice);
     const response = await RegistoreBackend.ProductController.updatePrice(sku, newPrice);
     return response;
 });
-ipcMain.handle('updateQuantity', async (event, args) => {
-    console.log(args);
-    const { sku, quantity } = args; // Desctructure the args object
+ipcMain.handle('updateQuantity', async (event, sku, quantity) => {
+    console.log("Update Quantity  "+ sku + " " + quantity);
     const response = await RegistoreBackend.ProductController.updateQuantity(sku, quantity);
     return response;
 });
-ipcMain.handle('updateProduct', async (event, args) => {
-    console.log(args);
-    const { product } = args; // Desctructure the args object
+ipcMain.handle('updateProduct', async (event, product) => {
+    console.log("Update Product "+ product);
     const response = await RegistoreBackend.ProductController.updateProduct(product);
     return response;
 });
-ipcMain.handle('deleteProduct', async (event, args) => {
-    console.log(args);
-    const { nodeId } = args; // Desctructure the args object
+ipcMain.handle('deleteProduct', async (event, nodeId) => {
+    console.log("Delete Product "+ nodeId);
     const response = await RegistoreBackend.ProductController.deleteProduct(nodeId);
     return response;
 });
-ipcMain.handle('deleteProductbySKU', async (event, args) => {
-    console.log(args);
-    const { sku } = args; // Desctructure the args object
+ipcMain.handle('deleteProductbySKU', async (event, sku) => {
+    console.log("Delete Product "+ sku);
     const response = await RegistoreBackend.ProductController.deleteProductbySKU(sku);
     return response;
 });
-ipcMain.handle('createNewEmployee', async (event, args) => {
-    console.log(args);
-    const { employee } = args; // Desctructure the args object
+ipcMain.handle('createNewEmployee', async (event, employee) => {
+    console.log("New Employee "+ employee);
     const response = await RegistoreBackend.EmployeeController.createNewEmployee(employee);
     return response;
 });
-ipcMain.handle('getEmployee', async (event, args) => {
-    console.log(args);
-    const { employeeId } = args; // Desctructure the args object
+ipcMain.handle('getEmployee', async (event, employeeId) => {
+    console.log("Getting Employee "+ employeeId);
     const response = await RegistoreBackend.EmployeeController.getEmployee(employeeId);
     return response;
 });
@@ -118,27 +108,23 @@ ipcMain.handle('updateEmployee', async (event, args) => {
     const response = await RegistoreBackend.EmployeeController.updateEmployee(employeeId, first_name, last_name, phone_number, email, address, city, state, zipcode, password, hire_date, starting_amount);
     return response;
 });
-ipcMain.handle('deleteEmployee', async (event, args) => {
-    console.log(args);
-    const { employeeId } = args; // Desctructure the args object
+ipcMain.handle('deleteEmployee', async (event, employeeId) => {
+    console.log("Deleting Employee "+employeeId)
     const response = await RegistoreBackend.EmployeeController.deleteEmployee(employeeId);
     return response;
 });
-ipcMain.handle('createNewDiscount', async (event, args) => {
-    console.log(args);
-    const { discount } = args; // Desctructure the args object
+ipcMain.handle('createNewDiscount', async (event, discount) => {
+    console.log("Creating Discount "+ JSON.stringify(discount));
     const response = await RegistoreBackend.DiscountController.createNewDiscount(discount);
     return response;
 });
-ipcMain.handle('deleteDiscount', async (event, args) => {
-    console.log(args);
-    const { discountId } = args; // Desctructure the args object
+ipcMain.handle('deleteDiscount', async (event, discountId) => {
+    console.log("Deleting Discount "+ discountId);
     const response = await RegistoreBackend.DiscountController.deleteDiscount(discountId);
     return response;
 });
-ipcMain.handle('updateDiscount', async (event, args) => {
-    console.log(args);
-    const { discountId, newAmount } = args; // Desctructure the args object
+ipcMain.handle('updateDiscount', async (event, discountId, newAmount ) => {
+    console.log("Applying Discount "+ discountId + " To set it to new amount: "+ newAmount);
     const response = await RegistoreBackend.DiscountController.updateDiscount(discountId, newAmount);
     return response;
 });
@@ -146,9 +132,8 @@ ipcMain.handle('getAllDiscounts', async (event) => {
     const response = await RegistoreBackend.DiscountController.getAllDiscounts();
     return response;
 });
-ipcMain.handle('getDiscount', async (event, args) => {
-    console.log(args);
-    const { id } = args; // Desctructure the args object
+ipcMain.handle('getDiscount', async (event, id) => {
+    console.log("Getting Discount "+ id);
     const response = await RegistoreBackend.DiscountController.getDiscount(id);
     return response;
 });

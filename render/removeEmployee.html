@@ -12,6 +12,15 @@
 
         <title >Login</title>
         <link rel="stylesheet" href="./css/main.css" type="text/css" />
+        <style>
+            #removeEmployee {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+                margin: auto;
+            }
+        </style>
     </head>
     <body class="flex column">
         <script src="./js/menu.js"></script>  
@@ -50,16 +59,18 @@
                 <h3 style=" text-align:center" >  LOGIN INTO REGISTORE</h3> <br>-->
            
                 <!--keys for login page-->
-                 <div class = "container" id ="loginSystem">
-                    EmployeeID: <input type = "text" id ="employeeid"></input><br>
-                    Password: <input type = "password" id ="password"> </input><br>
-                     <button onclick="login()">login</button><br> 
-                 </div>
-                 <a href="addEmployee.html" > <button>Add Employee</button></a>
-                 <a href="removeEmployee.html" > <button>Remove Employee</button></a>
-                
-
+                <div id="removeEmployee">
+                    <form id="form">
+                        <label for="id">ID</label><br>
+                       <input type="text" id="id" name="id"><br>
+                        <label for="fname">First name:</label><br>
+                        <input type="text" id="fname" name="fname" ><br>
+                        <label for="lname">Last name:</label><br>
+                        <input type="text" id="lname" name="lname" ><br><br> 
+                    </form>
+                    <button id="submit" onclick="removeEmployee()">Submit </button>
+                </div>
         </main>
-        <script src="./js/login.js"></script> 
+        <script src="./js/removeEmployee.js"></script> 
     </body>  
 </html>
