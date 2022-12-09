@@ -40,10 +40,13 @@ function todayTable(){
   customDateTable(today, startOfDay);
 }
 
-//need to fix for weeks that span 2 months
+//fixed, this shoudl work
 function thisWeekTable(){
   var today = new Date();
-  var startOfWeek = new Date(today.getFullYear(),today.getMonth(),(today.getDate()-today.getDay()),0,0,0);
+  var startOfWeek = new Date();
+  startOfWeek.setDate(today.getDate()-today.getDay());
+  startOfWeek.setHours(00, 00, 00);
+
   customDateTable(today, startOfWeek);
 }
 
