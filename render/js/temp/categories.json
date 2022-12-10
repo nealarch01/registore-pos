@@ -1,0 +1,60 @@
+[
+   {
+      "categoryID": "0",
+      "categoryName": "All"
+   },
+
+   {
+      "categoryID": "1",
+      "categoryName": "Fruit"
+   },
+
+   {
+      "categoryID": "2",
+      "categoryName": "vegetables"
+   },
+
+   {
+      "categoryID": "3",
+      "categoryName": "cans"
+   },
+
+   {
+      "categoryID": "4",
+      "categoryName": "soda"
+   },
+
+   {
+      "categoryID": "5",
+      "categoryName": "pet supplies"
+   },
+   {
+      "categoryID": "6",
+      "categoryName": "cleaning"
+   },
+
+   {
+      "categoryID": "7",
+      "categoryName": "candy"
+   },
+
+   {
+      "categoryID": "8",
+      "categoryName": "deli"
+   },
+
+   {
+      "categoryID": "9",
+      "categoryName": "bakery"
+   },
+
+   {
+      "categoryID": "10",
+      "categoryName": "office supplies"
+   },
+
+   {
+      "categoryID": "11",
+      "categoryName": "misc"
+   }
+]

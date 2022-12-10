@@ -1,188 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      http-equiv="Content-Security-Policy: default-src 'self';script-src 'self' example.com;object-src 'none';upgrade-insecure-requests"
-    />
-    <title>Register</title>
+   <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta
+         http-equiv="Content-Security-Policy: default-src 'self';script-src 'self' example.com;object-src 'none';upgrade-insecure-requests"
+      />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Register</title>
 
-    <link rel="stylesheet" href="./css/main.css" type="text/css" />
-    <link rel="stylesheet" href="./css/register.css" type="text/css" />
-  </head>
-  <body class="flex column">
-    <!-- Menu -->
-    <input type="checkbox" id="active" class="hide" />
-    <menu class="">
-      <label for="active" id="menuIcon" class="flex column center">
-        <div id="menuIconBar1" class="menuBar"></div>
-        <div id="menuIconBar2" class="menuBar"></div>
-        <div id="menuIconBar3" class="menuBar"></div>
-      </label>
-      <h2 id="menuTitle" class="hide">Register</h2>
-      <nav class="">
-        <ul id="menuItemList">
-          <li><a href="./register.html">Register</a></li>
-          <li><a href="./inventory.html">Inventory</a></li>
-          <li><a href="./accounting.html">Accounting</a></li>
-          <li><a href="./options.html">Options</a></li>
-          <li><a href="./help.html">Help</a></li>
-          <li><a href="./login.html">Log Out</a></li>
-        </ul>
-      </nav>
-      <div><!-- for spacing --></div>
-    </menu>
+      <link rel="stylesheet" href="./css/main.css" type="text/css" />
+      <link rel="stylesheet" href="./css/register.css" type="text/css" />
+   </head>
+   <body class="flex column">
+      <!-- Menu -->
+      <input type="checkbox" id="active" class="hide" />
+      <menu class="">
+         <label for="active" id="menuIcon" class="flex column center">
+            <div id="menuIconBar1" class="menuBar"></div>
+            <div id="menuIconBar2" class="menuBar"></div>
+            <div id="menuIconBar3" class="menuBar"></div>
+         </label>
+         <h2 id="menuTitle" class="hide">Register</h2>
+         <nav class="">
+            <ul id="menuItemList">
+               <li><a href="./register.html">Register</a></li>
+               <li><a href="./inventory.html">Inventory</a></li>
+               <li><a href="./accounting.html">Accounting</a></li>
+               <li><a href="./options.html">Options</a></li>
+               <li><a href="./help.html">Help</a></li>
+               <li><a href="./login.html">Log Out</a></li>
+            </ul>
+         </nav>
+         <div><!-- for spacing --></div>
+      </menu>
 
-    <!-- Register -->
-    <main class="flex column centerY">
-      <section id="gallery">
-        <div id="itemTemplate">
-          <div id="itemCountBadge"></div>
-          <h3 id="itemTitle"></h3>
-          <img id="itemImage" src="" alt="" />
-          <div id="itemBtns">
-            <div id="itemMinusSign"></div>
-            <div id="itemBtnDivider"></div>
-            <div id="itemPlusSign"></div>
-          </div>
-        </div>
-      </section>
+      <!-- Register -->
+      <main class="flex column centerY">
+         <section id="gallery"></section>
 
-      <section id="menuOptions" class="flex center">
-        <!-- Max Character Count = 20 Char (for Menu Titles) -->
-        <button id="slideLeft" class="">&lt;</button>
-        <div
-          id="horizontal-scroller-obj"
-          class="horizontal-scroller horizontal-scroller--with-groups snaps-inline"
-        >
-          <!-- Group 1 -->
-          <div class="horizontal-group">
-            <div class="horizontal-element text-wrapping currentCategory">
-              <h2>Apparel</h2>
+         <section id="menuOptions" class="flex center">
+            <!-- Max Character Count = 20 Char (for Menu Titles) -->
+            <button id="slideLeft" class="arrowBtn">&lt;</button>
+
+            <div id="menuOptionsBar" class="hzScroll hzScroll snaps-inline">
+               <button class="menuBtn text-wrap currentBtn" value="categoryID">
+                  categoryName
+               </button>
             </div>
 
-            <div class="horizontal-element text-wrapping">
-              <h2>Collectibles</h2>
+            <button id="slideRight" class="arrowBtn">&gt;</button>
+         </section>
+
+         <aside id="cart" class="">
+            <div id="cartFlag" class="flex">
+               <div id="cartCountBadge"></div>
+               <img id="cartBtn" src="./imgs/cart.svg" alt="" />
+               <div id="cartPost"></div>
             </div>
 
-            <div class="horizontal-element text-wrapping">
-              <h2>Music & Audio</h2>
+            <div id="cartContents" class="flex column">
+               <div id="userInfo" class="flex spaceBtwnX">
+                  <img src="./imgs/accountIcon.svg" alt="ID:" />
+                  <h2 id="userName"></h2>
+                  <h4>ID: # <span id="userID"></span></h4>
+               </div>
+
+               <div id="cartItemList"></div>
+
+               <div id="cartCheckout" class="flex column center">
+                  <div
+                     id="preCheckoutOptions"
+                     class="flex spaceBtwnX checkoutData"
+                  >
+                     <div><h4>Add Note</h4></div>
+                     <div><h4>Promo Code</h4></div>
+                  </div>
+
+                  <div
+                     id="subtotalSection"
+                     class="flex spaceBtwnX checkoutData"
+                  >
+                     <h6>Subtotal:</h6>
+                     <h6>$<span id="subtotalAmount"></span></h6>
+                  </div>
+
+                  <div id="taxSection" class="flex spaceBtwnX checkoutData">
+                     <h6>Estimated Tax:</h6>
+                     <h6>$<span id="taxAmount"></span></h6>
+                  </div>
+
+                  <div id="savingsSection" class="flex spaceBtwnX checkoutData">
+                     <h6>Today's Savings:</h6>
+                     <h6>$<span id="savingsAmount"></span></h6>
+                  </div>
+
+                  <div id="totalSection" class="flex spaceBtwnX checkoutData">
+                     <h3>Total:</h3>
+                     <h3>$<span id="totalAmount"></span></h3>
+                  </div>
+
+                  <button id="checkoutBtn">Pay Now</button>
+               </div>
             </div>
+         </aside>
+      </main>
 
-            <div class="horizontal-element text-wrapping">
-              <h2>Entertainment</h2>
-            </div>
-
-            <div class="horizontal-element text-wrapping">
-              <h2>Autos & Vehicles</h2>
-            </div>
-          </div>
-
-          <!-- Group 2 -->
-          <div class="horizontal-group">
-            <div class="horizontal-element text-wrapping">
-              <h2>1</h2>
-            </div>
-
-            <div class="horizontal-element text-wrapping">
-              <h2>2</h2>
-            </div>
-
-            <div class="horizontal-element text-wrapping">
-              <h2>3</h2>
-            </div>
-
-            <div class="horizontal-element text-wrapping">
-              <h2>4</h2>
-            </div>
-
-            <div class="horizontal-element text-wrapping">
-              <h2>5</h2>
-            </div>
-          </div>
-
-          <!-- Group 3 -->
-          <div class="horizontal-group">
-            <div class="horizontal-element text-wrapping">
-              <h2>6</h2>
-            </div>
-
-            <div class="horizontal-element text-wrapping">
-              <h2>7</h2>
-            </div>
-
-            <div class="horizontal-element text-wrapping">
-              <h2>8</h2>
-            </div>
-
-            <div class="horizontal-element text-wrapping">
-              <h2>9</h2>
-            </div>
-
-            <div class="horizontal-element text-wrapping">
-              <h2>10</h2>
-            </div>
-          </div>
-        </div>
-        <button id="slideRight" class="">&gt;</button>
-      </section>
-
-      <aside id="cart" class="">
-        <div id="cartFlag" class="flex">
-          <div id="cartCountBadge">13</div>
-          <img id="cartBtn" src="./imgs/cart.svg" alt="" onclick="" />
-          <div id="cartPost"></div>
-        </div>
-
-        <div id="cartContents" class="flex column">
-          <div id="userInfo" class="flex spaceBtwnX">
-            <img src="../imgs/accountIcon.svg" alt="ID:" />
-            <h2 id="userName">John Doe</h2>
-            <h4 id="userID">ID: #031cf42a</h4>
-          </div>
-
-          <div id="cartItemList">1</div>
-
-          <div id="cartCheckout" class="flex column center">
-            <div id="preCheckoutOptions" class="flex spaceBtwnX checkoutData">
-              <div><h4>Add Note</h4></div>
-              <div><h4>Promo Code</h4></div>
-            </div>
-
-            <div id="subtotalSection" class="flex spaceBtwnX checkoutData">
-              <h6>Subtotal:</h6>
-              <h6>$<span id="subtotalAmount"></span></h6>
-            </div>
-
-            <div id="taxSection" class="flex spaceBtwnX checkoutData">
-              <h6>Estimated Tax:</h6>
-              <h6>$<span id="taxAmount"></span></h6>
-            </div>
-
-            <div id="savingsSection" class="flex spaceBtwnX checkoutData">
-              <h6>Today's Savings:</h6>
-              <h6>$<span id="savingsAmount"></span></h6>
-            </div>
-
-            <div id="totalSection" class="flex spaceBtwnX checkoutData">
-              <h3>Total:</h3>
-              <h3>$<span id="totalAmount"></span></h3>
-            </div>
-
-            <button id="checkoutBtn"></button>
-          </div>
-        </div>
-      </aside>
-    </main>
-
-    <!-- Control Script 
-    <script src="./js/register.js"></script>-->
-  </body>
-  <script src="./js/applySavedOptions.js"></script> 
+      <!-- Control Script -->
+      <script src="./js/register.js"></script>
+   </body>
+   <script src="./js/applySavedOptions.js"></script>
 </html>
