@@ -7,14 +7,14 @@
 /*********************************************/
 
 :root {
-  --color_fg: #ffffff;
-  --color-bg: #002837;
-  --color-highlight: #00b9ff;
-  --color-primary: #0085b7;
-  --color-secondary: #005170;
-  --color-accent1: #ff0000;
-  --color-accent2: #0cc224;
-  --menu-width: 350px;
+   --color_fg: #ffffff;
+   --color-bg: #002837;
+   --color-highlight: #00b9ff;
+   --color-primary: #0085b7;
+   --color-secondary: #005170;
+   --color-accent1: #ff0000;
+   --color-accent2: #0cc224;
+   --menu-width: 350px;
 }
 
 /**********************************************/
@@ -22,58 +22,58 @@
 /**********************************************/
 
 * {
-  margin: 0;
-  padding: 0;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+   margin: 0;
+   padding: 0;
+   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 html {
-  scroll-behavior: smooth;
+   scroll-behavior: smooth;
 }
 
 html,
 body {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  color: var(--color_fg);
-  background: var(--color-bg);
-  /*
+   position: relative;
+   width: 100%;
+   height: 100vh;
+   color: var(--color_fg);
+   background: var(--color-bg);
+   /*
   min-width: 150px;
   */
 }
 
 a,
 button {
-  cursor: pointer;
+   cursor: pointer;
 }
 
 h1 {
-  font-size: 2em;
+   font-size: 2em;
 }
 
 h2 {
-  font-size: 1.5em;
+   font-size: 1.5em;
 }
 
 h3 {
-  font-size: 1.17em;
+   font-size: 1.17em;
 }
 
 h4 {
-  font-size: 1.12em;
+   font-size: 1.12em;
 }
 
 h5 {
-  font-size: 0.83em;
+   font-size: 0.83em;
 }
 
 h6 {
-  font-size: 0.75em;
+   font-size: 0.75em;
 }
 
 main {
-  flex-grow: 1;
+   flex-grow: 1;
 }
 
 /*******************************************/
@@ -81,161 +81,161 @@ main {
 /*******************************************/
 
 .flex {
-  display: flex;
+   display: flex;
 }
 
 .column {
-  flex-direction: column;
+   flex-direction: column;
 }
 
 .wrap {
-  flex-wrap: wrap;
+   flex-wrap: wrap;
 }
 
 .center {
-  justify-content: center;
-  align-items: center;
+   justify-content: center;
+   align-items: center;
 }
 
 .centerX {
-  justify-content: center;
+   justify-content: center;
 }
 
 .centerY {
-  align-items: center;
+   align-items: center;
 }
 
 .spaceBtwnX {
-  justify-content: space-between;
+   justify-content: space-between;
 }
 
 .spaceBtwnY {
-  align-content: space-between;
+   align-content: space-between;
 }
 
-.text-wrapping {
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  -ms-word-break: break-all;
-  word-break: break-word;
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
+.text-wrap {
+   overflow-wrap: break-word;
+   word-wrap: break-word;
+   -ms-word-break: break-all;
+   word-break: break-word;
+   -ms-hyphens: auto;
+   -moz-hyphens: auto;
+   -webkit-hyphens: auto;
+   hyphens: auto;
 }
 
 .hide {
-  display: none;
+   display: none;
 }
 
 /****************************************/
 /***************** MENU *****************/
 /****************************************/
 menu {
-  position: fixed;
-  top: -10;
-  left: -10;
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(
-    0deg,
-    var(--color-bg),
-    var(--color-highlight),
-    var(--color-bg)
-  );
-  clip-path: circle(25px at 45px 45px);
-  transition: all 0.3s ease-in-out;
-  z-index: 50;
+   position: fixed;
+   top: -10;
+   left: -10;
+   height: 100%;
+   width: 100%;
+   background: linear-gradient(
+      0deg,
+      var(--color-bg),
+      var(--color-highlight),
+      var(--color-bg)
+   );
+   clip-path: circle(25px at 45px 45px);
+   transition: all 0.3s ease-in-out;
+   z-index: 500;
 }
 
 menu .menuBar {
-  width: 75%;
-  height: 6px;
-  background: var(--color_fg);
-  margin: 3px;
+   width: 75%;
+   height: 6px;
+   background: var(--color_fg);
+   margin: 3px;
 }
 
 menu #menuIcon {
-  position: absolute;
-  left: 20px;
-  top: 20px;
-  z-index: 2;
-  text-align: center;
-  line-height: 50px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  color: var(--color_fg);
-  font-size: 20px;
-  cursor: pointer;
-  background: none;
-  transition: all 0.3s ease-in-out;
+   position: absolute;
+   left: 20px;
+   top: 20px;
+   z-index: 2;
+   text-align: center;
+   line-height: 50px;
+   width: 50px;
+   height: 50px;
+   border-radius: 50%;
+   color: var(--color_fg);
+   font-size: 20px;
+   cursor: pointer;
+   background: none;
+   transition: all 0.3s ease-in-out;
 }
 
 menu nav ul {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  list-style: none;
-  text-align: center;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   list-style: none;
+   text-align: center;
 }
 
 menu nav ul li {
-  margin: 15px 0;
+   margin: 15px 0;
 }
 
 menu nav ul li a {
-  color: var(--color_fg);
-  text-decoration: none;
-  font-size: 30px;
-  font-weight: 500;
-  padding: 5px 50px;
-  position: relative;
-  line-height: 50px;
-  transition: all 0.3s ease;
+   color: var(--color_fg);
+   text-decoration: none;
+   font-size: 30px;
+   font-weight: 500;
+   padding: 5px 50px;
+   position: relative;
+   line-height: 50px;
+   transition: all 0.3s ease;
 }
 
 menu nav ul li a:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 50px;
-  border-radius: 50px;
-  background: var(--color-bg);
-  transform: scaleY(0);
-  z-index: -1;
-  transition: transform 0.3s ease;
+   content: "";
+   position: absolute;
+   left: 0;
+   width: 100%;
+   height: 50px;
+   border-radius: 50px;
+   background: var(--color-bg);
+   transform: scaleY(0);
+   z-index: -1;
+   transition: transform 0.3s ease;
 }
 
 menu nav ul li a:hover {
-  color: (--color-bg);
+   color: (--color-bg);
 }
 
 menu nav ul li a:visited {
-  color: var(--color_fg);
+   color: var(--color_fg);
 }
 
 menu nav ul li a:visited:hover {
-  color: var(--color_bg);
+   color: var(--color_bg);
 }
 
 menu nav ul li a:hover:after {
-  transform: scaleY(1);
+   transform: scaleY(1);
 }
 
 #active:checked ~ menu {
-  clip-path: circle(100%);
+   clip-path: circle(100%);
 }
 
 #active:checked ~ #menuIcon {
-  background: var(--color_fg);
-  color: var(--color_bg);
+   background: var(--color_fg);
+   color: var(--color_bg);
 }
 
 #active:checked ~ #menuIcon .menuBar::before {
-  background-color: var(--color_fg);
+   background-color: var(--color_fg);
 }
 
 /********************************************/
