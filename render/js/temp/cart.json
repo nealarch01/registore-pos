@@ -1,0 +1,29 @@
+[
+   {
+      "sku": "111-111-111",
+      "title": "Banana",
+      "brand": "doug",
+      "summary": "banana",
+      "price": 8.5,
+      "quantity": 7,
+      "category": "obamna",
+      "creator": 1,
+      "creation_date": "2001-01-01",
+      "supplier": "danny",
+      "image_path": "./imgs/temp/banana.jpg"
+   },
+
+   {
+      "sku": "222-222-222",
+      "title": "apples",
+      "brand": "doug",
+      "summary": "apple",
+      "price": 8.5,
+      "quantity": 6,
+      "category": "obamna",
+      "creator": 1,
+      "creation_date": "2001-01-01",
+      "supplier": "danny",
+      "image_path": "./imgs/temp/apple.jpg"
+   }
+]

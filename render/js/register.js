@@ -39,7 +39,7 @@ function updateCartItems() {
    let data;
    let cart = document.getElementById("cartItemList");
    // get data from backend
-   fetch("./js/cart.json")
+   fetch("./js/temp/cart.json")
       .then(function (response) {
          return response.json();
       })
@@ -126,7 +126,7 @@ function updateGallery() {
       // fetch data from backend
       // submit query using selected category
       // assign results to json variable
-      fetch("./js/products.json")
+      fetch("./js/temp/products.json")
          .then(function (response) {
             return response.json();
          })
@@ -141,7 +141,7 @@ function updateGallery() {
       // fetch data from backend
       // submit query for all products
       // assign results to json variable
-      fetch("./js/products.json")
+      fetch("./js/temp/products.json")
          .then(function (response) {
             return response.json();
          })
@@ -203,7 +203,7 @@ function updateMenuOptions() {
    let data;
    let menuOps = document.getElementById("menuOptionsBar");
    // get data from backend
-   fetch("./js/categories.json")
+   fetch("./js/temp/categories.json")
       .then(function (response) {
          return response.json();
       })
@@ -264,7 +264,7 @@ function updateCart() {
    let data;
    let cart = document.getElementById("cartItemList");
    // get data from backend
-   fetch("./js/checkout.json")
+   fetch("./js/temp/checkout.json")
       .then(function (response) {
          return response.json();
       })
