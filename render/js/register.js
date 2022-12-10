@@ -234,7 +234,7 @@ function updateMenuOptions() {
             }
          }
          btn.href =
-            "./index.html" +
+            "./register.html" +
             (data[i].categoryID == "0"
                ? ""
                : "?category=" + data[i].categoryName) +
