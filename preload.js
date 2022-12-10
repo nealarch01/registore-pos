@@ -53,6 +53,6 @@ contextBridge.exposeInMainWorld('Backend', {
     logout: async () => ipcRenderer.invoke('logout'),
     showDialog: async (message) => ipcRenderer.invoke('showDialog',message),
     EmployeeBuilder: async (first_name, last_name, phone_number, email, password,address, city, state, zipcode, hire_date, starting_amount) => ipcRenderer.invoke('EmployeeBuilder', first_name, last_name, phone_number, email, password,address, city, state, zipcode, hire_date, starting_amount),
-    ProductBuilder: async (sku,title,brand,summary,price,quantity,category,creator,supplier) => ipcRenderer.invoke('ProductBuilder', sku,title,brand,summary,price,quantity,category,creator,supplier)
-    
+    ProductBuilder: async (sku,title,brand,summary,price,quantity,category,creator,supplier) => ipcRenderer.invoke('ProductBuilder', sku,title,brand,summary,price,quantity,category,creator,supplier),
+    fileExists: async (path) => ipcRenderer.invoke("fileExists", path)
 });
