@@ -49,11 +49,11 @@
                       <!--MODAL-->
 
       <!-- The Modal -->
-      <div id="myModal" class="modal">
+      <div id="addModal" class="modal">
 
         <!-- Modal content -->
         <div class="modal-content">
-          <span class="close">&times;</span>
+          <span class="close" id="add-modal-close">&times;</span>
           <h1>Enter Product to add:</h1>
           <form id="modal-body">
             <input type="text" id="product-name" placeholder="Product Name"></input>
@@ -67,14 +67,30 @@
             <button id="modal-submit" onclick="addProduct(event)">Submit</button>
           </form>
         </div>
-
       </div>
 
+            <!-- delete Modal -->
+            <div id="removeModal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <span class="close" id="remove-modal-close">&times;</span>
+                  <h1>Are you sure you want to delete these products?</h1>
+                  <div id="remove-modal-footer">
+                  <button class="modal-remove-btn" id="confirm-btn">Yes</button>
+                  <button class="modal-remove-btn" id="cancel-btn">No</button>
+                </div>
+                </div>
+              </div>
+
                 <!--Search and Sort-->
-                <select name="sort" id="sort">
+                <select name="sort" id="sort" onchange="sortProducts()">
                     <option value="sortByName">sort by name</option>
-                    <option value="sortByAmount">sort by amount</option>
+                    <option value="sortByCategory">sort by category</option>
+                    <option value="sortByBrand">sort by brand</option>
+                    <option value="sortByQuantity">sort by quantity</option>
                     <option value="sortByPrice">sort by price</option>
+                    
                 </select>
 
                 <input
@@ -88,8 +104,10 @@
             <table id="inventory-list">
                 <tr>
                     <th></th>
-                    <th>SKU</th>
                     <th>Name</th>
+                    <th>SKU</th>
+                    <th>Category</th>
+                    <th>Brand</th>
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Summary</th>
