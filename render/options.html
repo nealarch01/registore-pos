@@ -32,37 +32,37 @@
       <div><!-- for spacing --></div>
     </menu>
 
-    <main>
-      <br><br><br><br>
-      <table>
-        <tr>
-          <td>
-          <form id="styling" onsubmit="return false;"> <!--this onsubmit prevents the page from reloading when you press a button that calls a script-->
-            <p>Please select which font you'd like to use:</p>
-            <select name="font" id="fontDropdown">
-              <option value="Times New Roman">Times New Roman</option>
-              <option value="Arial">Arial</option>
-              <option value="Trebuchet MS">Trebuchet MS</option>
-              <option value="Georgia">Georgia</option>
-              <option value="Open Sans">Open Sans</option>
-            </select>
-            <br><br>
-            <p>Enter your desired text color:</p>
-            <input type="text" id="fontColor"> <br>
-            <br><br>
-            <p>Enter your desired background color.</p>
-            <input type="text" id="bgColor"> <br>
-            <button onclick="testSettings()">Test Settings</button> <!-- This also makes a bit of text for the style table-->
-            <button onclick="saveSettings()">Save Settings</button>
-          </form> 
-        </td>
-        <td>
-          <p id="test" style="font-Size:large;">Hello! This is some sample text for you to test your settings!</p>
-        </td>
-      </tr>
-      </table>
-    </main>
-  </body>
+      <main>
+        <br><br><br><br>
+        <table align="center">
+          <tr>
+            <td>
+              <form id="styling" onsubmit="return false;">
+                <p>Please select which font you'd like to use:</p>
+                <select name="font" id="fontDropdown">
+                  <option value="Times New Roman">Times New Roman</option>
+                  <option value="Arial">Arial</option>
+                  <option value="Trebuchet MS">Trebuchet MS</option>
+                  <option value="Georgia">Georgia</option>
+                  <option value="Open Sans">Open Sans</option>
+                </select>
+                <br><br>
+                <label>Choose Text Color:</label>
+                <input type="color" id="fontColor" name="color" value="#000000" />
+                <br><br>
+                <label>Choose a Theme Color:</label>
+                <input type="color" id="bgColor" name="color" value="#000000" /><br>
+                <button id = "testBtn" onclick="testSettings()">Test Settings</button>
+                <button id = "saveBtn" onclick="saveSettings()">Save Settings</button>
+              </form>
+            </td>
+            <td>
+              <p id="test" style="font-Size:large;">Hello! This is some sample text for you to test your settings!</p>
+            </td>
+          </tr>
+        </table>
+      </main>
+    </body>
 </html>
 
 <script src="./js/applySavedOptions.js"></script> 
