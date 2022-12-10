@@ -16,47 +16,39 @@
     <link rel="stylesheet" href="./css/help.css" type="text/css" />
   </head>
   <body class="flex column">
-    <!-- Menu -->
-    <input type="checkbox" id="active" class="hide" />
-    <menu class="">
-      <label for="active" id="menuIcon" class="flex column center">
-        <div id="menuIconBar1" class="menuBar"></div>
-        <div id="menuIconBar2" class="menuBar"></div>
-        <div id="menuIconBar3" class="menuBar"></div>
-      </label>
-      <h2 id="menuTitle" class="hide">Register</h2>
-      <nav class="">
-        <ul id="menuItemList">
-          <li><a href="./register.html">Register</a></li>
-          <li><a href="./inventory.html">Inventory</a></li>
-          <li><a href="./accounting.html">Accounting</a></li>
-          <li><a href="./options.html">Options</a></li>
-          <li><a href="./help.html">Help</a></li>
-          <li><a href="./login.html">Log Out</a></li>
-        </ul>
-      </nav>
-      <div><!-- for spacing --></div>
-    </menu>
-
-    <script src="./js/menu.js"></script>
-    <menu id="mainMenu">
-      <h1>Help</h1>
-      <a href="./register.html">Register</a>
-      <a href="./inventory.html">Inventory</a>
-      <a href="./accounting.html">Accounting</a>
-      <a href="./options.html">Options</a>
-      <a href="./help.html">Help</a>
-      <a href="./login.html">Login</a>
-    </menu>
-    <main>
-      <!-- put your code here -->
-      <form id="search-form">
-        <label for="search">Search transaction</label>
-        <input type="text" id="search-box" placeholder="Search" />
-        <button type="submit" id="search-button">Search</button>
-      </form>
-      <div id="data-container"></div>
-    </main>
+    <script src="./js/menu.js"></script>  
+            <!-- Menu -->
+            <input type="checkbox" id="active" class="hide" />
+            <menu class="">
+                <label for="active" id="menuIcon" class="flex column center">
+                    <div id="menuIconBar1" class="menuBar"></div>
+                    <div id="menuIconBar2" class="menuBar"></div>
+                    <div id="menuIconBar3" class="menuBar"></div>
+                </label>
+                <h2 id="menuTitle" class="hide">Register</h2>
+                <nav class="">
+                    <ul id="menuItemList">
+                        <li><a href="./register.html">Register</a></li>
+                        <li><a href="./inventory.html">Inventory</a></li>
+                        <li><a href="./accounting.html">Accounting</a></li>
+                        <li><a href="./options.html">Options</a></li>
+                        <li><a href="./help.html">Help</a></li>
+                        <li><a href="./login.html">Log Out</a></li>
+                    </ul>
+                </nav>
+                <div>
+                    <!-- for spacing -->
+                </div>
+            </menu>
+            <main style="text-align: center;">
+              <!-- put your code here -->
+              <div id="container" style="text-align: center; justify-content: center;">
+                <form id="search-form" style="text-align: center; justify-content: center;">
+                  <label for="search" style="text-align: center;">Search transaction</label>
+                  <input type="text" id="search-box" placeholder="Search" style="text-align: center; justify-content: center;"/>
+                  <button type="submit" id="search-button" style="text-align: center; justify-content: center;">Search</button>
+                </form></div>
+            </main>
     <script src="./js/help.js"></script>
   </body>
   <script src="./js/applySavedOptions.js"></script> 

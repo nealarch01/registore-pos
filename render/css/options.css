@@ -17,3 +17,33 @@
   --menu-width: 300px;
   --_spacing: 1rem;
 }
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+menu {
+  text-align: center;
+}
+#testBtn {
+  background-color: #0085b7;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+#saveBtn {
+  background-color: #0085b7;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
