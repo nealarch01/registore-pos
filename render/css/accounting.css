@@ -10,7 +10,7 @@
   --color_fg: #ffffff;
   --color-bg: #002837;
   --color-highlight: #00b9ff;
-  --color-primary: #0085b7;
+  --color-primary: #005170;
   --color-secondary: #005170;
   --color-accent1: #ff0000;
   --color-accent2: #0cc224;
@@ -20,20 +20,22 @@
 
 .custom-dates {
   display: none;
+  padding-top: 5px;
 }
 
 .dropbtn {
-  background-color: #3498db;
+  background-color: #005170;
   color: white;
   padding: 16px;
   font-size: 16px;
   border: none;
   cursor: pointer;
+  border-radius: 6px;
 }
 
 .dropbtn:hover,
 .dropbtn:focus {
-  background-color: #2980b9;
+  background-color: #00b9ff;
 }
 
 .dropdown {
@@ -64,4 +66,40 @@
 
 .show {
   display: block;
+}
+.button-box{
+  
+  padding-top: 100px;
+  text-align: center;
+}
+
+caption {
+  font-weight: bold;
+  font-size: 24px;
+  text-align: left;
+  color: #00b9ff;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+table {
+  font-family: sans-serif;
+	border-collapse: collapse;
+	border: 1px solid #0e1111;
+	text-align: center;
+	vertical-align: middle;
+  width: 100%
+}
+
+thead {
+  background-color: #0e1111;
+  color: white;
+  font-size: 0.875rem;
+	text-transform: uppercase;
+	letter-spacing: 2%;
+}
+tbody tr:nth-child(even) {
+  background-color: #005170;
 }

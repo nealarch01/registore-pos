@@ -27,6 +27,7 @@ contextBridge.exposeInMainWorld('Backend', {
     getAllEmployees: async () => ipcRenderer.invoke('getAllEmployees'),
     updateEmployee: async (employeeId, first_name, last_name, phone_number, email, address, city, state, zipcode, password, hire_date, starting_amount) => ipcRenderer.invoke('updateEmployee', employeeId, first_name, last_name, phone_number, email, address, city, state, zipcode, password, hire_date, starting_amount),
     deleteEmployee: async (employeeId) => ipcRenderer.invoke('deleteEmployee', employeeId),
+    updateEmployeeStyling: async (employeeId, styling) => ipcRenderer.invoke('updateEmployeeStyling', employeeId, styling),
     createNewDiscount: async (discount) => ipcRenderer.invoke ('createNewDiscount', discount),
     getDiscount: async (id) => ipcRenderer.invoke ('getDiscount', id),
     getAllDiscounts: async () => ipcRenderer.invoke ('getAllDiscounts'),

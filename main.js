@@ -31,12 +31,14 @@ ipcMain.handle('ProductBuilder', async (event,sku,title,brand,summary,price,quan
 });
 
 ipcMain.handle('getSavedLogin', async (event, args) => {
-    console.log(currentLogin);
+    if(currentLogin!= null)
+    {
+        console.log("Current User Session: "+(currentLogin.split(" "))[0])
+    }
     return String(currentLogin);
     
 });
-ipcMain.handle('setSavedLogin', async (event, args) => {
-    const login  = args; 
+ipcMain.handle('setSavedLogin', async (event, login) => {
     currentLogin = String(login);
     console.log('login set to '+ String(currentLogin));
     return;
@@ -112,10 +114,13 @@ ipcMain.handle('getAllEmployees', async (event) => {
     const response = await RegistoreBackend.EmployeeController.getAllEmployees();
     return response;
 });
-ipcMain.handle('updateEmployee', async (event, args) => {
-    console.log(args);
-    const { employeeId, first_name, last_name, phone_number, email, address, city, state, zipcode, password, hire_date, starting_amount } = args; // Desctructure the args object
+ipcMain.handle('updateEmployee', async (event, employeeId, first_name, last_name, phone_number, email, address, city, state, zipcode, password, hire_date, starting_amount) => {
+    console.log("updating Employee")
     const response = await RegistoreBackend.EmployeeController.updateEmployee(employeeId, first_name, last_name, phone_number, email, address, city, state, zipcode, password, hire_date, starting_amount);
+    return response;
+});
+ipcMain.handle('updateEmployeeStyling', async (event, employeeId, styling) => {
+    const response = await RegistoreBackend.EmployeeController.updateEmployeeStyling(employeeId, styling);
     return response;
 });
 ipcMain.handle('deleteEmployee', async (event, employeeId) => {

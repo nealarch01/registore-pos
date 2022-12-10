@@ -40,20 +40,17 @@
       <!-- put your code here -->
 
       <!--OLD BUTTONS WILL UPDATE-->
-      <div>
-        <button type="button" onclick="displayTable(1)" class="dropbtn">
+      <div><div class="button-box">
+        <button type="button" onclick="todayTable()" class="dropbtn">
           Today's Transactions
         </button>
-        <button type="button" onclick="displayTable(7)" class="dropbtn">
-          Past Week's Transactions
+        <button type="button" onclick="thisWeekTable()" class="dropbtn">
+          This Week's Transactions
         </button>
-        <button type="button" onclick="displayTable(30)" class="dropbtn">
-          Past Month's Transactions
+        <button type="button" onclick="thisMonthTable()" class="dropbtn">
+          This Month's Transactions
         </button>
-        <button type="button" onclick="displayTable(365)" class="dropbtn">
-          Past Year's Transactions
-        </button>
-        <button type="button" onclick="YTDTable()" class="dropbtn">YTD transactions</button>
+        <button type="button" onclick="YTDTable()" class="dropbtn">This Year's transactions</button>
         <button type="button" onclick="displayCustomDate()" class="dropbtn">Custom</button>
 
         <div id="customDate" class="custom-dates">
@@ -206,8 +203,10 @@
           </button>
         </div>
       </div>
+      </div>
 
       <div class="table"><table id="datatable"></table></div>
     </main>
   </body>
+  <script src="./js/applySavedOptions.js"></script> 
 </html>

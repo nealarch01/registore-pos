@@ -1,22 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      http-equiv="Content-Security-Policy: default-src 'self';script-src 'self' example.com;object-src 'none';upgrade-insecure-requests"
-    />
+    <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+       <meta http-equiv="Content-Security-Policy: default-src 'self';script-src 'self' example.com;object-src 'none';upgrade-insecure-requests">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Options</title>
     <link rel="stylesheet" href="./css/main.css" type="text/css" />
     <link rel="stylesheet" href="./css/options.css" type="text/css" />
   </head>
   <body class="flex column">
-    <!-- Menu -->
     <input type="checkbox" id="active" class="hide" />
     <menu class="">
       <label for="active" id="menuIcon" class="flex column center">
@@ -39,7 +33,37 @@
     </menu>
 
     <main>
-      <!-- put your code here -->
+      <br><br><br><br>
+      <table>
+        <tr>
+          <td>
+          <form id="styling" onsubmit="return false;"> <!--this onsubmit prevents the page from reloading when you press a button that calls a script-->
+            <p>Please select which font you'd like to use:</p>
+            <select name="font" id="fontDropdown">
+              <option value="Times New Roman">Times New Roman</option>
+              <option value="Arial">Arial</option>
+              <option value="Trebuchet MS">Trebuchet MS</option>
+              <option value="Georgia">Georgia</option>
+              <option value="Open Sans">Open Sans</option>
+            </select>
+            <br><br>
+            <p>Enter your desired text color:</p>
+            <input type="text" id="fontColor"> <br>
+            <br><br>
+            <p>Enter your desired background color.</p>
+            <input type="text" id="bgColor"> <br>
+            <button onclick="testSettings()">Test Settings</button> <!-- This also makes a bit of text for the style table-->
+            <button onclick="saveSettings()">Save Settings</button>
+          </form> 
+        </td>
+        <td>
+          <p id="test" style="font-Size:large;">Hello! This is some sample text for you to test your settings!</p>
+        </td>
+      </tr>
+      </table>
     </main>
   </body>
 </html>
+
+<script src="./js/applySavedOptions.js"></script> 
+<script src="./js/options.js"></script> 

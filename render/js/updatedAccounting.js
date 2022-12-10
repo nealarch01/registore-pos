@@ -32,11 +32,37 @@ function addColumnHeaders(myList){
   table.innerHTML += rows;
 }
 
+function todayTable(){
+  var today = new Date();
+  var startOfDay = new Date(today.getFullYear(),today.getMonth(),today.getDate(),0,0,0);
+  console.log("today: "+today);
+  console.log("startOfDay: "+startOfDay);
+  customDateTable(today, startOfDay);
+}
+
+//fixed, this shoudl work
+function thisWeekTable(){
+  var today = new Date();
+  var startOfWeek = new Date();
+  startOfWeek.setDate(today.getDate()-today.getDay());
+  startOfWeek.setHours(00, 00, 00);
+
+  customDateTable(today, startOfWeek);
+}
+
+function thisMonthTable(){
+  var today = new Date();
+  var startOfMonth = new Date(today.getFullYear(),today.getMonth(),1,0,0,0);
+  customDateTable(today, startOfMonth);
+}
+
 
 //generates a table containing all transactions from first of year until today.
 async function YTDTable(){
   var today = new Date(); //= get todays date
-  var firstDayOfYear = new Date(today.getFullYear(), 1, 1, 0, 0, 0);//= get first day of today's year
+  var firstDayOfYear = new Date(today.getFullYear(), 0, 1, 0, 0, 0);//= get first day of today's year
+  console.log("today: "+today);
+  console.log("firstDayOfYear: "+firstDayOfYear);
   customDateTable(today, firstDayOfYear);
 }
 
@@ -48,15 +74,17 @@ async function customDateTable(date1, date2){
     var table = document.getElementById("datatable");
     table.innerHTML = inCorrectDate;
   return;}
-
-  var rows = " <caption>Data from " + date1 + " through " + date2 + ".</caption>";
+  
+  var displayDate1 = date1.getFullYear() + "-"+ (date1.getMonth()+1) + "-" + date1.getDate();
+  var displayDate2 = date2.getFullYear() + "-"+ (date2.getMonth()+1) + "-" + date2.getDate();
+  var rows = " <caption>Data from " + displayDate1 + " through " + displayDate2 + ".</caption>";
   var table = document.getElementById("datatable");
-  table.innerHTML += rows;
+  table.innerHTML = rows;
   //WORK IN PROGRESS CODE GOES BELOW HERE
 
   //1.pull data from backend with dates
   let transactionData = await Backend.getTransactionsBetweenDates(date2, date1);
-
+  
   //2.build table
   displayTable(transactionData);
 
@@ -201,6 +229,19 @@ switch(oneOrTwo){
     }
     break;
 
+  }
+}
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
   }
 }
 

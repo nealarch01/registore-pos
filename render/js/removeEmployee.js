@@ -49,6 +49,13 @@ async function removeEmployee(matchingID){
     else // If the employee is deleted
     {
      console.log("Employee Removed");
-        clearAddEmployeeForm(fname, removeEmployee.data);
+    clearAddEmployeeForm();
+    await Backend.showDialog( "Employee "+ removeEmployee.data + " Removed");
+
  }
+}
+
+function clearAddEmployeeForm(){
+    let id=document.getElementById("id"); 
+    id.value=""; 
 }
