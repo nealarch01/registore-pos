@@ -385,6 +385,7 @@ checkoutButtonRef.addEventListener("click", async () => {
    let products = cartMapToArray();
    let discounts = [];
    Cart.clear();
+   AppliedDiscounts = [];
    let queryResult = await Backend.createCashTransaction({
       products: products,
       discounts: discounts,
@@ -403,6 +404,12 @@ applyButtonRef.addEventListener("click", (discountInput) => {
    // Do a map lookup
    const discountInputRef = document.getElementById("discountInput");
    discountInput = discountInputRef.value;
+   if (discountInput === "null") { // If null, remove all discounts
+      AppliedDiscounts = [];
+      Backend.showDialog("Removed all discounts");
+      updateCart();
+      return;
+   }
    let discount = DiscountsMap.get(discountInput);
    if (discount === undefined) {
       Backend.showDialog("Discount not found")
