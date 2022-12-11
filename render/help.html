@@ -3,10 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       http-equiv="Content-Security-Policy: default-src 'self';script-src 'self' example.com;object-src 'none';upgrade-insecure-requests"
@@ -15,7 +12,7 @@
     <link rel="stylesheet" href="./css/main.css" type="text/css" />
     <link rel="stylesheet" href="./css/help.css" type="text/css" />
   </head>
-  <body class="flex column">
+  <body class="flex column" onload="displayNothing()">
     <script src="./js/menu.js"></script>  
             <!-- Menu -->
             <input type="checkbox" id="active" class="hide" />
@@ -42,12 +39,58 @@
             </menu>
             <main style="text-align: center;">
               <!-- put your code here -->
-              <div id="container" style="text-align: center; justify-content: center;">
-                <form id="search-form" style="text-align: center; justify-content: center;">
-                  <label for="search" style="text-align: center;">Search transaction</label>
-                  <input type="text" id="search-box" placeholder="Search" style="text-align: center; justify-content: center;"/>
-                  <button type="submit" id="search-button" style="text-align: center; justify-content: center;">Search</button>
-                </form></div>
+      <!-- put your code here -->
+
+      <!--Side navigation Code -->
+      <ul class = "helpSideNav">
+        <li><a class="activeNav" onclick="showHelpIndex('Register')">Register</a></li>
+        <li><a class="activeNav" onclick="showHelpIndex('Inventory')">Inventory</a></li>
+        <li><a class="activeNav" onclick="showHelpIndex('Accounting')">Accoutning</a></li>
+        <li><a class="activeNav" onclick="showHelpIndex('Options')">Options</a></li>
+        <li><a class="activeNav" onclick="showHelpIndex('Login')">Login</a></li>
+      </ul>
+      
+      <!-- Help Page Content-->
+      <div class = "helpContents">
+        <!--Help Page is shown only once and is hidden from view after using help page-->
+        <div id = "helpPage">
+          <h1>Help Page</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quando enim Socrates, qui parens philosophiae iure dici potest, quicquam tale fecit? Quodcumque in mentem incideret, et quodcumque tamquam occurreret. Sed in rebus apertissimis nimium longi sumus. Mihi quidem Antiochum, quem audis, satis belle videris attendere. Duo Reges: constructio interrete. Sin laboramus, quis est, qui alienae modum statuat industriae? Primum divisit ineleganter; Haec mihi videtur delicatior, ut ita dicam, molliorque ratio, quam virtutis vis gravitasque postulat. Qui non moveatur et offensione turpitudinis et comprobatione honestatis? Te ipsum, dignissimum maioribus tuis, voluptasne induxit, ut adolescentulus eriperes P. </p>
+        </div>
+        <div id = "helpRegister">
+          <!--Title-->
+          <h1>Register</h1>
+          <!--Page Content-->
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quando enim Socrates, qui parens philosophiae iure dici potest, quicquam tale fecit? Quodcumque in mentem incideret, et quodcumque tamquam occurreret. Sed in rebus apertissimis nimium longi sumus. Mihi quidem Antiochum, quem audis, satis belle videris attendere. Duo Reges: constructio interrete. Sin laboramus, quis est, qui alienae modum statuat industriae? Primum divisit ineleganter; Haec mihi videtur delicatior, ut ita dicam, molliorque ratio, quam virtutis vis gravitasque postulat. Qui non moveatur et offensione turpitudinis et comprobatione honestatis? Te ipsum, dignissimum maioribus tuis, voluptasne induxit, ut adolescentulus eriperes P. </p>
+        </div>
+        <div id = "helpInventory">
+          <!--Title-->
+          <h1>Inventory</h1>
+          <!--Page Content-->
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quando enim Socrates, qui parens philosophiae iure dici potest, quicquam tale fecit? Quodcumque in mentem incideret, et quodcumque tamquam occurreret. Sed in rebus apertissimis nimium longi sumus. Mihi quidem Antiochum, quem audis, satis belle videris attendere. Duo Reges: constructio interrete. Sin laboramus, quis est, qui alienae modum statuat industriae? Primum divisit ineleganter; Haec mihi videtur delicatior, ut ita dicam, molliorque ratio, quam virtutis vis gravitasque postulat. Qui non moveatur et offensione turpitudinis et comprobatione honestatis? Te ipsum, dignissimum maioribus tuis, voluptasne induxit, ut adolescentulus eriperes P. </p>
+        </div>
+        <div id = "helpAccounting">
+          <!--Title-->
+          <h1>Accounting</h1>
+          <!--Page Content-->
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quando enim Socrates, qui parens philosophiae iure dici potest, quicquam tale fecit? Quodcumque in mentem incideret, et quodcumque tamquam occurreret. Sed in rebus apertissimis nimium longi sumus. Mihi quidem Antiochum, quem audis, satis belle videris attendere. Duo Reges: constructio interrete. Sin laboramus, quis est, qui alienae modum statuat industriae? Primum divisit ineleganter; Haec mihi videtur delicatior, ut ita dicam, molliorque ratio, quam virtutis vis gravitasque postulat. Qui non moveatur et offensione turpitudinis et comprobatione honestatis? Te ipsum, dignissimum maioribus tuis, voluptasne induxit, ut adolescentulus eriperes P. </p>
+        </div>
+        <div id = "helpOptions">
+          <!--Title-->
+          <h1>Options</h1>
+          <!--Page Content-->
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quando enim Socrates, qui parens philosophiae iure dici potest, quicquam tale fecit? Quodcumque in mentem incideret, et quodcumque tamquam occurreret. Sed in rebus apertissimis nimium longi sumus. Mihi quidem Antiochum, quem audis, satis belle videris attendere. Duo Reges: constructio interrete. Sin laboramus, quis est, qui alienae modum statuat industriae? Primum divisit ineleganter; Haec mihi videtur delicatior, ut ita dicam, molliorque ratio, quam virtutis vis gravitasque postulat. Qui non moveatur et offensione turpitudinis et comprobatione honestatis? Te ipsum, dignissimum maioribus tuis, voluptasne induxit, ut adolescentulus eriperes P. </p>
+        </div>
+        <div id = "helpLogin">
+          <!--Title-->
+          <h1>Login</h1>
+          <!--Page Content-->
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quando enim Socrates, qui parens philosophiae iure dici potest, quicquam tale fecit? Quodcumque in mentem incideret, et quodcumque tamquam occurreret. Sed in rebus apertissimis nimium longi sumus. Mihi quidem Antiochum, quem audis, satis belle videris attendere. Duo Reges: constructio interrete. Sin laboramus, quis est, qui alienae modum statuat industriae? Primum divisit ineleganter; Haec mihi videtur delicatior, ut ita dicam, molliorque ratio, quam virtutis vis gravitasque postulat. Qui non moveatur et offensione turpitudinis et comprobatione honestatis? Te ipsum, dignissimum maioribus tuis, voluptasne induxit, ut adolescentulus eriperes P. </p>
+        </div>
+      </div>
+
+
+
             </main>
     <script src="./js/help.js"></script>
   </body>
