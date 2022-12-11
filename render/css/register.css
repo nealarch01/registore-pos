@@ -292,6 +292,33 @@ aside {
 #cartContents #cartItemList {
    flex-grow: 1;
    margin: 10px;
+   overflow-x: none;
+   overflow-y: auto;
+}
+
+#cartContents #cartItemList::-webkit-scrollbar {
+   display: block;
+   width: 7px;
+}
+
+#cartContents #cartItemList::-webkit-scrollbar-track {
+   background: black;
+}
+
+#cartContents #cartItemList::-webkit-scrollbar-thumb {
+   background-color: var(--color-highlight);
+   border-radius: 2rem;
+   border-right: none;
+   border-left: none;
+}
+
+#cartContents #cartItemList::-webkit-scrollbar-track-piece:end {
+   background: transparent;
+   margin-bottom: 0px;
+}
+
+#cartContents #cartItemList::-webkit-scrollbar-track-piece:start {
+   background: transparent;
 }
 
 #cartContents #cartCheckout {
