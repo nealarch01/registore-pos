@@ -169,7 +169,7 @@ function updateGallery() {
             <h3 class="itemTitle">` +
             data[i].title +
             `</h3>
-            <h4 class="cartItemPrice">` +
+            <h4 class="itemPrice">` +
             data[i].price.toLocaleString("en-US", {
                style: "currency",
                currency: "USD",
