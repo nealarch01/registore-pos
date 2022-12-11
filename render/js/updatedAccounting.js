@@ -37,7 +37,7 @@ function todayTable(){
   var startOfDay = new Date(today.getFullYear(),today.getMonth(),today.getDate(),0,0,0);
   console.log("today: "+today);
   console.log("startOfDay: "+startOfDay);
-  customDateTable(today, startOfDay);
+  customDateTable(startOfDay, today);
 }
 
 //fixed, this shoudl work
@@ -47,13 +47,13 @@ function thisWeekTable(){
   startOfWeek.setDate(today.getDate()-today.getDay());
   startOfWeek.setHours(00, 00, 00);
 
-  customDateTable(today, startOfWeek);
+  customDateTable(startOfWeek, today);
 }
 
 function thisMonthTable(){
   var today = new Date();
   var startOfMonth = new Date(today.getFullYear(),today.getMonth(),1,0,0,0);
-  customDateTable(today, startOfMonth);
+  customDateTable(startOfMonth, today);
 }
 
 
@@ -63,13 +63,13 @@ async function YTDTable(){
   var firstDayOfYear = new Date(today.getFullYear(), 0, 1, 0, 0, 0);//= get first day of today's year
   console.log("today: "+today);
   console.log("firstDayOfYear: "+firstDayOfYear);
-  customDateTable(today, firstDayOfYear);
+  customDateTable(firstDayOfYear, today);
 }
 
 //generates table of all transactions within two given dates
 async function customDateTable(date1, date2){
   //CHECK IF VALID DATE RANGE
-  if(date1 <= date2){
+  if(date2 <= date1){
     var inCorrectDate = " <caption>Please input correct date range</caption>";
     var table = document.getElementById("datatable");
     table.innerHTML = inCorrectDate;
@@ -83,7 +83,7 @@ async function customDateTable(date1, date2){
   //WORK IN PROGRESS CODE GOES BELOW HERE
 
   //1.pull data from backend with dates
-  let transactionData = await Backend.getTransactionsBetweenDates(date2, date1);
+  let transactionData = await Backend.getTransactionsBetweenDates(date1, date2);
   
   //2.build table
   displayTable(transactionData);
