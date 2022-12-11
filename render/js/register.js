@@ -41,15 +41,21 @@ class CategoryState { // Stores the state of the current category
    }
 }
 
-
-
 const ImagePath = "./imgs/products/";
 let ProductMap = new Map(); // <sku: String, product: Object>
 let CategoryMap = new Map(); // <category: String, products: Array>
 let Cart = new Map(); // <sku: String, quantity: Number>
 let ActiveCategory = new CategoryState();
-// Clear all event listeners first
-
+let salespersonID = null;
+function cartMapToArray() {
+   let arr = [];
+   Cart.forEach((cartItem, sku) => {
+      for (let i = 0; i < cartItem.quantity; i++) {
+         arr.push(cartItem.product);
+      }
+   });
+   return arr;
+}
 
 const ShowHideCartBtn = document.getElementById("cartBtn");
 ShowHideCartBtn.onclick = function () {
@@ -417,16 +423,10 @@ function updateCart() {
 
       const tot = document.getElementById("totalAmount");
       // Convert CartMap into an array
-      let products = [];
-      Cart.forEach((value, key) => {
-         let quantity = value.quantity;
-         for (let i = 0; i < quantity; i++) {
-            products.push(value.product);
-         }
-      });
+      let products = cartMapToArray();
       // tot.innerHTML = data[0].total;
       Backend.calculateTotal({
-         products
+         products: products
       })
          .then((total) => {
             tot.innerHTML = total;
@@ -468,6 +468,25 @@ async function reloadProductMap() {
    await loadProductMap();
 }
 
+const checkoutButtonRef = document.getElementById("checkoutBtn");
+checkoutButtonRef.addEventListener("click", async () => {
+   // Get the cart items
+   let products = cartMapToArray();
+   let discounts = [];
+   Cart.clear();
+   let queryResult = await Backend.createCashTransaction({
+      products: products,
+      discounts: discounts,
+      salespersonID: salespersonID
+   });
+   if (queryResult.error !== null) {
+      alert("Error creating transaction");
+      return;
+   } 
+   alert("Purchase complete!");
+   updateCart();
+});
+
 // Sets up the page
 function init() {
    console.log("Initializing page...");
@@ -480,9 +499,22 @@ function init() {
          updateMenuOptions();
          updateCart();
       });
+
+   Backend.getSavedLogin()
+      .then((id) => {
+         if (id === null || id === undefined) {
+            salespersonID = 1;
+         } else {
+            console.log(id);
+            salespersonID = id;
+         }
+      });
 }
+
+
 
 init();
 // updateGallery();
 // updateMenuOptions();
 // updateCart();
+
