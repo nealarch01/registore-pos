@@ -419,8 +419,9 @@ function updateCart() {
       });
 
    function appendData(data) {
+      let products = cartMapToArray();
       const count = document.getElementById("cartCountBadge");
-      count.innerHTML = data[0].itemCount;
+      count.innerHTML = products.length;
 
       const subtot = document.getElementById("subtotalAmount");
       subtot.innerHTML = data[0].subtotal;
@@ -433,7 +434,6 @@ function updateCart() {
 
       const tot = document.getElementById("totalAmount");
       // Convert CartMap into an array
-      let products = cartMapToArray();
       // tot.innerHTML = data[0].total;
       Backend.calculateTotal({
          products: products
