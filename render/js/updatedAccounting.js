@@ -1,5 +1,6 @@
 
-
+var span = document.getElementsByClassName("close")[0];
+var modal = document.getElementById("myModal");
 //updated displaytable function, just pass JSON returned from backend
 function displayTable(myList) {
   //console.log(myList);
@@ -11,12 +12,36 @@ function displayTable(myList) {
     for (var key in myList.data[i]){
         rows += "<td>" + myList.data[i][key] + "</td>";
     }
-
-      rows += "</tr>";
+    transId = myList.data[i].id;
+    rows += "<td><button type=\"button\" id=\"itemBtn\" onclick=\"displayItems("+ transId+")\" class=\"dropbtn\">V</button></td>";
+    rows += "</tr>";
   }
   var table = document.getElementById("datatable");
   table.innerHTML += rows;
   console.log(rows);
+}
+//Display Items functions
+
+span.onclick = function() {modal.style.display = "none";}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+async function displayItems(tid){
+  console.log(tid);
+  var transactionItems = "<table class=\"transaction-items-table\"><caption>Items in Transaction: "+tid+"</caption>";
+  let data = await Backend.getTransactionItems({transactionID: tid});
+  console.log(data);
+  
+  for(var i = 0; i < data.data.length; i++){
+  transactionItems +="<tr class=\"transaction-line-item\"><td>Item "+i+": "+data.data[i].sku+"</td><td>  Quantity: "+data.data[i].quantity+"</td></tr>";
+  }
+
+  transactionItems +="</table>";
+  var transactionModalText = document.getElementById("transactionText");
+  transactionModalText.innerHTML = transactionItems;
+  modal.style.display = "block";
 }
 
 //generates column headers based off the keys from the first object in the list
@@ -26,7 +51,8 @@ function addColumnHeaders(myList){
       for (var key in rowHash){
           rows +=  "<th>" + key + "</th>";
       }
-  rows += "</tr>";
+      
+  rows += "<th>Items</th></tr>";
   console.log(rows);
   var table = document.getElementById("datatable");
   table.innerHTML += rows;
