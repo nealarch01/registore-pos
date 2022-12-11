@@ -1,16 +1,73 @@
 /*
  * Show / Hide Cart
  */
+class CartItems {
+   constructor(product, quantity) {
+      // Make product and quantity private
+      this.product = product;
+      this.quantity = quantity;
+   }
+
+   incrementQuantity() {
+      this.quantity++;
+   }
+
+   decrementQuantity() {
+      if (this.quantity <= 0) {
+         return;
+      }
+      this.quantity--;
+   }
+}
+
+class CategoryState { // Stores the state of the current category
+   constructor() {
+      this.current = "all"; // DO NOT MODIFY THE STATE DIRECTLY, CALL setState() instead!!!!
+   }
+
+   // Returns the current state
+   get() {
+      return this.current;
+   }
+
+   // Takes a string Parameter
+   set(category) {
+      let previousState = this.current;
+      this.current = category;
+      // Set the current category button
+      // Remove "currentBtn" class from previous state
+      document.getElementById(previousState + "-btn").classList.remove("currentBtn");
+      document.getElementById(category + "-btn").classList.add("currentBtn");
+   }
+}
+
+
+
+const ImagePath = "./imgs/products/";
+// Global map
+let CategoryMap = new Map(); // <category: String, products: Array>
+let Cart = new Map(); // <sku: String, quantity: Number>
+let ActiveCategory = new CategoryState();
+// Clear all event listeners first
+
 
 const ShowHideCartBtn = document.getElementById("cartBtn");
 ShowHideCartBtn.onclick = function () {
    document.getElementById("cart").classList.toggle("showCart");
 };
 
-function addItemToCart(ev) {
+function addItemToCart(product) {
    // add item to cart
-   let item_id = ev.target.value;
-   //console.log(item_id);
+   // let item_id = ev.target.value;
+   // Check if item is already in cart
+   product = CategoryMap.get(itemSKU);
+   if (Cart.has(product.sku)) {
+      // Increment quantity
+      Cart.get(product.sku).incrementQuantity();
+   } else {
+      // Add new item into the cart
+      Cart.set(product.sku, new CartItems(product, 1));
+   }
 
    // insert backend function here
    // only increment the item quantity by one each time
@@ -35,66 +92,110 @@ function removeItemFromCart(ev) {
    updateCart();
 }
 
+// Updates the UI
 function updateCartItems() {
+   let allCartItems = Array.from(Cart.keys());
    let data;
    let cart = document.getElementById("cartItemList");
    // get data from backend
-   fetch("./js/temp/cart.json")
-      .then(function (response) {
-         return response.json();
-      })
-      .then(function (data) {
-         appendData(data);
-      })
-      .catch(function (err) {
-         console.log(err);
-      });
+   // fetch("./js/temp/cart.json")
+   //    .then(function (response) {
+   //       return response.json();
+   //    })
+   //    .then(function (data) {
+   //       appendData(data);
+   //    })
+   //    .catch(function (err) {
+   //       console.log(err);
+   //    });
 
    function appendData(data) {
       cart.innerHTML = "";
-      for (let i = 0; i < data.length; i++) {
+      data.forEach((sku, cartItem) => {
          let elem = document.createElement("div");
          elem.classList.add("cartItemWrapper");
 
          elem.innerHTML =
             `
-         <div class="imgInfo flex">
-            <img
-               class="cartItemImage"
-               src="` +
-            data[i].image_path +
-            `"
-               alt="` +
-            data[i].summary +
-            `"
-            />
-            <div class="cartItemInfo">
-               <h3 class="cartItemTitle">` +
-            data[i].title +
-            `</h3>
-               <div class="cartItemBtns flex">
-                  <button class="cartItemMinusSign" value="` +
-            data[i].sku +
-            `">
-                     &minus;
-                  </button>
+            <div class="imgInfo flex">
+               <img
+                  class="cartItemImage"
+                  src="` +
+               ImagePath + cartItem.product.sku + ".jpg" +
+               `"
+                  alt="` +
+               cartItem.product.summary +
+               `"
+               />
+               <div class="cartItemInfo">
+                  <h3 class="cartItemTitle">` +
+               cartItem.product.title +
+               `</h3>
+                  <div class="cartItemBtns flex">
+                     <button class="cartItemMinusSign" value="` +
+               cartItem.product.sku +
+               `">
+                        &minus;
+                     </button>
 
-                  <p class="cartItemCount">` +
-            data[i].quantity +
-            `</p>
+                     <p class="cartItemCount">` +
+               cartItem.quantity +
+               `</p>
 
-                  <button class="cartItemPlusSign" value="` +
-            data[i].sku +
-            `">
-                     &plus;
-                  </button>
+                     <button class="cartItemPlusSign" value="` +
+               cartItem.product.sku +
+               `">
+                        &plus;
+                     </button>
+                  </div>
                </div>
             </div>
-         </div>
-      `;
-
+         `;
          cart.appendChild(elem);
-      }
+      });
+      // {
+      //    let elem = document.createElement("div");
+      //    elem.classList.add("cartItemWrapper");
+
+      //    elem.innerHTML =
+      //       `
+      //    <div class="imgInfo flex">
+      //       <img
+      //          class="cartItemImage"
+      //          src="` +
+      //       ImagePath + data[i].product.sku + ".jpg" +
+      //       `"
+      //          alt="` +
+      //       data[i].product.summary +
+      //       `"
+      //       />
+      //       <div class="cartItemInfo">
+      //          <h3 class="cartItemTitle">` +
+      //       data[i].product.title +
+      //       `</h3>
+      //          <div class="cartItemBtns flex">
+      //             <button class="cartItemMinusSign" value="` +
+      //       data[i].sku +
+      //       `">
+      //                &minus;
+      //             </button>
+
+      //             <p class="cartItemCount">` +
+      //       data[i].quantity +
+      //       `</p>
+
+      //             <button class="cartItemPlusSign" value="` +
+      //       data[i].product.sku +
+      //       `">
+      //                &plus;
+      //             </button>
+      //          </div>
+      //       </div>
+      //    </div>
+      // `;
+
+      //    cart.appendChild(elem);
+      // }
 
       const cartPlusSign = document.querySelectorAll(
          "main #cart #cartItemList .cartItemWrapper .cartItemBtns .cartItemPlusSign"
@@ -115,43 +216,41 @@ function updateCartItems() {
 }
 
 function updateGallery() {
-   let data;
+   // let data; // Possibly unused
    let gallery = document.getElementById("gallery");
    // determine what data to get from backend
-   let queryString = window.location.search;
-   let urlParams = new URLSearchParams(queryString);
-   if (urlParams.has("category")) {
-      let category = urlParams.get("category");
-      // set selected menu option as current
-      // fetch data from backend
-      // submit query using selected category
-      // assign results to json variable
-      fetch("./js/temp/products.json")
-         .then(function (response) {
-            return response.json();
-         })
-         .then(function (data) {
-            appendData(data);
-         })
-         .catch(function (err) {
-            console.log(err);
-         });
-   } else {
-      // set menu option 'all' as current
-      // fetch data from backend
-      // submit query for all products
-      // assign results to json variable
-      fetch("./js/temp/products.json")
-         .then(function (response) {
-            return response.json();
-         })
-         .then(function (data) {
-            appendData(data);
-         })
-         .catch(function (err) {
-            console.log(err);
-         });
+   // let queryString = window.location.search;
+   // let urlParams = new URLSearchParams(queryString);
+   // if (urlParams.has("category")) { // 
+   //    let category = urlParams.get("category");
+   //    // set selected menu option as current
+   //    // fetch data from backend
+   //    // submit query using selected category
+   //    // assign results to json variable
+
+   //    // fetch("./js/temp/products.json")
+   //    //    .then(function (response) {
+   //    //       return response.json();
+   //    //    })
+   //    //    .then(function (data) {
+   //    //       appendData(data);
+   //    //    })
+   //    //    .catch(function (err) {
+   //    //       console.log(err);
+   //    //    });
+   // } else { // Option 'all' is selected 
+   //    // set menu option 'all' as current
+   //    // fetch data from backend
+   //    // submit query for all products
+   //    // assign results to json variable
+   //    appendData(CategoryMap.get("all"));
+   // }
+   let category = ActiveCategory.get();
+   if (!CategoryMap.has(category)) {
+      alert("Error loading products of this category.")
+      return;
    }
+   appendData(CategoryMap.get(category));
    function appendData(data) {
       gallery.innerHTML = "";
       for (let i = 0; i < data.length; i++) {
@@ -164,7 +263,7 @@ function updateGallery() {
             data[i].title +
             `</h3>
             <img class="itemImage" src="` +
-            data[i].image_path +
+            ImagePath + data[i].sku + ".jpg" +
             `" alt="` +
             data[i].summary +
             `" />
@@ -200,46 +299,59 @@ function updateGallery() {
 }
 
 function updateMenuOptions() {
-   let data;
+   let data = Array.from(CategoryMap.keys())// From the CategoryMap, return an array of strings containing the keys
    let menuOps = document.getElementById("menuOptionsBar");
+   appendData(data);
    // get data from backend
-   fetch("./js/temp/categories.json")
-      .then(function (response) {
-         return response.json();
-      })
-      .then(function (data) {
-         appendData(data);
-      })
-      .catch(function (err) {
-         console.log(err);
-      });
+   // fetch("./js/temp/categories.json")
+   //    .then(function (response) {
+   //       return response.json();
+   //    })
+   //    .then(function (data) {
+   //       appendData(data);
+   //    })
+   //    .catch(function (err) {
+   //       console.log(err);
+   //    });
 
    function appendData(data) {
       menuOps.innerHTML = "";
-      let queryString = window.location.search;
-      let urlParams = new URLSearchParams(queryString);
+      // let queryString = window.location.search;
+      // let urlParams = new URLSearchParams(queryString);
       for (let i = 0; i < data.length; i++) {
          let btn = document.createElement("a");
          btn.classList.add("menuBtn", "text-wrap");
+         // Set the id to the category name
+         btn.id = data[i] + "-btn";
          // check GET param for current tab
-         if (urlParams.has("category")) {
-            let category = urlParams.get("category");
-            //then add class it if matches
-            if (category == data[i].categoryName) {
-               btn.classList.add("currentBtn");
-            }
-         } else {
-            if (data[i].categoryID == "0") {
-               btn.classList.add("currentBtn");
-            }
+         // if (urlParams.has("category")) {
+         //    let category = urlParams.get("category");
+         //    //then add class it if matches
+         //    if (category == data[i]) {
+         //       btn.classList.add("currentBtn");
+         //    }
+         // } else { // If category is not provided, then 'all' is selected
+         //    // if (data[i].categoryID == "0") {
+         //    //    btn.classList.add("currentBtn");
+         //    // }
+         //    if (data[i] == "all") {
+         //       btn.classList.add("currentBtn");
+         //    }
+         // }
+         if (data[i] === ActiveCategory.get()) {
+            btn.classList.add("currentBtn");
          }
-         btn.href =
-            "./register.html" +
-            (data[i].categoryID == "0"
-               ? ""
-               : "?category=" + data[i].categoryName) +
-            "";
-         btn.innerHTML = data[i].categoryName;
+         // Change the state
+         btn.addEventListener("click", () => {
+            ActiveCategory.set(data[i]);
+            updateGallery(); 
+         });
+         // btn.href = "./register.html" + "?category=" + data[i];
+            // (data[i].categoryID == "0"
+            //    ? ""
+            //    : "?category=" + data[i].categoryName) +
+            // "";
+         btn.innerHTML = data[i];
 
          menuOps.appendChild(btn);
       }
@@ -301,6 +413,46 @@ function updateCart() {
    }
 }
 
-updateMenuOptions();
-updateGallery();
-updateCart();
+async function loadProductMap() {
+   let productsQuery = await Backend.getAllProducts();
+   if (productsQuery.error !== null) {
+      alert("Error loading products");
+      return;
+   }
+   let allProducts = productsQuery.data;
+   // First, load the "all" category
+   CategoryMap.set("all", allProducts);
+   // Then, load the rest of the categories
+   for (let i = 0; i < allProducts.length; i++) {
+      let product = allProducts[i];
+      let category = product.category;
+      if (!CategoryMap.has(category)) {
+         CategoryMap.set(category, []);
+      }
+      CategoryMap.get(category).push(product);
+   }
+}
+
+async function reloadProductMap() {
+   CategoryMap.clear();
+   await loadProductMap();
+}
+
+// Sets up the page
+function init() {
+   console.log("Initializing page...");
+   if (CategoryMap.size !== 0) {
+      return;
+   }
+   loadProductMap()
+      .then(() => {
+         updateGallery();
+         updateMenuOptions();
+         updateCart();
+      });
+}
+
+init();
+// updateGallery();
+// updateMenuOptions();
+// updateCart();
