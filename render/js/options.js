@@ -52,6 +52,7 @@ async function saveSettings() {
     }
 
     let jsonString = encodeString(JSON.stringify({ font: font.value, fontColor: fontColor.value, bgColor: bgColor.value }));
+    await Backend.setSavedStyling(jsonString);
     //Once we build our JSON string, then we store it in the database.
     const response = await Backend.updateEmployeeStyling(currentUser, String(jsonString));
     if (response.error !== null) {
@@ -65,5 +66,6 @@ async function saveSettings() {
     else
     {
         console.log("Stored employee styling data: "+String(response.data));
+        location.reload(true);
     }
 }

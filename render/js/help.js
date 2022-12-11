@@ -1,32 +1,43 @@
-const dataContainerRef = document.getElementById('data-container'); // A reference to the div with id "data-container"
-const searchFormRef = document.getElementById("search-form"); // A reference to the form with id "search-form"
 
-
-searchFormRef.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    let searchInput = document.getElementById("search-box").value;
-    searchInput = parseInt(searchInput);
-    if (isNaN(searchInput)) {
-        dataContainerRef.innerHTML = "<h2>Invalid input</h2>";
-        return;
+function displayNothing(){
+    console.log("ran")
+    let arr = [
+        document.getElementById("helpRegister"),
+        document.getElementById("helpInventory"),
+        document.getElementById("helpAccounting"),
+        document.getElementById("helpOptions"),
+        document.getElementById("helpLogin")
+    ]
+    for(i = 0; i < arr.length; i++){
+        arr[i].hidden = true;
     }
+    return;
+}
 
-    const response = await Backend.getTransaction({ transactionID: searchInput });
-
-    if (response.error !== null) {
-        dataContainerRef.innerHTML = `<h2>${response.error}</h2>`;
-        return;
+function showHelpIndex(helpIndex){
+    let choosenTab = "help"+helpIndex
+    
+    //Make an arry to filter out what elements  to display
+    let arr = [
+        document.getElementById("helpPage"),
+        document.getElementById("helpRegister"),
+        document.getElementById("helpInventory"),
+        document.getElementById("helpAccounting"),
+        document.getElementById("helpOptions"),
+        document.getElementById("helpLogin")
+    ]
+    //Use this to see which tab was clicked
+    let x = document.getElementsByClassName("activeNav");
+    //Hide Elements
+    for(i = 0; i < arr.length; i++){
+        arr[i].hidden = true;
     }
-
-    if (response.data === null) {
-        dataContainerRef.innerHTML = `<h2>No data found</h2>`;
-        return;
+    //Display Elements
+    for(i = 0; i < arr.length; i++){
+        if(arr[i].id  === choosenTab){
+            arr[i].hidden = false;
+        }
     }
-
-    // If we get here, we have a valid response
-    dataContainerRef.innerHTML = `<h2>Transaction details:</h2>`;
-    for (const [key, value] of Object.entries(response.data)) {
-        dataContainerRef.innerHTML += `<p>${key}: ${value}</p>`;
-    }
-});
+    return;
+}
 

@@ -17,3 +17,43 @@
   --menu-width: 300px;
   --_spacing: 1rem;
 }
+
+
+/*********************************************/
+/***************** HTML TAGS *****************/
+/*********************************************/
+
+
+body {
+  margin: 0;
+}
+
+.helpSideNav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 25%;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+.activeNav {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+
+.activeNav:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+.helpContents{
+  margin-left:25%;
+  padding:1px 16px;
+  height:1000px;
+}

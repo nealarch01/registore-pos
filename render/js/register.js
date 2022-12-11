@@ -141,35 +141,39 @@ function updateCartItems() {
                <img
                   class="cartItemImage"
                   src="` +
-               ImagePath + cartItem.product.sku + ".jpg" +
-               `"
+            ImagePath + cartItem.product.sku + ".jpg" +
+            `"
                   alt="` +
-               cartItem.product.summary +
-               `"
+            cartItem.product.summary +
+            `"
                />
                <div class="cartItemInfo">
                   <h3 class="cartItemTitle">` +
-               cartItem.product.title +
-               `</h3>
+            cartItem.product.title +
+            `</h3>
+                <h4 class="cartItemPrice">` +
+            cartItem.product.price.toLocaleString("en-US", {
+               style: "currency",
+               currency: "USD",
+            }) +
+            `</h4>
                   <div class="cartItemBtns flex">
                      <button class="cartItemMinusSign" value="` +
-               cartItem.product.sku +
-               `">
+            cartItem.product.sku +
+            `">
                         &minus;
                      </button>
 
                      <p class="cartItemCount">` +
-               cartItem.quantity +
-               `</p>
+            cartItem.quantity +
+            `</p>
 
                      <button class="cartItemPlusSign" value="` +
-               cartItem.product.sku +
-               `">
+            cartItem.product.sku +
+            `">
                         &plus;
                      </button>
                   </div>
-               </div>
-            </div>
          `;
          cart.appendChild(elem);
       });
@@ -282,6 +286,12 @@ function updateGallery() {
             <h3 class="itemTitle">` +
             data[i].title +
             `</h3>
+            <h4 class="itemPrice">` +
+            data[i].price.toLocaleString("en-US", {
+               style: "currency",
+               currency: "USD",
+            }) +
+            `</h4>
             <img class="itemImage" src="` +
             ImagePath + data[i].sku + ".jpg" +
             `" alt="` +

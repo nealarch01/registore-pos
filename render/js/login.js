@@ -17,8 +17,9 @@ async function getSavedLogin(){
   
 }
 
-async function setLogin(login){
+async function setLogin(login, styling){
   await Backend.setSavedLogin(login);   
+  await Backend.setSavedStyling(styling);
 }
 
 async function logout(){
@@ -29,48 +30,31 @@ async function logout(){
 
 
 async function login(){
-    /*fs.readFile('./text.txt', 'utf8', (err, data) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        console.log(data);
-      });
-    console.log(window.api.fs)
-    window.location.assign("./inventory.html")*/
-    
-    const response = await Backend.getAllEmployees();
+    let username = document.getElementById("employeeid").value;
+    const response = await Backend.getEmployee(username);
     if (response.error !== null) {
         /*TODO: update error messages*/
         console.log(response.error);
+        await Backend.showDialog("LOGIN ERROR "+ response.error);
 
         return;
     }
     if (response.data === null) {
-        /*TODO: update error messages*/
-
+        await Backend.showDialog("USER CREDENTIALS INVALID. ");
         return;
     }
-    let employees = response.data;
-    let match = false; 
-    let username = document.getElementById("employeeid").value;
+    let employee = response.data;
     let password = document.getElementById("password").value;
-    employees.forEach((employee) => {
-      console.log("Current DB: "+employee.id + " "+ employee.password);
-      if(employee.id== username && employee.password == password){
-        console.log("match");
-        window.location.assign("./inventory.html"); 
-        match=true; 
-        setLogin(String(employee.id + " " + employee.password)); 
-        console.log("Login Valid");
-        return;
-      }
-      
-    });
-    if(!match){
-    console.log("not match");
-    await Backend.showDialog("USER CREDENTIALS INVALID. ");
-    document.getElementById("employeeid").focus;
+    if(employee.password == password)
+    {
+      console.log("match");
+      setLogin(String(employee.id + " " + employee.password), employee.styling); 
+      console.log("Login Valid");
+      location.reload(true);
+    }
+    else
+    {
+      await Backend.showDialog("USER CREDENTIALS INVALID. ");
     }
   
 }

@@ -63,7 +63,6 @@
 
 /* The Modal (background) */
 .modal {
-    display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     padding-top: 100px; /* Location of the box */
@@ -75,23 +74,38 @@
     background-color: rgb(0, 0, 0); /* Fallback color */
     background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
+#addModal {
+    display: none; /* Hidden by default */
+}
+#removeModal {
+    display: none; /* Hidden by default */
+}
 
 /* Modal Content */
 #modal-body {
     display: flex;
     flex-direction: column;
     align-content: center;
+    gap: 5px;
 }
 .modal-content {
-    background-color: #fefefe;
-    margin: auto;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), linear-gradient(90deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));margin: auto;
     padding: 20px;
-    border: 1px solid #888;
     width: 80%;
     color: black;
 }
+.modal-content input {
+    border: none;
+    border-radius: 0px !important;
+}
+::placeholder {
+    color: black;
+}
+.modal-content h1 {
+    color: white;
+}
 #modal-submit {
-    background-color: #0085b7;
+    background-color: #005170;
     color: white;
     padding: 12px 20px;
     border: none;
@@ -102,10 +116,33 @@
     width: 100%;
     font-weight: bold;
 }
+.modal-remove-btn {
+    background-color: #005170;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    font-weight: bold;
+    width: 100px;
+}
+.modal-remove-btn:hover {
+    background-color: #002837;
+}
+#remove-modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+#modal-submit:hover {
+    background-color: #002837;
+}
 
 /* The Close Button */
 .close {
-    color: #aaaaaa;
+    color: white;
     float: right;
     font-size: 28px;
     font-weight: bold;
