@@ -42,7 +42,7 @@
                 <button class="invBtns" id="addInventory">
                     Add
                 </button>
-                <button class="invBtns" id="removeInventory">
+                <button class="invBtns" id="removeInventory" disabled>
                     Remove
                 </button>
 
@@ -77,7 +77,7 @@
                   <span class="close" id="remove-modal-close">&times;</span>
                   <h1>Are you sure you want to delete these products?</h1>
                   <div id="remove-modal-footer">
-                  <button class="modal-remove-btn" id="confirm-btn">Yes</button>
+                  <button class="modal-remove-btn" id="confirm-btn" onclick="removeProducts(event)">Yes</button>
                   <button class="modal-remove-btn" id="cancel-btn">No</button>
                 </div>
                 </div>
@@ -103,7 +103,7 @@
 
             <table id="inventory-list">
                 <tr>
-                    <th></th>
+                    <th><input type="checkbox" onchange="selectAllProducts(event)"></input></th>
                     <th>Name</th>
                     <th>SKU</th>
                     <th>Category</th>
