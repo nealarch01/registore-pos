@@ -1,7 +1,6 @@
 //INVENTORY
 var inventoryTable = document.getElementById('inventory-list');
 var products = null;
-var removeCheckbox = document.getElementsByClassName('remove-checkbox');
 var search = document.getElementById('search');
 //FORM
 var productName = document.getElementById('product-name');
@@ -27,6 +26,8 @@ var confirmBtn = document.getElementById('confirm-btn');
 var cancelBtn = document.getElementById('cancel-btn');
 //SORT
 var sort = document.getElementById('sort');
+
+var selectedMap = {};
 
 search.addEventListener('keydown', (e) => {
     let mySearch = search.value;
@@ -71,7 +72,7 @@ cancelBtn.onclick = function () {
 
 function resetTable() {
     inventoryTable.innerHTML = `<tr>
-    <th></th>
+    <th><input type='checkbox' onchange='selectAllProducts(event)'></input></th>
     <th>Name</th>
     <th>SKU</th>
     <th>Category</th>
@@ -82,6 +83,22 @@ function resetTable() {
   </tr>`;
 }
 
+function resetWholeTable() {
+    inventoryTable.innerHTML = `<tr>
+    <th><input type='checkbox' onchange='selectAllProducts(event)'></input></th>
+    <th>Name</th>
+    <th>SKU</th>
+    <th>Category</th>
+    <th>Brand</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Summary</th>
+    </tr>`;
+    products.forEach((product) => {
+        inventoryTable.innerHTML += `<tr><td><input type="checkbox" data-sku="${product.sku}" class="remove-check" /></td><td>${product.title}</td><td>${product.sku}</td><td>${product.category}</td><td>${product.brand}</td><td>${product.price}</td><td>${product.quantity}</td><td>${product.summary}</td></tr>`;
+    });
+}
+
 // check if our string input is empty.
 function isEmpty(str) {
     return !str || str.length === 0;
@@ -90,6 +107,7 @@ function isEmpty(str) {
 function hasNumber(myString) {
     return /\d/.test(myString);
 }
+//check if our string has letters
 function hasLetters(myString) {
     return /^[A-Za-z\s]*$/.test(myString);
 }
@@ -145,7 +163,104 @@ async function addProduct(event) {
     }
 }
 
-async function removeProduct() {}
+async function removeProducts(event) {
+    const skus = Object.keys(selectedMap);
+    const totalSelected = skus.length;
+
+    //check cases for 0 selected, 1 selected or multidelete
+    if (totalSelected === 0) {
+        return;
+    }
+
+    if (totalSelected == 1) {
+        const result = await Backend.deleteProductbySKU(skus[0]);
+        if (result.error != null) {
+            console.log('ERROR ' + result.error);
+            return;
+        } else {
+            removeModal.style.display = 'none';
+            getAllProductsHTML();
+            return;
+        }
+    }
+
+    /**
+     * Create defs
+     */
+
+    const defs = skus.reduce((acc, sku) => {
+        const def = new Promise(async (resolve, reject) => {
+            const result = await Backend.deleteProductbySKU(sku);
+
+            if (result.error !== null) {
+                console.log('ERROR ' + result.error);
+
+                reject({
+                    error: result.error
+                });
+            }
+
+            resolve({
+                message: 'successfully removed product'
+            });
+        });
+
+        acc.push(def);
+
+        return acc;
+    }, []);
+
+    Promise.all(defs)
+        .then((values) => {
+            console.log('defs -- values:', values);
+            removeModal.style.display = 'none';
+            getAllProductsHTML();
+            return;
+        })
+        .catch((errors) => {
+            console.log('errors:', errors);
+        });
+}
+
+//Table header checkbox selects all products
+function selectAllProducts(event) {
+    const { checked } = event.target;
+
+    const removeCheckboxList = document.getElementsByClassName('remove-check');
+
+    if (checked) {
+        removeBtn.removeAttribute('disabled');
+        const productSkus = products.reduce((acc, { sku }) => {
+            acc[sku] = true;
+
+            return acc;
+        }, {});
+
+        /**
+         * Set all productSkus in selectedMap
+         */
+        selectedMap = {
+            ...selectedMap,
+            ...productSkus
+        };
+    } else {
+        // Reset selectedMap to an empty object and removebtn to disabled
+        removeBtn.setAttribute('disabled', 'disabled');
+        selectedMap = {};
+    }
+
+    [...removeCheckboxList].forEach((element) => {
+        const {
+            parentNode: { parentNode: tableRowNode }
+        } = element;
+        const { sku } = element.dataset;
+        const fn = !!selectedMap[sku] ? 'add' : 'remove';
+        element.checked = !!selectedMap[sku];
+        tableRowNode.classList[fn]('checked-row');
+    });
+
+    return;
+}
 
 function searchProduct(name) {
     if (products == null) {
@@ -161,12 +276,12 @@ function searchProduct(name) {
                     .toLowerCase()
                     .includes(name.toLowerCase())
             ) {
-                var checkboxID = product.sku + '-checkbox';
-                inventoryTable.innerHTML += `<tr id="${product.sku}"><td><input type="checkbox" id="${checkboxID}" class="remove-check"/></td><td>${product.title}</td><td>${product.sku}</td><td>${product.category}</td><td>${product.brand}</td><td>${product.price}</td><td>${product.quantity}</td><td>${product.summary}</td></tr>`;
+                inventoryTable.innerHTML += `<tr><td><input type="checkbox" data-sku="${product.sku}" class="remove-check"/></td><td>${product.title}</td><td>${product.sku}</td><td>${product.category}</td><td>${product.brand}</td><td>${product.price}</td><td>${product.quantity}</td><td>${product.summary}</td></tr>`;
             }
         });
     }
 }
+
 async function getAllProductsHTML() {
     const response = await Backend.getAllProducts();
     if (response.error !== null) {
@@ -180,12 +295,46 @@ async function getAllProductsHTML() {
         return;
     }
     products = response.data;
-    resetTable();
-    products.forEach((product) => {
-        var checkboxID = product.sku + '-checkbox';
-        inventoryTable.innerHTML += `<tr id="${product.sku}"><td><input type="checkbox" id="${checkboxID}" class="remove-check"/></td><td>${product.title}</td><td>${product.sku}</td><td>${product.category}</td><td>${product.brand}</td><td>${product.price}</td><td>${product.quantity}</td><td>${product.summary}</td></tr>`;
-    });
+
+    resetWholeTable();
+
     search.focus;
+
+    //checkbox eventlistener
+    var removeCheckboxList = document.getElementsByClassName('remove-check');
+    [...removeCheckboxList].forEach((element) => {
+        const { sku } = element.dataset;
+
+        element.checked = !!selectedMap[sku];
+
+        element.addEventListener('change', (e) => {
+            const {
+                checked,
+                dataset,
+                parentNode: { parentNode: tableRowNode }
+            } = e.target;
+
+            const { sku } = dataset;
+            const skus = Object.keys(selectedMap);
+            const totalSelected = skus.length;
+            //if checkbox is cheked enable removebutton and highlight rows else do opposite
+            if (checked) {
+                removeBtn.removeAttribute('disabled');
+                selectedMap[sku] = checked;
+                console.log(tableRowNode);
+                tableRowNode.classList.add('checked-row');
+            }
+            if (!checked && selectedMap[sku]) {
+                delete selectedMap[sku];
+                tableRowNode.classList.remove('checked-row');
+                console.log(totalSelected);
+                //if all checkboxes are unchcked disable remove button
+                if (totalSelected == 1) {
+                    removeBtn.setAttribute('disabled', 'disabled');
+                }
+            }
+        });
+    });
 }
 
 //Sort Functions
@@ -333,9 +482,5 @@ function sortProducts() {
     } else {
         console.log('error');
     }
-    resetTable();
-    products.forEach((product) => {
-        var checkboxID = product.sku + '-checkbox';
-        inventoryTable.innerHTML += `<tr id="${product.sku}"><td><input type="checkbox" id="${checkboxID}" class="remove-check"/></td><td>${product.title}</td><td>${product.sku}</td><td>${product.category}</td><td>${product.brand}</td><td>${product.price}</td><td>${product.quantity}</td><td>${product.summary}</td></tr>`;
-    });
+    resetWholeTable();
 }
