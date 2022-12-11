@@ -44,7 +44,7 @@ class CategoryState { // Stores the state of the current category
 
 
 const ImagePath = "./imgs/products/";
-// Global map
+let ProductMap = new Map(); // <sku: String, product: Object>
 let CategoryMap = new Map(); // <category: String, products: Array>
 let Cart = new Map(); // <sku: String, quantity: Number>
 let ActiveCategory = new CategoryState();
@@ -56,11 +56,13 @@ ShowHideCartBtn.onclick = function () {
    document.getElementById("cart").classList.toggle("showCart");
 };
 
-function addItemToCart(product) {
+function addItemToCart(event) {
    // add item to cart
-   // let item_id = ev.target.value;
+   let productSku = event.target.value;
    // Check if item is already in cart
-   product = CategoryMap.get(itemSKU);
+   let product = ProductMap.get(productSku);
+   console.log("Product ===========");
+   console.log(product);
    if (Cart.has(product.sku)) {
       // Increment quantity
       Cart.get(product.sku).incrementQuantity();
@@ -80,9 +82,20 @@ function addItemToCart(product) {
 
 function removeItemFromCart(ev) {
    // remove item from cart
-   let item_id = ev.target.value;
+   let productSku = ev.target.value;
    //console.log(item_id);
+   // Check if item is already in cart
+   if (!Cart.has(productSku)) {
+      return; // Do nothing if item is not in cart 
+   } else {
+      if (Cart.get(productSku).quantity == 1) { // Remove item from cart if quantity is 1
+         Cart.delete(productSku);
+      } else {
+         Cart.get(productSku).decrementQuantity();
+      }
+   }
 
+   // Decrement quantity
    // insert backend function here
    // only increment the item quantity by one each time
    // pass "item_id" in as variable
@@ -94,9 +107,9 @@ function removeItemFromCart(ev) {
 
 // Updates the UI
 function updateCartItems() {
-   let allCartItems = Array.from(Cart.keys());
-   let data;
+   // let data;
    let cart = document.getElementById("cartItemList");
+   appendData(Cart);
    // get data from backend
    // fetch("./js/temp/cart.json")
    //    .then(function (response) {
@@ -109,9 +122,10 @@ function updateCartItems() {
    //       console.log(err);
    //    });
 
+   // Takes in an array of CartItems
    function appendData(data) {
       cart.innerHTML = "";
-      data.forEach((sku, cartItem) => {
+      data.forEach((cartItem, sku) => {
          let elem = document.createElement("div");
          elem.classList.add("cartItemWrapper");
 
@@ -376,6 +390,7 @@ function updateCart() {
    let data;
    let cart = document.getElementById("cartItemList");
    // get data from backend
+
    fetch("./js/temp/checkout.json")
       .then(function (response) {
          return response.json();
@@ -401,7 +416,21 @@ function updateCart() {
       savings.innerHTML = data[0].savings;
 
       const tot = document.getElementById("totalAmount");
-      tot.innerHTML = data[0].total;
+      // Convert CartMap into an array
+      let products = [];
+      Cart.forEach((value, key) => {
+         let quantity = value.quantity;
+         for (let i = 0; i < quantity; i++) {
+            products.push(value.product);
+         }
+      });
+      // tot.innerHTML = data[0].total;
+      Backend.calculateTotal({
+         products
+      })
+         .then((total) => {
+            tot.innerHTML = total;
+         });
 
       const emp = document.getElementById("userName");
       emp.innerHTML = data[0].employee;
@@ -422,9 +451,10 @@ async function loadProductMap() {
    let allProducts = productsQuery.data;
    // First, load the "all" category
    CategoryMap.set("all", allProducts);
-   // Then, load the rest of the categories
+   // Then, load the rest of the categories and products
    for (let i = 0; i < allProducts.length; i++) {
       let product = allProducts[i];
+      ProductMap.set(product.sku, product);
       let category = product.category;
       if (!CategoryMap.has(category)) {
          CategoryMap.set(category, []);
