@@ -72,6 +72,12 @@ function updateCartItems() {
                <h3 class="cartItemTitle">` +
             data[i].title +
             `</h3>
+            <h4 class="cartItemPrice">` +
+            data[i].price.toLocaleString("en-US", {
+               style: "currency",
+               currency: "USD",
+            }) +
+            `</h4>
                <div class="cartItemBtns flex">
                   <button class="cartItemMinusSign" value="` +
             data[i].sku +
@@ -163,6 +169,12 @@ function updateGallery() {
             <h3 class="itemTitle">` +
             data[i].title +
             `</h3>
+            <h4 class="itemPrice">` +
+            data[i].price.toLocaleString("en-US", {
+               style: "currency",
+               currency: "USD",
+            }) +
+            `</h4>
             <img class="itemImage" src="` +
             data[i].image_path +
             `" alt="` +
