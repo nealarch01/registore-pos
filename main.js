@@ -1,4 +1,5 @@
 const { app, session, BrowserWindow, Menu, dialog } = require('electron');
+const fs = require("fs");
 const path = require('path');
 
 const isMac = process.platform === 'darwin';
@@ -268,6 +269,10 @@ ipcMain.handle('deleteTransaction', async (event, args) => {
     const { transactionId } = args; // Desctructure the args object
     const response = await RegistoreBackend.TransactionController.deleteTransaction(transactionId);
     return response;
+});
+ipcMain.handle("fileExists", async (event, args) => {
+    const filePath = args;
+    return fs.existsSync(filePath);
 });
 // create the main window
 const createMainWindow = () => {
