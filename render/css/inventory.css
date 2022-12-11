@@ -56,7 +56,9 @@
 #inventory-list tr:hover {
     background-color: var(--color-secondary);
 }
-
+.checked-row {
+    background-color: var(--color-secondary);
+}
 #action-bar {
     padding-top: 100px;
 }
@@ -89,7 +91,12 @@
     gap: 5px;
 }
 .modal-content {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), linear-gradient(90deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));margin: auto;
+    background-image: linear-gradient(
+            rgba(255, 255, 255, 0.7),
+            rgba(255, 255, 255, 0.7)
+        ),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+    margin: auto;
     padding: 20px;
     width: 80%;
     color: black;
