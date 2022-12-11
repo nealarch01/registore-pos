@@ -22,7 +22,7 @@ class CartItems {
 
 class CategoryState { // Stores the state of the current category
    constructor() {
-      this.current = "all"; // DO NOT MODIFY THE STATE DIRECTLY, CALL setState() instead!!!!
+      this.current = "All"; // DO NOT MODIFY THE STATE DIRECTLY, CALL setState() instead!!!!
    }
 
    // Returns the current state
@@ -47,6 +47,9 @@ let CategoryMap = new Map(); // <category: String, products: Array>
 let Cart = new Map(); // <sku: String, quantity: Number>
 let ActiveCategory = new CategoryState();
 let salespersonID = null;
+let salespersonName = null;
+let DiscountsMap = new Map(); // <discount_name: String, discount: Object>
+let AppliedDiscounts = [];
 function cartMapToArray() {
    let arr = [];
    Cart.forEach((cartItem, sku) => {
@@ -101,13 +104,6 @@ function removeItemFromCart(ev) {
       }
    }
 
-   // Decrement quantity
-   // insert backend function here
-   // only increment the item quantity by one each time
-   // pass "item_id" in as variable
-   // item_id = the product_id (in string format) associated with the item to add cart
-
-   // refresh the register page
    updateCart();
 }
 
@@ -116,19 +112,7 @@ function updateCartItems() {
    // let data;
    let cart = document.getElementById("cartItemList");
    appendData(Cart);
-   // get data from backend
-   // fetch("./js/temp/cart.json")
-   //    .then(function (response) {
-   //       return response.json();
-   //    })
-   //    .then(function (data) {
-   //       appendData(data);
-   //    })
-   //    .catch(function (err) {
-   //       console.log(err);
-   //    });
 
-   // Takes in an array of CartItems
    function appendData(data) {
       cart.innerHTML = "";
       data.forEach((cartItem, sku) => {
@@ -177,49 +161,6 @@ function updateCartItems() {
          `;
          cart.appendChild(elem);
       });
-      // {
-      //    let elem = document.createElement("div");
-      //    elem.classList.add("cartItemWrapper");
-
-      //    elem.innerHTML =
-      //       `
-      //    <div class="imgInfo flex">
-      //       <img
-      //          class="cartItemImage"
-      //          src="` +
-      //       ImagePath + data[i].product.sku + ".jpg" +
-      //       `"
-      //          alt="` +
-      //       data[i].product.summary +
-      //       `"
-      //       />
-      //       <div class="cartItemInfo">
-      //          <h3 class="cartItemTitle">` +
-      //       data[i].product.title +
-      //       `</h3>
-      //          <div class="cartItemBtns flex">
-      //             <button class="cartItemMinusSign" value="` +
-      //       data[i].sku +
-      //       `">
-      //                &minus;
-      //             </button>
-
-      //             <p class="cartItemCount">` +
-      //       data[i].quantity +
-      //       `</p>
-
-      //             <button class="cartItemPlusSign" value="` +
-      //       data[i].product.sku +
-      //       `">
-      //                &plus;
-      //             </button>
-      //          </div>
-      //       </div>
-      //    </div>
-      // `;
-
-      //    cart.appendChild(elem);
-      // }
 
       const cartPlusSign = document.querySelectorAll(
          "main #cart #cartItemList .cartItemWrapper .cartItemBtns .cartItemPlusSign"
@@ -242,33 +183,6 @@ function updateCartItems() {
 function updateGallery() {
    // let data; // Possibly unused
    let gallery = document.getElementById("gallery");
-   // determine what data to get from backend
-   // let queryString = window.location.search;
-   // let urlParams = new URLSearchParams(queryString);
-   // if (urlParams.has("category")) { // 
-   //    let category = urlParams.get("category");
-   //    // set selected menu option as current
-   //    // fetch data from backend
-   //    // submit query using selected category
-   //    // assign results to json variable
-
-   //    // fetch("./js/temp/products.json")
-   //    //    .then(function (response) {
-   //    //       return response.json();
-   //    //    })
-   //    //    .then(function (data) {
-   //    //       appendData(data);
-   //    //    })
-   //    //    .catch(function (err) {
-   //    //       console.log(err);
-   //    //    });
-   // } else { // Option 'all' is selected 
-   //    // set menu option 'all' as current
-   //    // fetch data from backend
-   //    // submit query for all products
-   //    // assign results to json variable
-   //    appendData(CategoryMap.get("all"));
-   // }
    let category = ActiveCategory.get();
    if (!CategoryMap.has(category)) {
       Backend.showDialog("Error. Could not get products for provided category.")
@@ -332,17 +246,6 @@ function updateMenuOptions() {
    let data = Array.from(CategoryMap.keys())// From the CategoryMap, return an array of strings containing the keys
    let menuOps = document.getElementById("menuOptionsBar");
    appendData(data);
-   // get data from backend
-   // fetch("./js/temp/categories.json")
-   //    .then(function (response) {
-   //       return response.json();
-   //    })
-   //    .then(function (data) {
-   //       appendData(data);
-   //    })
-   //    .catch(function (err) {
-   //       console.log(err);
-   //    });
 
    function appendData(data) {
       menuOps.innerHTML = "";
@@ -353,21 +256,6 @@ function updateMenuOptions() {
          btn.classList.add("menuBtn", "text-wrap");
          // Set the id to the category name
          btn.id = data[i] + "-btn";
-         // check GET param for current tab
-         // if (urlParams.has("category")) {
-         //    let category = urlParams.get("category");
-         //    //then add class it if matches
-         //    if (category == data[i]) {
-         //       btn.classList.add("currentBtn");
-         //    }
-         // } else { // If category is not provided, then 'all' is selected
-         //    // if (data[i].categoryID == "0") {
-         //    //    btn.classList.add("currentBtn");
-         //    // }
-         //    if (data[i] == "all") {
-         //       btn.classList.add("currentBtn");
-         //    }
-         // }
          if (data[i] === ActiveCategory.get()) {
             btn.classList.add("currentBtn");
          }
@@ -406,47 +294,40 @@ function updateCart() {
    let data;
    let cart = document.getElementById("cartItemList");
    // get data from backend
-
-   fetch("./js/temp/checkout.json")
-      .then(function (response) {
-         return response.json();
-      })
-      .then(function (data) {
-         appendData(data);
-      })
-      .catch(function (err) {
-         console.log(err);
-      });
-
+   appendData(data); // Data is undefined here but the function will still run
    function appendData(data) {
       let products = cartMapToArray();
       const count = document.getElementById("cartCountBadge");
       count.innerHTML = products.length;
+      let subTotal = 0.00;
+      Backend.calculateTotal({ products: products }).then((t) => {
+         subTotal = t;
+         subtot.innerHTML = subTotal;
+      });
+      let total = 0.00; 
+      Backend.calculateTotalWithDiscount({ products: products, discount: AppliedDiscounts }).then((t) => {
+         total = t;
+         tot.innerHTML = t;
+         savings.innerHTML = Math.round((subTotal - total) * 100) / 100;
+      });
 
       const subtot = document.getElementById("subtotalAmount");
-      subtot.innerHTML = data[0].subtotal;
+      // subtot.innerHTML = subTotal;
 
       const tax = document.getElementById("taxAmount");
-      tax.innerHTML = data[0].tax;
+      tax.innerHTML = 0.00;
 
       const savings = document.getElementById("savingsAmount");
-      savings.innerHTML = data[0].savings;
+      savings.innerHTML = Math.round((subTotal - total) * 100) / 100;
 
       const tot = document.getElementById("totalAmount");
-      // Convert CartMap into an array
-      // tot.innerHTML = data[0].total;
-      Backend.calculateTotal({
-         products: products
-      })
-         .then((total) => {
-            tot.innerHTML = total;
-         });
+      // tot.innerHTML = total;
 
       const emp = document.getElementById("userName");
-      emp.innerHTML = data[0].employee;
+      emp.innerHTML = "";
 
       const emp_id = document.getElementById("userID");
-      emp_id.innerHTML = data[0].employee_id;
+      emp_id.innerHTML = salespersonID;
 
       updateCartItems();
    }
@@ -460,7 +341,7 @@ async function loadProductMap() {
    }
    let allProducts = productsQuery.data;
    // First, load the "all" category
-   CategoryMap.set("all", allProducts);
+   CategoryMap.set("All", allProducts);
    // Then, load the rest of the categories and products
    for (let i = 0; i < allProducts.length; i++) {
       let product = allProducts[i];
@@ -470,6 +351,22 @@ async function loadProductMap() {
          CategoryMap.set(category, []);
       }
       CategoryMap.get(category).push(product);
+   }
+}
+
+async function loadDiscountsMap() {
+   let discountsQuery = await Backend.getAllDiscounts();
+   if (discountsQuery.error !== null) {
+      await Backend.showDialog("Error. Could not get discounts");
+      return;
+   }
+
+   // Iterate through the number
+   for (let i = 0; i < discountsQuery.data.length; i++) {
+      let discountName = discountsQuery.data[i].discount_type;
+      // set discount name to all lowercase
+      discountName = discountName.toLowerCase();
+      DiscountsMap.set(discountName, discountsQuery.data[i]);
    }
 }
 
@@ -501,6 +398,27 @@ checkoutButtonRef.addEventListener("click", async () => {
    updateCart();
 });
 
+const applyButtonRef = document.getElementById("applyBtn");
+applyButtonRef.addEventListener("click", (discountInput) => {
+   // Do a map lookup
+   const discountInputRef = document.getElementById("discountInput");
+   discountInput = discountInputRef.value;
+   let discount = DiscountsMap.get(discountInput);
+   if (discount === undefined) {
+      Backend.showDialog("Discount not found")
+      return;
+   }
+   // Check if the discount has already been applied
+   if (AppliedDiscounts.includes(discount)) {
+      Backend.showDialog("Discount already applied");
+      return;
+   }
+   Backend.showDialog("Discount applied!");
+
+   AppliedDiscounts.push(discount);
+   updateCart();
+});
+
 // Sets up the page
 function init() {
    console.log("Initializing page...");
@@ -514,13 +432,20 @@ function init() {
          updateCart();
       });
 
+   loadDiscountsMap()
+      .then(() => {
+         console.log(DiscountsMap);
+      });
+
    Backend.getSavedLogin()
-      .then((id) => {
-         if (id === null || id === undefined) {
+      .then((salesperson) => {
+         if (typeof salesperson !== "string") {
             salespersonID = 1;
+            salespersonName = "";
          } else {
-            console.log(id);
-            salespersonID = id;
+            salesperson = salesperson.split(" ");
+            salespersonID = 1;
+            salespersonName = salesperson[0];
          }
       });
 }
@@ -528,7 +453,4 @@ function init() {
 
 
 init();
-// updateGallery();
-// updateMenuOptions();
-// updateCart();
 
