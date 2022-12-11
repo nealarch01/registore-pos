@@ -352,7 +352,11 @@ aside {
 }
 .cartItemTitle {
    font-size: var(--font_size_h4);
-   margin: 1rem 0;
+   margin: 1rem 0 0 0;
+}
+.cartItemPrice {
+   font-size: var(--font_size_h5);
+   margin: 0 0 1rem 0;
 }
 .cartItemCount {
    font-size: var(--font_size_h5);
