@@ -271,7 +271,7 @@ function updateGallery() {
    // }
    let category = ActiveCategory.get();
    if (!CategoryMap.has(category)) {
-      alert("Error loading products of this category.")
+      Backend.showDialog("Error. Could not get products for provided category.")
       return;
    }
    appendData(CategoryMap.get(category));
@@ -455,7 +455,7 @@ function updateCart() {
 async function loadProductMap() {
    let productsQuery = await Backend.getAllProducts();
    if (productsQuery.error !== null) {
-      alert("Error loading products");
+      await Backend.showDialog("Error. Could not get products for provided category.");
       return;
    }
    let allProducts = productsQuery.data;
@@ -481,6 +481,10 @@ async function reloadProductMap() {
 const checkoutButtonRef = document.getElementById("checkoutBtn");
 checkoutButtonRef.addEventListener("click", async () => {
    // Get the cart items
+   if (Cart.size === 0) {
+      await Backend.showDialog("Cart is empty!");
+      return;
+   }
    let products = cartMapToArray();
    let discounts = [];
    Cart.clear();
@@ -490,10 +494,10 @@ checkoutButtonRef.addEventListener("click", async () => {
       salespersonID: salespersonID
    });
    if (queryResult.error !== null) {
-      alert("Error creating transaction");
+      await Backend.showDialog("Error. Could not get products for provided category.");
       return;
    } 
-   alert("Purchase complete!");
+   await Backend.showDialog("Purchase complete!");
    updateCart();
 });
 
