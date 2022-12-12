@@ -140,6 +140,12 @@ async function addProduct(event) {
     } else if (isEmpty(productSupplier.value)) {
         await Backend.showDialog('Please enter a product supplier!');
     }
+    let filePath = null;
+    if (await Backend.getIMGData() != null) {
+        // Then we know an image was attached. So we need to publish it to the image directory
+        await Backend.writeFile(productSku.value);
+        filePath = './imgs/products/'+productSku.value+'.jpg';
+    }
     const newProduct = await Backend.ProductBuilder(
         productSku.value,
         productName.value,
@@ -150,6 +156,7 @@ async function addProduct(event) {
         productCategory.value,
         0,
         productSupplier.value,
+        filePath
     );
     if (newProduct == null) {
         console.log('ERROR cannot contact Product Builder');
@@ -157,10 +164,6 @@ async function addProduct(event) {
     } else {
         // If the product is made successfully, update the database
         const result = await Backend.createNewProduct(newProduct);
-        if (await Backend.getIMGData() != null) {
-            // Then we know an image was attached. So we need to publish it to the image directory
-            await Backend.writeFile(productSku.value);
-        }
         if (result.error != null) {
             console.log('ERROR ' + result.error);
             await Backend.showDialog('ERROR ' + result.error);
