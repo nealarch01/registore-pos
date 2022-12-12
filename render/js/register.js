@@ -280,16 +280,14 @@ function updateGallery() {
 
 function showItemModal(ev) {
    // get same data as in updateGallery
-   fetch("./js/products.json")
-      .then(function (response) {
-         return response.json();
-      })
-      .then(function (data) {
-         appendData(data);
-      })
-      .catch(function (err) {
-         console.log(err);
-      });
+   let category = ActiveCategory.get();
+   if (!CategoryMap.has(category)) {
+      Backend.showDialog(
+         "Error. Could not get products for provided category."
+      );
+      return;
+   }
+   appendData(CategoryMap.get(category));
 
    function appendData(data) {
       let dataSKU,
