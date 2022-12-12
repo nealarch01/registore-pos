@@ -50,6 +50,7 @@ let salespersonID = null;
 let salespersonName = null;
 let DiscountsMap = new Map(); // <discount_name: String, discount: Object>
 let AppliedDiscounts = [];
+const emp_id = document.getElementById("userID");
 function cartMapToArray() {
    let arr = [];
    Cart.forEach((cartItem, sku) => {
@@ -106,27 +107,34 @@ function removeItemFromCart(ev) {
 
    updateCart();
 }
+function checkImgPath(imgPath) {
+   if (imgPath == "null" || isEmpty(imgPath) || imgPath == "undefined" || imgPath == null) {
+      return "./imgs/products/default.jpg";
+   }
+   else {
+      return imgPath;
+   }
+}
 
 // Updates the UI
-function updateCartItems() {
+async function updateCartItems() {
    // let data;
    let cart = document.getElementById("cartItemList");
    appendData(Cart);
 
-   function appendData(data) {
+   async function appendData(data) {
       cart.innerHTML = "";
       data.forEach((cartItem, sku) => {
          let elem = document.createElement("div");
          elem.classList.add("cartItemWrapper");
+         let myPath = checkImgPath(String(cartItem.product.image_path));
+         console.log("update cart items path " + myPath);
 
          elem.innerHTML =
             `
             <div class="imgInfo flex">
-               <img
-                  class="cartItemImage"
-                  src="` +
-            ImagePath + cartItem.product.sku + ".jpg" +
-            `"
+               <img class = "cartItemImage" 
+                  src="${myPath}" 
                   alt="` +
             cartItem.product.summary +
             `"
@@ -194,7 +202,7 @@ function updateGallery() {
       for (let i = 0; i < data.length; i++) {
          let elem = document.createElement("div");
          elem.classList.add("itemWrapper");
-
+         let myPath = checkImgPath(String(data[i].image_path));
          elem.innerHTML =
             `
             <h3 class="itemTitle">` +
@@ -206,11 +214,7 @@ function updateGallery() {
                currency: "USD",
             }) +
             `</h4>
-            <img class="itemImage" src="` +
-            ImagePath + data[i].sku + ".jpg" +
-            `" alt="` +
-            data[i].summary +
-            `" />
+            <img class="itemImage" src="${myPath}" />
             <div class="itemBtns flex">
                <button class="itemMinusSign" value="` +
             data[i].sku +
@@ -262,13 +266,13 @@ function updateMenuOptions() {
          // Change the state
          btn.addEventListener("click", () => {
             ActiveCategory.set(data[i]);
-            updateGallery(); 
+            updateGallery();
          });
          // btn.href = "./register.html" + "?category=" + data[i];
-            // (data[i].categoryID == "0"
-            //    ? ""
-            //    : "?category=" + data[i].categoryName) +
-            // "";
+         // (data[i].categoryID == "0"
+         //    ? ""
+         //    : "?category=" + data[i].categoryName) +
+         // "";
          btn.innerHTML = data[i];
 
          menuOps.appendChild(btn);
@@ -304,7 +308,7 @@ function updateCart() {
          subTotal = t;
          subtot.innerHTML = subTotal;
       });
-      let total = 0.00; 
+      let total = 0.00;
       Backend.calculateTotalWithDiscount({ products: products, discount: AppliedDiscounts }).then((t) => {
          total = t;
          tot.innerHTML = t;
@@ -325,9 +329,6 @@ function updateCart() {
 
       const emp = document.getElementById("userName");
       emp.innerHTML = "";
-
-      const emp_id = document.getElementById("userID");
-      emp_id.innerHTML = salespersonID;
 
       updateCartItems();
    }
@@ -394,7 +395,7 @@ checkoutButtonRef.addEventListener("click", async () => {
    if (queryResult.error !== null) {
       await Backend.showDialog("Error. Could not get products for provided category.");
       return;
-   } 
+   }
    await Backend.showDialog("Purchase complete!");
    updateCart();
 });
@@ -427,7 +428,7 @@ applyButtonRef.addEventListener("click", (discountInput) => {
 });
 
 // Sets up the page
-function init() {
+async function init() {
    console.log("Initializing page...");
    if (CategoryMap.size !== 0) {
       return;
@@ -443,21 +444,25 @@ function init() {
       .then(() => {
          console.log(DiscountsMap);
       });
-
-   Backend.getSavedLogin()
-      .then((salesperson) => {
-         if (typeof salesperson !== "string") {
-            salespersonID = 1;
-            salespersonName = "";
-         } else {
-            salesperson = salesperson.split(" ");
-            salespersonID = 1;
-            salespersonName = salesperson[0];
-         }
-      });
+   let myLogin = await Backend.getSavedLogin();
+   console.log(myLogin);
+   if (typeof myLogin !== "string") {
+      salespersonID = 1;
+      salespersonName = "";
+   } else {
+      let salesperson = myLogin.split(" ");
+      salespersonID = 1;
+      salespersonName = salesperson[0];
+   }
+   if (myLogin != null && myLogin != "null") {
+      let myID = myLogin.split(" ")[0];
+      emp_id.innerText = myID;
+   }
+   else {
+      emp_id.innerText = "Guest";
+   }
 }
 
 
 
 init();
-
