@@ -319,8 +319,9 @@ function showItemModal(ev) {
             const summary = document.getElementById("itemModalSummary");
             summary.innerHTML = data[i].summary;
 
+            let myPath = checkImgPath(String(data[i].image_path));
             const modalImg = document.getElementById("itemModalImage");
-            modalImg.src = checkImgPath(String(data[i].image_path));
+            modalImg.src = myPath;
 
             const modal = document.getElementById("modal");
             modal.classList.remove("hide");
