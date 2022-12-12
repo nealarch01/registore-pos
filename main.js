@@ -147,7 +147,7 @@ ipcMain.handle('writeFile', async (event, sku) => {
 });
 ipcMain.handle('removeFile', async (event, sku) => {
     //get the path to the products directory
-    let productsDirPath = path.join(__dirname, 'render/imgs/products/', String(sku)+".jpg");    //convert the path argument to a string
+    let productsDirPath = path.join(__dirname, 'render/imgs/products/', String(sku) + ".jpg");    //convert the path argument to a string
     let stringPath = String(productsDirPath);
     console.log("removing file " + stringPath);
     if (fs.existsSync(productsDirPath)) {
