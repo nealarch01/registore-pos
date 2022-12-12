@@ -26,8 +26,8 @@ ipcMain.handle('showDialog', async (event, message) => {
     return;
 });
 //Used to add new products to our inventory system
-ipcMain.handle('ProductBuilder', async (event, sku, title, brand, summary, price, quantity, category, creator, supplier) => {
-    const newProduct = new RegistoreBackend.ProductBuilder().setSKU(sku).setTitle(title).setBrand(brand).setSummary(summary).setPrice(price).setQuantity(quantity).setCategory(category).setCreator(creator).setSupplier(supplier).build();
+ipcMain.handle('ProductBuilder', async (event, sku, title, brand, summary, price, quantity, category, creator, supplier, imagePath) => {
+    const newProduct = new RegistoreBackend.ProductBuilder().setSKU(sku).setTitle(title).setBrand(brand).setSummary(summary).setPrice(price).setQuantity(quantity).setCategory(category).setCreator(creator).setSupplier(supplier).setImagePath(imagePath).build();
     return newProduct;
 });
 
@@ -95,6 +95,66 @@ ipcMain.handle('getAllProducts', async (event, args) => {
     console.log("getting All Products");
     const response = await RegistoreBackend.ProductController.getAllProducts();
     return response;
+});
+/*// Open the file dialog
+  let filePath = dialog.showOpenDialogSync()
+  
+  // Read the image file
+  fs.readFile(filePath[0], (err, data) => {
+    if (err) {
+      console.error('Error reading file: ', err)
+    } else {
+      console.log('Image data: ', data)
+    }
+  }) */
+let imageData = null;
+ipcMain.handle('readFile', async (event, args) => {
+    let filePath = dialog.showOpenDialogSync({
+        filters: [
+            { name: 'JPEG', extensions: ['jpg'] }
+        ]
+    })
+
+    // Read the image file
+    fs.readFile(filePath[0], (err, data) => {
+        if (err) {
+            console.error('Error reading file: ', err)
+        } else {
+            console.log('Image data: ', data)
+            imageData = data;
+        }
+    })
+});
+ipcMain.handle('clearIMGData', async (event, args) => {
+    imageData = null;
+});
+ipcMain.handle('getIMGData', async (event, args) => {
+    return imageData;
+});
+ipcMain.handle('writeFile', async (event, sku) => {
+    imageData = Buffer.from(imageData, 'base64');
+    //get the path to the products directory
+    let productsDirPath = path.join(__dirname, 'render/imgs/products/');    //convert the path argument to a string
+    let stringPath = String(productsDirPath);
+
+    //create the products directory if it doesn't exist
+    if (!fs.existsSync(stringPath)) {
+        fs.mkdirSync(stringPath);
+    }
+
+    //write the image file to the products directory
+    fs.writeFileSync(path.join(productsDirPath, String(sku) + ".jpg"), imageData);
+});
+ipcMain.handle('removeFile', async (event, sku) => {
+    //get the path to the products directory
+    let productsDirPath = path.join(__dirname, 'render/imgs/products/', String(sku)+".jpg");    //convert the path argument to a string
+    let stringPath = String(productsDirPath);
+    console.log("removing file " + stringPath);
+    if (fs.existsSync(productsDirPath)) {
+        fs.unlinkSync(productsDirPath);
+        console.log('successfully removed');
+    }
+    console.log("failed to remove");
 });
 
 ipcMain.handle('getProduct', async (event, sku) => {
@@ -271,7 +331,9 @@ ipcMain.handle('deleteTransaction', async (event, args) => {
     return response;
 });
 ipcMain.handle("fileExists", async (event, args) => {
-    const filePath = args;
+    const filePath = "./render" + args;
+    console.log("checking if it exists " + filePath);
+    console.log(fs.existsSync(filePath));
     return fs.existsSync(filePath);
 });
 // create the main window
@@ -303,7 +365,7 @@ function createItemInfo() {
     itemInfo.loadFile(path.join(__dirname, './render/itemInfo.html'));
 }
 
-
+__dirname = process.cwd();
 // app is ready
 app.whenReady().then(() => {
     createMainWindow();
