@@ -55,6 +55,11 @@ contextBridge.exposeInMainWorld('Backend', {
     logout: async () => ipcRenderer.invoke('logout'),
     showDialog: async (message) => ipcRenderer.invoke('showDialog',message),
     EmployeeBuilder: async (first_name, last_name, phone_number, email, password,address, city, state, zipcode, hire_date, starting_amount) => ipcRenderer.invoke('EmployeeBuilder', first_name, last_name, phone_number, email, password,address, city, state, zipcode, hire_date, starting_amount),
-    ProductBuilder: async (sku,title,brand,summary,price,quantity,category,creator,supplier) => ipcRenderer.invoke('ProductBuilder', sku,title,brand,summary,price,quantity,category,creator,supplier),
-    fileExists: async (path) => ipcRenderer.invoke("fileExists", path)
+    ProductBuilder: async (sku,title,brand,summary,price,quantity,category,creator,supplier, imagePath) => ipcRenderer.invoke('ProductBuilder', sku,title,brand,summary,price,quantity,category,creator,supplier, imagePath),
+    fileExists: async (path) => ipcRenderer.invoke("fileExists", path),
+    writeFile: async (sku, imageFile) => ipcRenderer.invoke("writeFile", sku, imageFile),
+    readFile: async () => ipcRenderer.invoke("readFile"),
+    clearIMGData: async () => ipcRenderer.invoke("clearIMGData"),
+    getIMGData: async () => ipcRenderer.invoke("getIMGData"),
+    removeFile: async (sku) => ipcRenderer.invoke("removeFile", sku)
 });
