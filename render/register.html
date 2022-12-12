@@ -38,6 +38,58 @@
       <!-- Register -->
       <main class="flex column centerY">
          <section id="gallery"></section>
+         
+         <section id="modal" class="hide">
+            <div class="eventModal flex column centerY">
+               <div class="modalHeader flex spaceBtwnX">
+                  <h2>
+                     Title:
+                     <span id="modalTitle"></span>
+                  </h2>
+                  <div id="modalCloseBtn"></div>
+               </div>
+
+               <div class="modalContentWrapper flex spaceBtwnX wrap">
+                  <img
+                     id="itemModalImage"
+                     src="./img/apple.jpg"
+                     alt="Product Image"
+                  />
+                  <div class="modalInfoWrapper flex">
+                     <div class="modalInfoContent">
+                        <h2>
+                           SKU:
+                           <span id="itemModalSku"></span>
+                        </h2>
+                        <h2>
+                           Brand:
+                           <span id="itemModalBrand"></span>
+                        </h2>
+                        <h2>
+                           Supplier:
+                           <span id="itemModalSupplier"></span>
+                        </h2>
+                        <h2>
+                           Price:
+                           <span id="itemModalPrice"></span>
+                        </h2>
+                        <h2>
+                           Category:
+                           <span id="itemModalCategory"></span>
+                        </h2>
+                        <h2>
+                           Quantity Remaining:
+                           <span id="itemModalQty"></span>
+                        </h2>
+                        <h2>
+                           Summary:
+                           <span id="itemModalSummary"></span>
+                        </h2>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
 
          <section id="menuOptions" class="flex center">
             <!-- Max Character Count = 20 Char (for Menu Titles) -->
