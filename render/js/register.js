@@ -1,4 +1,16 @@
 /*
+ * Hide Item Modal
+ */
+
+const closeEventModal = document
+   .getElementById("modalCloseBtn")
+   .addEventListener("click", closeModal);
+
+function closeModal() {
+   document.getElementById("modal").classList.add("hide");
+}
+
+/*
  * Show / Hide Cart
  */
 class CartItems {
@@ -20,7 +32,8 @@ class CartItems {
    }
 }
 
-class CategoryState { // Stores the state of the current category
+class CategoryState {
+   // Stores the state of the current category
    constructor() {
       this.current = "All"; // DO NOT MODIFY THE STATE DIRECTLY, CALL setState() instead!!!!
    }
@@ -36,7 +49,9 @@ class CategoryState { // Stores the state of the current category
       this.current = category;
       // Set the current category button
       // Remove "currentBtn" class from previous state
-      document.getElementById(previousState + "-btn").classList.remove("currentBtn");
+      document
+         .getElementById(previousState + "-btn")
+         .classList.remove("currentBtn");
       document.getElementById(category + "-btn").classList.add("currentBtn");
    }
 }
@@ -96,9 +111,10 @@ function removeItemFromCart(ev) {
    //console.log(item_id);
    // Check if item is already in cart
    if (!Cart.has(productSku)) {
-      return; // Do nothing if item is not in cart 
+      return; // Do nothing if item is not in cart
    } else {
-      if (Cart.get(productSku).quantity == 1) { // Remove item from cart if quantity is 1
+      if (Cart.get(productSku).quantity == 1) {
+         // Remove item from cart if quantity is 1
          Cart.delete(productSku);
       } else {
          Cart.get(productSku).decrementQuantity();
@@ -108,10 +124,14 @@ function removeItemFromCart(ev) {
    updateCart();
 }
 function checkImgPath(imgPath) {
-   if (imgPath == "null" || isEmpty(imgPath) || imgPath == "undefined" || imgPath == null) {
+   if (
+      imgPath == "null" ||
+      isEmpty(imgPath) ||
+      imgPath == "undefined" ||
+      imgPath == null
+   ) {
       return "./imgs/products/default.jpg";
-   }
-   else {
+   } else {
       return imgPath;
    }
 }
@@ -193,7 +213,9 @@ function updateGallery() {
    let gallery = document.getElementById("gallery");
    let category = ActiveCategory.get();
    if (!CategoryMap.has(category)) {
-      Backend.showDialog("Error. Could not get products for provided category.")
+      Backend.showDialog(
+         "Error. Could not get products for provided category."
+      );
       return;
    }
    appendData(CategoryMap.get(category));
@@ -214,7 +236,9 @@ function updateGallery() {
                currency: "USD",
             }) +
             `</h4>
-            <img class="itemImage" src="${myPath}" />
+            <img class="itemImage" src="${myPath}" data-item-sku="` +
+            data[i].sku +
+            `" />
             <div class="itemBtns flex">
                <button class="itemMinusSign" value="` +
             data[i].sku +
@@ -243,11 +267,71 @@ function updateGallery() {
       minusSign.forEach((sign) => {
          sign.addEventListener("click", removeItemFromCart);
       });
+
+      const itemImage = document.querySelectorAll(
+         "#gallery .itemWrapper .itemImage"
+      );
+
+      itemImage.forEach((img) => {
+         img.addEventListener("click", showItemModal);
+      });
+   }
+}
+
+function showItemModal(ev) {
+   // get same data as in updateGallery
+   let category = ActiveCategory.get();
+   if (!CategoryMap.has(category)) {
+      Backend.showDialog(
+         "Error. Could not get products for provided category."
+      );
+      return;
+   }
+   appendData(CategoryMap.get(category));
+
+   function appendData(data) {
+      let dataSKU,
+         imgSKU = ev.target.getAttribute("data-item-sku");
+      for (let i = 0; i < data.length; i++) {
+         dataSKU = data[i].sku;
+         if (imgSKU == dataSKU) {
+            const title = document.getElementById("modalTitle");
+            title.innerHTML = data[i].title;
+
+            const sku = document.getElementById("itemModalSku");
+            sku.innerHTML = data[i].sku;
+
+            const brand = document.getElementById("itemModalBrand");
+            brand.innerHTML = data[i].brand;
+
+            const supplier = document.getElementById("itemModalSupplier");
+            supplier.innerHTML = data[i].supplier;
+
+            const price = document.getElementById("itemModalPrice");
+            price.innerHTML = data[i].price;
+
+            const category = document.getElementById("itemModalCategory");
+            category.innerHTML = data[i].category;
+
+            const quantity = document.getElementById("itemModalQty");
+            quantity.innerHTML = data[i].quantity;
+
+            const summary = document.getElementById("itemModalSummary");
+            summary.innerHTML = data[i].summary;
+
+            let myPath = checkImgPath(String(data[i].image_path));
+            const modalImg = document.getElementById("itemModalImage");
+            modalImg.src = myPath;
+
+            const modal = document.getElementById("modal");
+            modal.classList.remove("hide");
+         }
+      }
    }
 }
 
 function updateMenuOptions() {
-   let data = Array.from(CategoryMap.keys())// From the CategoryMap, return an array of strings containing the keys
+   let data = Array.from(CategoryMap.keys()); // From the CategoryMap, return an array of strings containing the keys
    let menuOps = document.getElementById("menuOptionsBar");
    appendData(data);
 
@@ -303,13 +387,16 @@ function updateCart() {
       let products = cartMapToArray();
       const count = document.getElementById("cartCountBadge");
       count.innerHTML = products.length;
-      let subTotal = 0.00;
+      let subTotal = 0.0;
       Backend.calculateTotal({ products: products }).then((t) => {
          subTotal = t;
          subtot.innerHTML = subTotal;
       });
-      let total = 0.00;
-      Backend.calculateTotalWithDiscount({ products: products, discount: AppliedDiscounts }).then((t) => {
+      let total = 0.0;
+      Backend.calculateTotalWithDiscount({
+         products: products,
+         discount: AppliedDiscounts,
+      }).then((t) => {
          total = t;
          tot.innerHTML = t;
          savings.innerHTML = Math.round((subTotal - total) * 100) / 100;
@@ -319,7 +406,7 @@ function updateCart() {
       // subtot.innerHTML = subTotal;
 
       const tax = document.getElementById("taxAmount");
-      tax.innerHTML = 0.00;
+      tax.innerHTML = 0.0;
 
       const savings = document.getElementById("savingsAmount");
       savings.innerHTML = Math.round((subTotal - total) * 100) / 100;
@@ -337,7 +424,9 @@ function updateCart() {
 async function loadProductMap() {
    let productsQuery = await Backend.getAllProducts();
    if (productsQuery.error !== null) {
-      await Backend.showDialog("Error. Could not get products for provided category.");
+      await Backend.showDialog(
+         "Error. Could not get products for provided category."
+      );
       return;
    }
    let allProducts = productsQuery.data;
@@ -390,10 +479,12 @@ checkoutButtonRef.addEventListener("click", async () => {
    let queryResult = await Backend.createCashTransaction({
       products: products,
       discounts: discounts,
-      salespersonID: salespersonID
+      salespersonID: salespersonID,
    });
    if (queryResult.error !== null) {
-      await Backend.showDialog("Error. Could not get products for provided category.");
+      await Backend.showDialog(
+         "Error. Could not get products for provided category."
+      );
       return;
    }
    await Backend.showDialog("Purchase complete!");
@@ -405,7 +496,8 @@ applyButtonRef.addEventListener("click", (discountInput) => {
    // Do a map lookup
    const discountInputRef = document.getElementById("discountInput");
    discountInput = discountInputRef.value;
-   if (discountInput === "null") { // If null, remove all discounts
+   if (discountInput === "null") {
+      // If null, remove all discounts
       AppliedDiscounts = [];
       Backend.showDialog("Removed all discounts");
       updateCart();
@@ -413,7 +505,7 @@ applyButtonRef.addEventListener("click", (discountInput) => {
    }
    let discount = DiscountsMap.get(discountInput);
    if (discount === undefined) {
-      Backend.showDialog("Discount not found")
+      Backend.showDialog("Discount not found");
       return;
    }
    // Check if the discount has already been applied
@@ -433,17 +525,15 @@ async function init() {
    if (CategoryMap.size !== 0) {
       return;
    }
-   loadProductMap()
-      .then(() => {
-         updateGallery();
-         updateMenuOptions();
-         updateCart();
-      });
+   loadProductMap().then(() => {
+      updateGallery();
+      updateMenuOptions();
+      updateCart();
+   });
 
-   loadDiscountsMap()
-      .then(() => {
-         console.log(DiscountsMap);
-      });
+   loadDiscountsMap().then(() => {
+      console.log(DiscountsMap);
+   });
    let myLogin = await Backend.getSavedLogin();
    console.log(myLogin);
    if (typeof myLogin !== "string") {
@@ -457,12 +547,9 @@ async function init() {
    if (myLogin != null && myLogin != "null") {
       let myID = myLogin.split(" ")[0];
       emp_id.innerText = myID;
-   }
-   else {
+   } else {
       emp_id.innerText = "Guest";
    }
 }
-
-
 
 init();

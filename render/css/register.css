@@ -478,3 +478,122 @@ aside {
     font-size: 10pt;
 }
 */
+
+#modal {
+   overflow: hidden;
+}
+#modal .eventModal {
+   position: absolute;
+   width: 70vw;
+   height: 70vh;
+   padding: 0 3rem 3rem 3rem;
+   top: 10%;
+   left: 15%;
+   border-radius: 4rem;
+   z-index: 600;
+   background: var(--color-secondary);
+   overflow-y: auto;
+   overflow-x: hidden;
+   box-shadow: 2px 2px 15px white;
+}
+
+/***********   Modal Scroll Bar   ***************/
+
+#modal .eventModal::-webkit-scrollbar {
+   display: block;
+   width: 10px;
+}
+
+#modal .eventModal::-webkit-scrollbar-track {
+   background: transparent;
+}
+
+#modal .eventModal::-webkit-scrollbar-thumb {
+   background-color: var(--color-highlight);
+   border-right: none;
+   border-left: none;
+}
+
+#modal .eventModal::-webkit-scrollbar-track-piece:end {
+   background: transparent;
+   margin-bottom: 70px;
+}
+
+#modal .eventModal::-webkit-scrollbar-track-piece:start {
+   background: transparent;
+   margin-top: 150px;
+}
+
+#modal .modalHeader {
+   display: block;
+   width: 110%;
+   position: -webkit-sticky;
+   position: sticky;
+   top: 0;
+   border-bottom: 3px solid var(--color_fg);
+   padding: 3rem;
+   background: var(--color-bg);
+}
+
+#modal .modalHeader h2 {
+   font-size: var(--font_size_h1);
+   text-align: left;
+   margin-left: 3rem;
+}
+
+#modal .modalContentWrapper {
+   width: 85%;
+   margin-top: 3rem;
+   justify-content: space-evenly;
+}
+
+#modal .modalInfoWrapper .modalInfoContent h2 {
+   font-size: var(--font_size_h3);
+   margin: 2rem;
+}
+
+#modal .modalInfoWrapper .modalInfoContent h2 span {
+   font-size: var(--font_size_h4);
+   font-weight: 50;
+   padding-left: 2rem;
+}
+
+#modal .eventModal .modalContentWrapper img {
+   border-radius: 1rem;
+   margin: 2rem 0;
+   width: 300px;
+}
+
+/*********   Modal Close Button   *********/
+
+#modal .modalHeader #modalCloseBtn {
+   position: absolute;
+   right: 4rem;
+   top: 1rem;
+   width: 32px;
+   height: 32px;
+   opacity: 0.5;
+   margin: 3rem;
+}
+
+#modal .modalHeader #modalCloseBtn:hover {
+   opacity: 1;
+}
+
+#modal .modalHeader #modalCloseBtn:before,
+#modal .modalHeader #modalCloseBtn:after {
+   position: absolute;
+   left: 15px;
+   content: " ";
+   height: 33px;
+   width: 5px;
+   background-color: var(--color_fg);
+}
+
+#modal .modalHeader #modalCloseBtn:before {
+   transform: rotate(45deg);
+}
+
+#modal .modalHeader #modalCloseBtn:after {
+   transform: rotate(-45deg);
+}
