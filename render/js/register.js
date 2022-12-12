@@ -320,7 +320,7 @@ function showItemModal(ev) {
             summary.innerHTML = data[i].summary;
 
             const modalImg = document.getElementById("itemModalImage");
-            modalImg.src = data[i].image_path;
+            modalImg.src = checkImgPath(String(data[i].image_path));
 
             const modal = document.getElementById("modal");
             modal.classList.remove("hide");
