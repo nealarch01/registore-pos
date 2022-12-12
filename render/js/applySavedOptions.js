@@ -16,7 +16,13 @@ async function checkLogin() {
 function isEmpty(str) {
     return (!str || str.length === 0);
 }
+// Create a function to handle the css updates
+function updateModalCSS(bgColor, lighterBGColor, darkerBGColor) {
+    document.querySelector('.modalHeader').style.background = darkerBGColor;
+    document.querySelector('#modal .eventModal').style.background = bgColor;
 
+    // etc
+  }
 async function updateCSS(styling) {
     // There is saved employee styling.
     let myStyling = JSON.parse(styling);
@@ -79,6 +85,7 @@ function updateRegisterPage(lighterBGColor, bgColor, darkerBGColor, superDarkBGC
         document.querySelector("#gallery").style.backgroundColor = darkerBGColor;
         document.querySelector("#menuOptionsBar").style.backgroundColor = bgColor;
         document.getElementById("cart").style.backgroundColor = superDarkBGColor;
+        document.getElementById('modal').addEventListener('open', updateModalCSS(bgColor, lighterBGColor, darkerBGColor));
         let observer = new MutationObserver(function () {
             document.querySelectorAll('.itemWrapper, .itemPlusSign, .itemMinusSign').forEach(function (item) {
                 item.style.background = bgColor;
