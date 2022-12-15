@@ -541,7 +541,10 @@ async function init() {
       salespersonName = "";
    } else {
       let salesperson = myLogin.split(" ");
-      salespersonID = 1;
+      salespersonID = parseInt(salesperson[0]);
+      if (isNaN(salespersonID)) {
+         salespersonID = 1;
+      }
       salespersonName = salesperson[0];
    }
    if (myLogin != null && myLogin != "null") {

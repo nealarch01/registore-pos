@@ -1,6 +1,7 @@
 
 var span = document.getElementsByClassName("close")[0];
 var modal = document.getElementById("myModal");
+var ProductsMap = new Map(); // Map<SKU, Product>
 //updated displaytable function, just pass JSON returned from backend
 function displayTable(myList) {
   //console.log(myList);
@@ -33,9 +34,10 @@ async function displayItems(tid){
   var transactionItems = "<table class=\"transaction-items-table\"><caption>Items in Transaction: "+tid+"</caption>";
   let data = await Backend.getTransactionItems({transactionID: tid});
   console.log(data);
-  
   for(var i = 0; i < data.data.length; i++){
-  transactionItems +="<tr class=\"transaction-line-item\"><td>Item "+i+": "+data.data[i].sku+"</td><td>  Quantity: "+data.data[i].quantity+"</td></tr>";
+    let sku = data.data[i].sku;
+    let productTitle = ProductsMap.get(sku).title;
+    transactionItems +="<tr class=\"transaction-line-item\"><td>Item"+": "+ productTitle +"</td><td>  Quantity: "+data.data[i].quantity+"</td></tr>";
   }
 
   transactionItems +="</table>";
@@ -61,6 +63,8 @@ function addColumnHeaders(myList){
 function todayTable(){
   var today = new Date();
   var startOfDay = new Date(today.getFullYear(),today.getMonth(),today.getDate(),0,0,0);
+  // Set today to send of day 
+  today.setHours(23, 59, 59);
   console.log("today: "+today);
   console.log("startOfDay: "+startOfDay);
   customDateTable(startOfDay, today);
@@ -69,6 +73,7 @@ function todayTable(){
 //fixed, this shoudl work
 function thisWeekTable(){
   var today = new Date();
+  today.setHours(23, 59, 59);
   var startOfWeek = new Date();
   startOfWeek.setDate(today.getDate()-today.getDay());
   startOfWeek.setHours(00, 00, 00);
@@ -78,6 +83,7 @@ function thisWeekTable(){
 
 function thisMonthTable(){
   var today = new Date();
+  today.setHours(23, 59, 59);
   var startOfMonth = new Date(today.getFullYear(),today.getMonth(),1,0,0,0);
   customDateTable(startOfMonth, today);
 }
@@ -86,6 +92,7 @@ function thisMonthTable(){
 //generates a table containing all transactions from first of year until today.
 async function YTDTable(){
   var today = new Date(); //= get todays date
+  today.setHours(23, 59, 59);
   var firstDayOfYear = new Date(today.getFullYear(), 0, 1, 0, 0, 0);//= get first day of today's year
   console.log("today: "+today);
   console.log("firstDayOfYear: "+firstDayOfYear);
@@ -299,3 +306,21 @@ function executeCustomDates(){
   customDateTable(firstDate, secondDate);
 
 }
+
+
+
+async function initProductsMap() {
+  const productsQuery = await Backend.getAllProducts();
+  if (productsQuery.error !== null) {
+    return;
+  }
+  let products = productsQuery.data;
+  products.forEach((product) => {
+    ProductsMap.set(product.sku, product);
+  });
+}
+
+
+initProductsMap().then((products) => {
+  console.log(ProductsMap);
+})
