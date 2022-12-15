@@ -1,5 +1,6 @@
 # Registore-Electron
 Open Source POS System
+![Registore](https://i.imgur.com/VvN6hW9.png)
 
 Dependencies: Typescript, Node.js, Postgres SQL
 
