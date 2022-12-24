@@ -8,13 +8,13 @@ Backend: TypeScript, Node.js, PostgreSQL, GraphQL, PostGraphile
 ## Image
 <img width="1680" alt="Screenshot 2022-12-23 at 12 04 38 AM" src="https://user-images.githubusercontent.com/73256760/209297581-ec22a759-f020-4923-9d43-80055298b7e8.png">
 
-## Usage Videos
+## Videos
 [Google Drive](https://drive.google.com/drive/folders/17ou2XJcI_9u1nk9TplU7rjnNtz1bx3NY?usp=share_link)
 
 ## Dependencies
 1. Node.js
 2. TypeScript (tsc)
-3. PostgreSQL (Preferrably 15+)
+3. PostgreSQL (Preferrably v15+)
 
 
 ## Installation
@@ -38,3 +38,6 @@ git clone https://github.com/CS-441-Group-8/registore-electron.git
 
 ## Link to organization repo:
 https://github.com/CS-441-Group-8/registore-electron
+
+## Link to backend repo:
+https://github.com/CS-441-Group-8/registore-business-logic
